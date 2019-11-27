@@ -26,3 +26,6 @@ spec:
           httpGet:
             path: /health
             port: http
+        envFrom:
+        - secretRef:
+            name: trifid
