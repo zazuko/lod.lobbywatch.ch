@@ -1,0 +1,15 @@
+{
+  "name": "lod.lobbywatch.ch",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "trifid": "^2.3.1"
+  },
+  "devDependencies": {},
+  "license": "GPL-2.0-only",
+  "scripts": {
+    "start": "trifid --config config.json",
+    "start-local": "trifid --config config.local.json"
+  }
+}

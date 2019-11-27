@@ -1,0 +1,38 @@
+${set('moduleFoot','<li><a href="?format=jsonld">json-ld</a> | <a href="?format=ttl">turtle</a> | <a href="?format=nt">n3</a></li>')}
+<!DOCTYPE html>
+<html>
+<head>
+
+${include('cwd:views/header.html')}
+
+<!-- map renderer -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css"/>
+
+</head>
+<body>
+
+${include('cwd:views/navigation.html')}
+
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <div id="title"></div>
+      <div id="subtitle"></div>
+      <div id="media"></div>
+      <div id="graph"></div>
+    </div>
+  </div>
+
+${include('cwd:views/footer.html')}
+
+</div>
+
+<script src="/js/render-ld.js"></script>
+
+<!-- map renderer -->
+<script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+<script src="https://unpkg.com/wellknown@0.5.0/wellknown.js"></script>
+<script src="/js/map.js"></script>
+
+</body>
+</html>

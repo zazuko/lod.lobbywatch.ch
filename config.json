@@ -1,0 +1,21 @@
+{
+  "baseConfig": "trifid:config-sparql.json",
+  "sparqlEndpointUrl": "http://data.zazuko.com/lobbywatch/query",
+  "renderer": {
+    "root": {
+      "template": "cwd:views/index.html",
+      "templateError": "cwd:views/error.html"
+    }
+  },
+  "staticFiles": {
+    "statabsFiles": {
+      "path": "/",
+      "folder": "cwd:public"
+    }
+  },
+  "yasgui" : {
+    "default": {
+      "template": "cwd:views/yasgui.html"
+    }
+  }
+}
