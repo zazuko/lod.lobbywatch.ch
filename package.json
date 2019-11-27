@@ -9,7 +9,6 @@
   "devDependencies": {},
   "license": "GPL-2.0-only",
   "scripts": {
-    "start": "trifid --config config.json",
-    "start-local": "trifid --config config.local.json"
+    "start": "trifid --config config.json"
   }
 }

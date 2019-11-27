@@ -1,6 +1,7 @@
 {
   "baseConfig": "trifid:config-sparql.json",
   "sparqlEndpointUrl": "http://data.zazuko.com/lobbywatch/query",
+  "datasetBaseUrl": "https://lod.lobbywatch.ch/",
   "renderer": {
     "root": {
       "template": "cwd:views/index.html",
