@@ -7,15 +7,17 @@
       "templateError": "cwd:views/error.html"
     }
   },
-  "staticFiles": {
-    "statabsFiles": {
-      "path": "/",
-      "folder": "cwd:public"
-    }
-  },
   "yasgui" : {
     "default": {
       "template": "cwd:views/yasgui.html"
+    }
+  },
+  "patchHeaders": {
+    "static": {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Expose-Headers": "Link",
+      "Cache-Control": "public, max-age=120",
+      "Vary": "Accept"
     }
   }
 }
