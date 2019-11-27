@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "trifid": "^2.3.1"
+    "trifid": "^2.3.3"
   },
   "devDependencies": {},
   "license": "GPL-2.0-only",
