@@ -19,5 +19,8 @@
       "Cache-Control": "public, max-age=120",
       "Vary": "Accept"
     }
+  },
+  "staticViews": {
+    "/": "cwd:views/home.html"
   }
 }
