@@ -4,14 +4,15 @@ metadata:
   name: trifid
   annotations:
     kubernetes.io/tls-acme: "true"
+    ingress.kubernetes.io/ssl-redirect: "true"
     external-dns.alpha.kubernetes.io/hostname: lobbywatch.zazukoians.org
 spec:
   tls:
   - secretName: lod-lobbywatch-ch-cert
     hosts:
-    - lobbywatch.zazukoians.org
+    - lod.lobbywatch.ch
   rules:
-  - host: lobbywatch.zazukoians.org
+  - host: lod.lobbywatch.ch
     http:
       paths:
       - path: /
