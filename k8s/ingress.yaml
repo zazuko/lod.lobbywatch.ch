@@ -4,7 +4,7 @@ metadata:
   name: trifid
   annotations:
     kubernetes.io/tls-acme: "true"
-    external-dns.alpha.kubernetes.io/hostname: lod-lobbywatch-ch.zazukoians.org
+    external-dns.alpha.kubernetes.io/hostname: lobbywatch.zazukoians.org
 spec:
   tls:
   - secretName: lod-lobbywatch-ch-cert
