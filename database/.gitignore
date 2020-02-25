@@ -1,0 +1,5 @@
+*.sql
+*.zip
+*.zip.*
+*.pdf
+/export

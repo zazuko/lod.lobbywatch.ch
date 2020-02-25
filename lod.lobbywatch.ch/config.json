@@ -1,0 +1,31 @@
+{
+  "baseConfig": "trifid:config-sparql.json",
+  "sparqlEndpointUrl": "http://data.zazuko.com/lobbywatch/query",
+  "datasetBaseUrl": "https://lod.lobbywatch.ch/",
+  "sparqlEndpointAuthentication": {
+    "user": "env:SPARQL_USER",
+    "password": "env:SPARQL_PASSWORD"
+  },
+  "renderer": {
+    "root": {
+      "template": "cwd:views/index.html",
+      "templateError": "cwd:views/error.html"
+    }
+  },
+  "yasgui" : {
+    "default": {
+      "template": "cwd:views/yasgui.html"
+    }
+  },
+  "patchHeaders": {
+    "static": {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Expose-Headers": "Link",
+      "Cache-Control": "public, max-age=120",
+      "Vary": "Accept"
+    }
+  },
+  "staticViews": {
+    "/": "cwd:views/home.html"
+  }
+}
