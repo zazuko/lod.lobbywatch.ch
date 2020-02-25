@@ -19,3 +19,11 @@ This project contains the source and tooling related to [lod.lobbywatch.ch](http
 * [`stardog-scripts/`](./stardog-scripts/)
 
     Scripts used to load the generated triples into a local [Stardog](https://www.stardog.com/) server and upload them to the hosted Stardog server used by [lod.lobbywatch.ch](https://lod.lobbywatch.ch).
+
+## Deployment
+
+Pushing a new version triggers a CI build and deploys the version on success:
+
+1. `cd lod.lobbywatch.ch`
+1. `npm version <major|minor|patch>`
+1. `git push --follow-tags`
