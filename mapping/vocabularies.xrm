@@ -1,0 +1,140 @@
+language-tags {
+  de en fr it
+}
+
+vocabulary schema {
+  prefix "schema:" "https://schema.org/"
+
+  classes
+    Occupation
+    Organization
+    Person
+
+  properties
+    additionalName
+    affiliation
+    alternateName
+    birthDate
+    description
+    employee
+    familyName
+    foundingDate
+    givenName
+    hasOccupation
+    member
+    memberOf
+    name
+    sameAs
+    url
+}
+
+vocabulary lobbywatch {
+  prefix "lw:" "https://lod.lobbywatch.ch/"
+
+  classes
+    BusinessSector
+    GeographicalInfluence
+    Lobby
+    Mandate
+    MembersInterest
+    MembersInterestsCompensation
+    Transparency
+
+  properties
+    agency
+    businessSector
+    date
+    declared
+    compulsoryDeclaration
+    officialCapacity
+    employmentType
+    geographicalInfluence
+    interest
+    joined
+    left
+    mandateType
+    occupation
+    parliamentMember
+    permitLevel
+    positionOnBoard
+    sourceUrl
+    ^source
+    transparency
+    year
+}
+
+vocabulary dbpedia {
+  prefix "dbo:" "http://dbpedia.org/ontology/"
+
+  // http://mappings.dbpedia.org/server/ontology/classes/
+  classes
+    MemberOfParliament
+    Parliament
+    PoliticalFunction
+    PoliticalParty
+    Politician // http://mappings.dbpedia.org/server/ontology/classes/Politician
+
+  properties
+    birthDate
+    electionDate
+    politicalFunction
+}
+
+vocabulary wdtp {
+  prefix "wdtp:" "https://www.wikidata.org/wiki/Property:"
+
+  properties
+    P39 // position held
+}
+
+vocabulary wdt {
+  prefix "wdt:" "https://www.wikidata.org/wiki/"
+
+  classes
+    Q18510612 // Member of the Swiss National Council
+    Q18510613 // Member of the Swiss Council of States
+    Q11811941 // Member of the Swiss Federal Council
+}
+
+vocabulary rdf {
+  prefix "rdf:" "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+
+  classes
+    Class
+    Property
+}
+
+vocabulary rdfs {
+  prefix "rdfs:" "http://www.w3.org/2000/01/rdf-schema#"
+
+  properties
+    comment
+    label
+}
+
+vocabulary org {
+  prefix "org:" "http://www.w3.org/ns/org#"
+
+  classes
+    Membership
+    Organization
+    Role
+
+  properties
+    hasMember
+    member
+    memberOf
+    organization
+    remuneration
+    role
+}
+
+datatypes xsd {
+  prefix "xsd:" "http://www.w3.org/2001/XMLSchema#"
+
+  boolean
+  date
+  dateTime
+  gYear
+  int
+}

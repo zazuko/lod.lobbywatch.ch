@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+${include('cwd:views/header.html')}
+
+</head>
+<body>
+
+${include('cwd:views/navigation.html')}
+
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <h3>Lobbywatch <abbr title="Linked Open Data">LOD</abbr> Platform</h3>
+      <h4>Sample Queries</h4>
+      <ul>
+        <li>
+          <a href="https://lod.lobbywatch.ch/sparql/#query=PREFIX+rdf%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%3E%0APREFIX+rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0APREFIX+schema%3A+%3Chttps%3A%2F%2Fschema.org%2F%3E%0APREFIX+dbo%3A+%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2F%3E%0A%0ASELECT+%3Fmember+%3FfirstName+%3FfamilyName+%3FchamberName+%3Fchamber+WHERE+%7B%0A++%3Fchamber+rdf%3Atype+dbo%3AParliament+.%0A++%3Fchamber+schema%3Aname+%3FchamberName+.%0A++%3Fmember+schema%3AgivenName+%3FfirstName+.%0A++%3Fmember+schema%3AfamilyName+%3FfamilyName+.%0A++%3Fmember+schema%3AmemberOf+%3Fchamber+.%0A++FILTER(LANG(%3FchamberName)+%3D+%22en%22)%0A%7D&contentTypeConstruct=text%2Fturtle&contentTypeSelect=application%2Fsparql-results%2Bjson&endpoint=https%3A%2F%2Flod.lobbywatch.ch%2Fquery&requestMethod=POST&tabTitle=Parliament+Member&headers=%7B%7D&outputFormat=table">
+            Parliament Members
+          </a>
+        </li>
+        <li>
+          <a href="https://lod.lobbywatch.ch/sparql/#query=PREFIX+rdf%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%3E%0APREFIX+rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0APREFIX+schema%3A+%3Chttps%3A%2F%2Fschema.org%2F%3E%0APREFIX+dbo%3A+%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2F%3E%0A%0ASELECT+*+WHERE+%7B%0A++%3Fparty+rdf%3Atype+dbo%3APoliticalParty+%3B%0A++schema%3Aname+%3Fname+.%0A++FILTER(LANG(%3Fname)+%3D+%22de%22)%0A%7D&contentTypeConstruct=text%2Fturtle&contentTypeSelect=application%2Fsparql-results%2Bjson&endpoint=https%3A%2F%2Flod.lobbywatch.ch%2Fquery&requestMethod=POST&tabTitle=Political+Parties&headers=%7B%7D&outputFormat=table">
+            Political Parties
+          </a>
+        </li>
+        <li>
+          <a href="https://lod.lobbywatch.ch/sparql/#query=PREFIX+rdf%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%3E%0APREFIX+rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0APREFIX+schema%3A+%3Chttps%3A%2F%2Fschema.org%2F%3E%0APREFIX+dbo%3A+%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2F%3E%0APREFIX+lobbywatch%3A+%3Chttps%3A%2F%2Flod.lobbywatch.ch%2F%3E%0A%0ASELECT+*+WHERE+%7B%0A++%3Forg+rdf%3Atype+schema%3AOrganization+%3B%0A++schema%3Aname+%3Fname+%3B%0A++lobbywatch%3AgeographicalInfluence+%3Chttps%3A%2F%2Flod.lobbywatch.ch%2Fgeographical-influence%2F1%3E+.%0A++FILTER(LANG(%3Fname)+%3D+%22de%22)%0A%7D&contentTypeConstruct=text%2Fturtle&contentTypeSelect=application%2Fsparql-results%2Bjson&endpoint=https%3A%2F%2Flod.lobbywatch.ch%2Fquery&requestMethod=POST&tabTitle=Organizations&headers=%7B%7D&outputFormat=table">
+            Organizations with a political influence in Switzerland
+          </a>
+        </li>
+        <li>
+          <a href="https://lod.lobbywatch.ch/sparql/#query=PREFIX+sc%3A+%3Chttp%3A%2F%2Fpurl.org%2Fscience%2Fowl%2Fsciencecommons%2F%3E%0APREFIX+rdf%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%3E%0APREFIX+rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0APREFIX+schema%3A+%3Chttps%3A%2F%2Fschema.org%2F%3E%0APREFIX+dbo%3A+%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2F%3E%0APREFIX+lobbywatch%3A+%3Chttps%3A%2F%2Flod.lobbywatch.ch%2F%3E%0A%0ASELECT+*+WHERE+%7B%0A++%3Fperson+rdf%3Atype+schema%3APerson+%3B%0A++++++++++schema%3Amember+%3Forg+%3B%0A++++++++++schema%3Amember+%3Fparty+%3B%0A++++++++++schema%3AgivenName+%3FfirstName+%3B%0A++++++++++schema%3AfamilyName+%3FlastName+.%0A++%3Forg+rdf%3Atype+lobbywatch%3ALobby+%3B%0A+++++++rdfs%3Alabel+%3Fname+%3B%0A+++++++lobbywatch%3AbusinessSector+%3Chttps%3A%2F%2Flod.lobbywatch.ch%2Fbusiness-sector%2Fenergie%3E+.%0A++OPTIONAL+%7B%0A++++%3Fparty+rdf%3Atype+dbo%3APoliticalParty+%3B%0A+++++++++++schema%3Aname+%3FpartyName+.%0A++%7D%0A++FILTER(LANG(%3Fname)+%3D+%22de%22).%0A++FILTER(LANG(%3FpartyName)+%3D+%22de%22).%0A%7D&contentTypeConstruct=text%2Fturtle&contentTypeSelect=application%2Fsparql-results%2Bjson&endpoint=https%3A%2F%2Flod.lobbywatch.ch%2Fquery&requestMethod=POST&tabTitle=Energy+Lobby+Affiliation&headers=%7B%7D&outputFormat=table">
+            People involved in energy-related lobbies, and their political party
+          </a>
+        </li>
+        <li>
+          <a href="https://lod.lobbywatch.ch/sparql/#query=PREFIX+org%3A+%3Chttp%3A%2F%2Fwww.w3.org%2Fns%2Forg%23%3E%0APREFIX+dbpedia%3A+%3Chttp%3A%2F%2Fdbpedia.org%2Fresource%2F%3E%0APREFIX+dbp%3A+%3Chttp%3A%2F%2Fdbpedia.org%2Fproperty%2F%3E%0APREFIX+db%3A+%3Chttp%3A%2F%2Fdbpedia.org%2F%3E%0APREFIX+sc%3A+%3Chttp%3A%2F%2Fpurl.org%2Fscience%2Fowl%2Fsciencecommons%2F%3E%0APREFIX+rdf%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%3E%0APREFIX+rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0APREFIX+schema%3A+%3Chttps%3A%2F%2Fschema.org%2F%3E%0APREFIX+dbo%3A+%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2F%3E%0APREFIX+lobbywatch%3A+%3Chttps%3A%2F%2Flod.lobbywatch.ch%2F%3E%0A%0ASELECT+%3FfirstName+%3FlastName+%3FpartyName+%3ForganizationName+%3FpositionAtOrganization+WHERE+%7B%0A++%3Finterest+a+lobbywatch%3AMembersInterest+%3B%0A++++++++++++rdfs%3Alabel+%3FpositionAtOrganization+%3B%0A++++++++++++lobbywatch%3AcompulsoryDeclaration+%3FmustBeDeclared+%3B%0A++++++++++++lobbywatch%3Adeclared+%3FisDeclared+%3B%0A++++++++++++lobbywatch%3AparliamentMember+%3Fperson+%3B%0A++++++++++++org%3Aorganization+%3Forganization+.%0A++%3Fperson%0A++++schema%3AmemberOf+%3Fparty+%3B%0A++++schema%3AgivenName+%3FfirstName+%3B%0A++++schema%3AfamilyName+%3FlastName+.%0A++%3Fparty+a+dbo%3APoliticalParty+%3B%0A+++++++++schema%3Aname+%3FpartyName+.%0A++%3Forganization%0A+++++++++schema%3Aname+%3ForganizationName+.%0A++%23+compulsory+declaration+is+required+but+interest+hasn't+been+declared%0A++FILTER(%3FmustBeDeclared+%26%26+%3FmustBeDeclared+!%3D+%3FisDeclared)+.%0A++FILTER(LANG(%3FpartyName)+%3D+%22de%22+%26%26+LANG(%3ForganizationName)+%3D+%22de%22+%26%26+LANG(%3FpositionAtOrganization)+%3D+%22de%22)+.%0A%7D+%0ALIMIT+100&contentTypeConstruct=text%2Fturtle&contentTypeSelect=application%2Fsparql-results%2Bjson&endpoint=https%3A%2F%2Flod.lobbywatch.ch%2Fquery&requestMethod=POST&tabTitle=Query&headers=%7B%7D&outputFormat=table">
+            Parliament members who have undeclared interests for interests requiring compulsory declaration.
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+<!--${include('cwd:views/footer.html')}-->
+
+</div>
+
+</body>
+</html>
