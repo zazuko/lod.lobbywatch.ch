@@ -54,7 +54,7 @@ source-group lobbywatchdb {
 
   // https://www.parlament.ch/en/%C3%BCber-das-parlament/parlamentsw%C3%B6rterbuch/parlamentsw%C3%B6rterbuch-detail?WordId=115
   logical-source t_interessenbindung {
-    source query "select p.parlament_number, i.*, o.uid as organisation_uid, CASE WHEN hauptberuflich = 1 THEN 'full-time' ELSE 'part-time' END as employment_type, CASE WHEN behoerden_vertreter = 'N' THEN 'no' ELSE CASE WHEN behoerden_vertreter = 'J' THEN 'yes' ELSE 'unknown' END END as official_capacity, CASE WHEN status = 'deklariert' THEN true ELSE false END as declared, CASE WHEN deklarationstyp = 'deklarationspflichtig' THEN true ELSE false END as compulsory_declaration from interessenbindung as i inner join parlamentarier as p on p.id = i.parlamentarier_id inner join organisation as o on o.id = i.organisation_id"
+    source query "select p.parlament_number, i.*, o.uid as organisation_uid, CASE WHEN hauptberuflich = 1 THEN 'full-time' ELSE 'part-time' END as employment_type, CASE WHEN behoerden_vertreter = 'N' THEN 'no' ELSE CASE WHEN behoerden_vertreter = 'J' THEN 'yes' ELSE 'unknown' END END as official_capacity, CASE WHEN status = 'deklariert' THEN true ELSE false END as disclosed, CASE WHEN deklarationstyp = 'deklarationspflichtig' THEN true ELSE false END as compulsory_disclosure from interessenbindung as i inner join parlamentarier as p on p.id = i.parlamentarier_id inner join organisation as o on o.id = i.organisation_id"
     referenceables
       id                  // int(11)
       organisation_id     // int(11)
@@ -74,8 +74,8 @@ source-group lobbywatchdb {
 
       employment_type // string en
       parlament_number // fk
-      declared // bool
-      compulsory_declaration // bool
+      disclosed // bool
+      compulsory_disclosure // bool
       official_capacity // yes/no/unknown
       organisation_uid
 

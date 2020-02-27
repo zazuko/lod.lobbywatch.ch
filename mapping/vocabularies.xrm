@@ -44,8 +44,8 @@ vocabulary lobbywatch {
     agency
     businessSector
     date
-    declared
-    compulsoryDeclaration
+    disclosed
+    compulsoryDisclosure
     officialCapacity
     employmentType
     geographicalInfluence

@@ -286,8 +286,8 @@ map MembersInterests from lobbywatchdb.t_interessenbindung {
     org:role from art with language-tag de;
     org:role from funktion_im_gremium with language-tag de;
     lobbywatch:employmentType from employment_type with language-tag en;
-    lobbywatch:declared from declared with datatype xsd:boolean;
-    lobbywatch:compulsoryDeclaration from compulsory_declaration with datatype xsd:boolean;
+    lobbywatch:disclosed from disclosed with datatype xsd:boolean;
+    lobbywatch:compulsoryDisclosure from compulsory_disclosure with datatype xsd:boolean;
     lobbywatch:officialCapacity from official_capacity with language-tag en;
     rdfs:label from beschreibung with language-tag de;
     rdfs:label from beschreibung_fr with language-tag fr;
