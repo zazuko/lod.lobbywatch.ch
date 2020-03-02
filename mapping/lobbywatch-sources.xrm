@@ -54,7 +54,7 @@ source-group lobbywatchdb {
 
   // https://www.parlament.ch/en/%C3%BCber-das-parlament/parlamentsw%C3%B6rterbuch/parlamentsw%C3%B6rterbuch-detail?WordId=115
   logical-source t_interessenbindung {
-    source query "select p.parlament_number, i.*, o.uid as organisation_uid, CASE WHEN hauptberuflich = 1 THEN 'full-time' ELSE 'part-time' END as employment_type, CASE WHEN behoerden_vertreter = 'N' THEN 'no' ELSE CASE WHEN behoerden_vertreter = 'J' THEN 'yes' ELSE 'unknown' END END as official_capacity, CASE WHEN status = 'deklariert' THEN true ELSE false END as disclosed, CASE WHEN deklarationstyp = 'deklarationspflichtig' THEN true ELSE false END as compulsory_disclosure from interessenbindung as i inner join parlamentarier as p on p.id = i.parlamentarier_id inner join organisation as o on o.id = i.organisation_id"
+    source query "select p.parlament_biografie_id, i.*, o.uid as organisation_uid, CASE WHEN hauptberuflich = 1 THEN 'full-time' ELSE 'part-time' END as employment_type, CASE WHEN behoerden_vertreter = 'N' THEN 'no' ELSE CASE WHEN behoerden_vertreter = 'J' THEN 'yes' ELSE 'unknown' END END as official_capacity, CASE WHEN status = 'deklariert' THEN true ELSE false END as disclosed, CASE WHEN deklarationstyp = 'deklarationspflichtig' THEN true ELSE false END as compulsory_disclosure from interessenbindung as i inner join parlamentarier as p on p.id = i.parlamentarier_id inner join organisation as o on o.id = i.organisation_id"
     referenceables
       id                  // int(11)
       organisation_id     // int(11)
@@ -73,7 +73,7 @@ source-group lobbywatchdb {
       status              // enum('deklariert','nicht-deklariert')
 
       employment_type // string en
-      parlament_number // fk
+      parlament_biografie_id // fk
       disclosed // bool
       compulsory_disclosure // bool
       official_capacity // yes/no/unknown
@@ -524,47 +524,47 @@ logical-source t_federal_council {
   }
 
   logical-source t_federal_council_member {
-    source query "select parlamentarier.parlament_number from parlamentarier inner join rat on parlamentarier.rat_id = rat.id where rat.parlament_id = 0"
+    source query "select parlamentarier.parlament_biografie_id from parlamentarier inner join rat on parlamentarier.rat_id = rat.id where rat.parlament_id = 0"
 
     referenceables
-      parlament_number
+      parlament_biografie_id
   }
   logical-source t_national_council_member {
-    source query "select parlamentarier.parlament_number from parlamentarier inner join rat on parlamentarier.rat_id = rat.id where rat.parlament_id = 1"
+    source query "select parlamentarier.parlament_biografie_id from parlamentarier inner join rat on parlamentarier.rat_id = rat.id where rat.parlament_id = 1"
 
     referenceables
-      parlament_number
+      parlament_biografie_id
   }
   logical-source t_state_council_member {
-    source query "select parlamentarier.parlament_number from parlamentarier inner join rat on parlamentarier.rat_id = rat.id where rat.parlament_id = 2"
+    source query "select parlamentarier.parlament_biografie_id from parlamentarier inner join rat on parlamentarier.rat_id = rat.id where rat.parlament_id = 2"
 
     referenceables
-      parlament_number
+      parlament_biografie_id
   }
 
 
   logical-source t_parlamentarier_transparenz_ja {
-    source query "select t.*, p.parlament_number from parlamentarier_transparenz as t inner join parlamentarier as p on p.id = t.parlamentarier_id where verguetung_transparent = 'ja'"
+    source query "select t.*, p.parlament_biografie_id from parlamentarier_transparenz as t inner join parlamentarier as p on p.id = t.parlamentarier_id where verguetung_transparent = 'ja'"
 
     referenceables
       id
       stichdatum
-      parlament_number
+      parlament_biografie_id
   }
   logical-source t_parlamentarier_transparenz_nein {
-    source query "select t.*, p.parlament_number from parlamentarier_transparenz as t inner join parlamentarier as p on p.id = t.parlamentarier_id where verguetung_transparent = 'nein'"
+    source query "select t.*, p.parlament_biografie_id from parlamentarier_transparenz as t inner join parlamentarier as p on p.id = t.parlamentarier_id where verguetung_transparent = 'nein'"
 
     referenceables
       id
       stichdatum
-      parlament_number
+      parlament_biografie_id
   }
   logical-source t_parlamentarier_transparenz_teilweise {
-    source query "select t.*, p.parlament_number from parlamentarier_transparenz as t inner join parlamentarier as p on p.id = t.parlamentarier_id where verguetung_transparent = 'teilweise'"
+    source query "select t.*, p.parlament_biografie_id from parlamentarier_transparenz as t inner join parlamentarier as p on p.id = t.parlamentarier_id where verguetung_transparent = 'teilweise'"
 
     referenceables
       id
       stichdatum
-      parlament_number
+      parlament_biografie_id
   }
 }

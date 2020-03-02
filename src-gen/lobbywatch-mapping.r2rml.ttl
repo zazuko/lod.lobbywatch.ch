@@ -3,7 +3,8 @@ PREFIX dbo: <http://dbpedia.org/ontology/>
 PREFIX lw: <https://lod.lobbywatch.ch/>
 PREFIX org: <http://www.w3.org/ns/org#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX schema: <https://schema.org/>
+PREFIX schema: <http://schema.org/>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX wdtp: <https://www.wikidata.org/wiki/Property:>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
@@ -11,7 +12,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:logicalTable [ rr:sqlQuery """select parlamentarier.*, rat.parlament_id as council_fk, partei.abkuerzung as party_fk from parlamentarier left join rat on parlamentarier.rat_id = rat.id left join partei on partei.id = parlamentarier.partei_id""" ];
 	
 	rr:subjectMap [
-		rr:template "https://lod.lobbywatch.ch/parliament-member/{parlament_number}" ;
+		rr:template "https://lod.lobbywatch.ch/parliament-member/{parlament_biografie_id}" ;
 		rr:class schema:Person ;
 		rr:class dbo:MemberOfParliament ;
 	];
@@ -74,10 +75,10 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	]
 .
 <#MemberOfFederalCouncil>
-	rr:logicalTable [ rr:sqlQuery """select parlamentarier.parlament_number from parlamentarier inner join rat on parlamentarier.rat_id = rat.id where rat.parlament_id = 0""" ];
+	rr:logicalTable [ rr:sqlQuery """select parlamentarier.parlament_biografie_id from parlamentarier inner join rat on parlamentarier.rat_id = rat.id where rat.parlament_id = 0""" ];
 	
 	rr:subjectMap [
-		rr:template "https://lod.lobbywatch.ch/parliament-member/{parlament_number}" ;
+		rr:template "https://lod.lobbywatch.ch/parliament-member/{parlament_biografie_id}" ;
 	];
 	
 	rr:predicateObjectMap [
@@ -94,10 +95,10 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	]
 .
 <#MemberOfNationalCouncil>
-	rr:logicalTable [ rr:sqlQuery """select parlamentarier.parlament_number from parlamentarier inner join rat on parlamentarier.rat_id = rat.id where rat.parlament_id = 1""" ];
+	rr:logicalTable [ rr:sqlQuery """select parlamentarier.parlament_biografie_id from parlamentarier inner join rat on parlamentarier.rat_id = rat.id where rat.parlament_id = 1""" ];
 	
 	rr:subjectMap [
-		rr:template "https://lod.lobbywatch.ch/parliament-member/{parlament_number}" ;
+		rr:template "https://lod.lobbywatch.ch/parliament-member/{parlament_biografie_id}" ;
 	];
 	
 	rr:predicateObjectMap [
@@ -114,10 +115,10 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	]
 .
 <#MemberOfStateCouncil>
-	rr:logicalTable [ rr:sqlQuery """select parlamentarier.parlament_number from parlamentarier inner join rat on parlamentarier.rat_id = rat.id where rat.parlament_id = 2""" ];
+	rr:logicalTable [ rr:sqlQuery """select parlamentarier.parlament_biografie_id from parlamentarier inner join rat on parlamentarier.rat_id = rat.id where rat.parlament_id = 2""" ];
 	
 	rr:subjectMap [
-		rr:template "https://lod.lobbywatch.ch/parliament-member/{parlament_number}" ;
+		rr:template "https://lod.lobbywatch.ch/parliament-member/{parlament_biografie_id}" ;
 	];
 	
 	rr:predicateObjectMap [
@@ -269,6 +270,20 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		];
 	];
 	rr:predicateObjectMap [
+		rr:predicate skos:altLabel ;
+		rr:objectMap [
+			rr:column "abkuerzung" ;
+			rr:language "de" ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate skos:altLabel ;
+		rr:objectMap [
+			rr:column "abkuerzung_fr" ;
+			rr:language "fr" ;
+		];
+	];
+	rr:predicateObjectMap [
 		rr:predicate schema:url ;
 		rr:objectMap [
 			rr:column "homepage" ;
@@ -310,6 +325,20 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		rr:objectMap [
 			rr:column "name_en" ;
 			rr:language "en" ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate skos:altLabel ;
+		rr:objectMap [
+			rr:column "abkuerzung" ;
+			rr:language "de" ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate skos:altLabel ;
+		rr:objectMap [
+			rr:column "abkuerzung_fr" ;
+			rr:language "fr" ;
 		];
 	];
 	rr:predicateObjectMap [
@@ -398,23 +427,44 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		];
 	];
 	rr:predicateObjectMap [
-		rr:predicate schema:alternateName ;
+		rr:predicate skos:altLabel ;
 		rr:objectMap [
 			rr:column "alias_namen_de" ;
 			rr:language "de" ;
 		];
 	];
 	rr:predicateObjectMap [
-		rr:predicate schema:alternateName ;
+		rr:predicate skos:altLabel ;
 		rr:objectMap [
 			rr:column "alias_namen_fr" ;
 			rr:language "fr" ;
 		];
 	];
 	rr:predicateObjectMap [
-		rr:predicate schema:alternateName ;
+		rr:predicate skos:altLabel ;
 		rr:objectMap [
 			rr:column "alias_namen_it" ;
+			rr:language "it" ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate skos:altLabel ;
+		rr:objectMap [
+			rr:column "abkuerzung_de" ;
+			rr:language "de" ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate skos:altLabel ;
+		rr:objectMap [
+			rr:column "abkuerzung_fr" ;
+			rr:language "fr" ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate skos:altLabel ;
+		rr:objectMap [
+			rr:column "abkuerzung_it" ;
 			rr:language "it" ;
 		];
 	];
@@ -533,14 +583,14 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		];
 	];
 	rr:predicateObjectMap [
-		rr:predicate schema:alternateName ;
+		rr:predicate skos:altLabel ;
 		rr:objectMap [
 			rr:column "alias_namen" ;
 			rr:language "de" ;
 		];
 	];
 	rr:predicateObjectMap [
-		rr:predicate schema:alternateName ;
+		rr:predicate skos:altLabel ;
 		rr:objectMap [
 			rr:column "alias_namen_fr" ;
 			rr:language "fr" ;
@@ -756,7 +806,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	]
 .
 <#Transparency1>
-	rr:logicalTable [ rr:sqlQuery """select t.*, p.parlament_number from parlamentarier_transparenz as t inner join parlamentarier as p on p.id = t.parlamentarier_id where verguetung_transparent = 'ja'""" ];
+	rr:logicalTable [ rr:sqlQuery """select t.*, p.parlament_biografie_id from parlamentarier_transparenz as t inner join parlamentarier as p on p.id = t.parlamentarier_id where verguetung_transparent = 'ja'""" ];
 	
 	rr:subjectMap [
 		rr:template "https://lod.lobbywatch.ch/transparency/{id}" ;
@@ -779,12 +829,12 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:predicateObjectMap [
 		rr:predicate lw:parliamentMember ;
 		rr:objectMap [
-			rr:template "https://lod.lobbywatch.ch/parliament-member/{parlament_number}" ;
+			rr:template "https://lod.lobbywatch.ch/parliament-member/{parlament_biografie_id}" ;
 		];
 	]
 .
 <#Transparency2>
-	rr:logicalTable [ rr:sqlQuery """select t.*, p.parlament_number from parlamentarier_transparenz as t inner join parlamentarier as p on p.id = t.parlamentarier_id where verguetung_transparent = 'nein'""" ];
+	rr:logicalTable [ rr:sqlQuery """select t.*, p.parlament_biografie_id from parlamentarier_transparenz as t inner join parlamentarier as p on p.id = t.parlamentarier_id where verguetung_transparent = 'nein'""" ];
 	
 	rr:subjectMap [
 		rr:template "https://lod.lobbywatch.ch/transparency/{id}" ;
@@ -807,12 +857,12 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:predicateObjectMap [
 		rr:predicate lw:parliamentMember ;
 		rr:objectMap [
-			rr:template "https://lod.lobbywatch.ch/parliament-member/{parlament_number}" ;
+			rr:template "https://lod.lobbywatch.ch/parliament-member/{parlament_biografie_id}" ;
 		];
 	]
 .
 <#Transparency3>
-	rr:logicalTable [ rr:sqlQuery """select t.*, p.parlament_number from parlamentarier_transparenz as t inner join parlamentarier as p on p.id = t.parlamentarier_id where verguetung_transparent = 'teilweise'""" ];
+	rr:logicalTable [ rr:sqlQuery """select t.*, p.parlament_biografie_id from parlamentarier_transparenz as t inner join parlamentarier as p on p.id = t.parlamentarier_id where verguetung_transparent = 'teilweise'""" ];
 	
 	rr:subjectMap [
 		rr:template "https://lod.lobbywatch.ch/transparency/{id}" ;
@@ -835,12 +885,12 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:predicateObjectMap [
 		rr:predicate lw:parliamentMember ;
 		rr:objectMap [
-			rr:template "https://lod.lobbywatch.ch/parliament-member/{parlament_number}" ;
+			rr:template "https://lod.lobbywatch.ch/parliament-member/{parlament_biografie_id}" ;
 		];
 	]
 .
 <#MembersInterests>
-	rr:logicalTable [ rr:sqlQuery """select p.parlament_number, i.*, o.uid as organisation_uid, CASE WHEN hauptberuflich = 1 THEN 'full-time' ELSE 'part-time' END as employment_type, CASE WHEN behoerden_vertreter = 'N' THEN 'no' ELSE CASE WHEN behoerden_vertreter = 'J' THEN 'yes' ELSE 'unknown' END END as official_capacity, CASE WHEN status = 'deklariert' THEN true ELSE false END as disclosed, CASE WHEN deklarationstyp = 'deklarationspflichtig' THEN true ELSE false END as compulsory_disclosure from interessenbindung as i inner join parlamentarier as p on p.id = i.parlamentarier_id inner join organisation as o on o.id = i.organisation_id""" ];
+	rr:logicalTable [ rr:sqlQuery """select p.parlament_biografie_id, i.*, o.uid as organisation_uid, CASE WHEN hauptberuflich = 1 THEN 'full-time' ELSE 'part-time' END as employment_type, CASE WHEN behoerden_vertreter = 'N' THEN 'no' ELSE CASE WHEN behoerden_vertreter = 'J' THEN 'yes' ELSE 'unknown' END END as official_capacity, CASE WHEN status = 'deklariert' THEN true ELSE false END as disclosed, CASE WHEN deklarationstyp = 'deklarationspflichtig' THEN true ELSE false END as compulsory_disclosure from interessenbindung as i inner join parlamentarier as p on p.id = i.parlamentarier_id inner join organisation as o on o.id = i.organisation_id""" ];
 	
 	rr:subjectMap [
 		rr:template "https://lod.lobbywatch.ch/members-interest/{id}" ;
@@ -938,7 +988,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:predicateObjectMap [
 		rr:predicate lw:parliamentMember ;
 		rr:objectMap [
-			rr:template "https://lod.lobbywatch.ch/parliament-member/{parlament_number}" ;
+			rr:template "https://lod.lobbywatch.ch/parliament-member/{parlament_biografie_id}" ;
 		];
 	]
 .

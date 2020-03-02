@@ -3,7 +3,7 @@ language-tags {
 }
 
 vocabulary schema {
-  prefix "schema:" "https://schema.org/"
+  prefix "schema:" "http://schema.org/"
 
   classes
     Occupation
@@ -127,6 +127,13 @@ vocabulary org {
     organization
     remuneration
     role
+}
+
+vocabulary skos {
+  prefix "skos:" "http://www.w3.org/2004/02/skos/core#"
+  
+  properties
+    altLabel
 }
 
 datatypes xsd {

@@ -1,7 +1,7 @@
 output r2rml
 
 map Parliament from lobbywatchdb.t_parlamentarier {
-  subject template "https://lod.lobbywatch.ch/parliament-member/{0}" with parlament_number;
+  subject template "https://lod.lobbywatch.ch/parliament-member/{0}" with parlament_biografie_id;
 
   types schema:Person dbpedia:MemberOfParliament
 
@@ -19,19 +19,19 @@ map Parliament from lobbywatchdb.t_parlamentarier {
     schema:memberOf link Council with council_fk;
 }
 map MemberOfFederalCouncil from lobbywatchdb.t_federal_council_member {
-  subject template "https://lod.lobbywatch.ch/parliament-member/{0}" with parlament_number;
+  subject template "https://lod.lobbywatch.ch/parliament-member/{0}" with parlament_biografie_id;
   properties
     wdtp:P39 constant "https://www.wikidata.org/wiki/Q11811941";
     schema:memberOf constant "https://www.wikidata.org/wiki/Q30917";
 }
 map MemberOfNationalCouncil from lobbywatchdb.t_national_council_member {
-  subject template "https://lod.lobbywatch.ch/parliament-member/{0}" with parlament_number;
+  subject template "https://lod.lobbywatch.ch/parliament-member/{0}" with parlament_biografie_id;
   properties
     wdtp:P39 constant "https://www.wikidata.org/wiki/Q18510612";
     schema:memberOf constant "https://www.wikidata.org/wiki/Q676078";
 }
 map MemberOfStateCouncil from lobbywatchdb.t_state_council_member {
-  subject template "https://lod.lobbywatch.ch/parliament-member/{0}" with parlament_number;
+  subject template "https://lod.lobbywatch.ch/parliament-member/{0}" with parlament_biografie_id;
   properties
     wdtp:P39 constant "https://www.wikidata.org/wiki/Q18510613";
     schema:memberOf constant "https://www.wikidata.org/wiki/Q609037";
@@ -87,6 +87,8 @@ map Party from lobbywatchdb.t_partei {
     schema:foundingDate from gruendung with datatype xsd:date;
     schema:name from name with language-tag de;
     schema:name from name_fr with language-tag fr;
+    skos:altLabel from abkuerzung with language-tag de;
+    skos:altLabel from abkuerzung_fr with language-tag fr;
     schema:url from homepage;
 }
 
@@ -100,6 +102,8 @@ map Council from lobbywatchdb.t_rat {
     schema:name from name_fr with language-tag fr;
     schema:name from name_it with language-tag it;
     schema:name from name_en with language-tag en;
+    skos:altLabel from abkuerzung with language-tag de;
+    skos:altLabel from abkuerzung_fr with language-tag fr;
     lobbywatch:geographicalInfluence link GeographicalInfluence with interessenraum_id;
 }
 
@@ -137,9 +141,12 @@ map Organization from lobbywatchdb.t_organisation {
     schema:name from name_de with language-tag de;
     schema:name from name_fr with language-tag fr;
     schema:name from name_it with language-tag it;
-    schema:alternateName from alias_namen_de with language-tag de;
-    schema:alternateName from alias_namen_fr with language-tag fr;
-    schema:alternateName from alias_namen_it with language-tag it;
+    skos:altLabel from alias_namen_de with language-tag de;
+    skos:altLabel from alias_namen_fr with language-tag fr;
+    skos:altLabel from alias_namen_it with language-tag it;
+    skos:altLabel from abkuerzung_de with language-tag de;
+    skos:altLabel from abkuerzung_fr with language-tag fr;
+    skos:altLabel from abkuerzung_it with language-tag it;
     schema:description from beschreibung with language-tag de;
     schema:description from beschreibung_fr with language-tag fr;
     schema:name from name_fr with language-tag fr;
@@ -177,8 +184,8 @@ map Lobby from lobbywatchdb.t_interessengruppe {
   properties
     rdfs:label from name with language-tag de;
     rdfs:label from name_fr with language-tag fr;
-    schema:alternateName from alias_namen with language-tag de;
-    schema:alternateName from alias_namen_fr with language-tag fr;
+    skos:altLabel from alias_namen with language-tag de;
+    skos:altLabel from alias_namen_fr with language-tag fr;
     schema:member link People with person_fk;
     rdfs:comment from beschreibung with language-tag de;
     rdfs:comment from beschreibung_fr with language-tag fr;
@@ -250,7 +257,7 @@ map Transparency1 from lobbywatchdb.t_parlamentarier_transparenz_ja {
     lobbywatch:date from stichdatum with datatype xsd:date;
     lobbywatch:transparency constant "yes";
 
-    lobbywatch:parliamentMember link Parliament with parlament_number;
+    lobbywatch:parliamentMember link Parliament with parlament_biografie_id;
 }
 
 map Transparency2 from lobbywatchdb.t_parlamentarier_transparenz_nein {
@@ -262,7 +269,7 @@ map Transparency2 from lobbywatchdb.t_parlamentarier_transparenz_nein {
     lobbywatch:date from stichdatum with datatype xsd:date;
     lobbywatch:transparency constant "no";
 
-    lobbywatch:parliamentMember link Parliament with parlament_number;
+    lobbywatch:parliamentMember link Parliament with parlament_biografie_id;
 }
 
 map Transparency3 from lobbywatchdb.t_parlamentarier_transparenz_teilweise {
@@ -274,7 +281,7 @@ map Transparency3 from lobbywatchdb.t_parlamentarier_transparenz_teilweise {
     lobbywatch:date from stichdatum with datatype xsd:date;
     lobbywatch:transparency constant "partial";
 
-    lobbywatch:parliamentMember link Parliament with parlament_number;
+    lobbywatch:parliamentMember link Parliament with parlament_biografie_id;
 }
 
 map MembersInterests from lobbywatchdb.t_interessenbindung {
@@ -298,9 +305,8 @@ map MembersInterests from lobbywatchdb.t_interessenbindung {
 
     org:organization link Organization with organisation_uid;
 
-    lobbywatch:parliamentMember link Parliament with parlament_number;
+    lobbywatch:parliamentMember link Parliament with parlament_biografie_id;
 }
-
 
 map MembersInterestsCompensation from lobbywatchdb.t_interessenbindung_jahr {
   subject template "https://lod.lobbywatch.ch/members-interest-compensation/{0}" with id;
