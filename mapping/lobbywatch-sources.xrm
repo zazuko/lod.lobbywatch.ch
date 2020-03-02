@@ -410,14 +410,7 @@ source-group lobbywatchdb {
   }
 
   logical-source t_occupation_people {
-    source query "select distinct(beruf) as beruf, beruf_fr from person"
-
-    referenceables
-      beruf
-      beruf_fr
-  }
-  logical-source t_occupation_parliament_member {
-    source query "select distinct(beruf) as beruf, beruf_fr from parlamentarier"
+    source query "select distinct(beruf) as beruf, beruf_fr from ((select beruf, beruf_fr from person) union (select beruf, beruf_fr from parlamentarier)) as foo"
 
     referenceables
       beruf

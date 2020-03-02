@@ -194,30 +194,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	]
 .
 <#PeopleOccupation>
-	rr:logicalTable [ rr:sqlQuery """select distinct(beruf) as beruf, beruf_fr from person""" ];
-	
-	rr:subjectMap [
-		rr:template "https://lod.lobbywatch.ch/occupation/{beruf}" ;
-		rr:class schema:Occupation ;
-	];
-	
-	rr:predicateObjectMap [
-		rr:predicate schema:name ;
-		rr:objectMap [
-			rr:column "beruf" ;
-			rr:language "de" ;
-		];
-	];
-	rr:predicateObjectMap [
-		rr:predicate schema:name ;
-		rr:objectMap [
-			rr:column "beruf_fr" ;
-			rr:language "fr" ;
-		];
-	]
-.
-<#ParliamentMemberOccupation>
-	rr:logicalTable [ rr:sqlQuery """select distinct(beruf) as beruf, beruf_fr from parlamentarier""" ];
+	rr:logicalTable [ rr:sqlQuery """select distinct(beruf) as beruf, beruf_fr from ((select beruf, beruf_fr from person) union (select beruf, beruf_fr from parlamentarier)) as foo""" ];
 	
 	rr:subjectMap [
 		rr:template "https://lod.lobbywatch.ch/occupation/{beruf}" ;
