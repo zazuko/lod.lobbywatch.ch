@@ -136,12 +136,13 @@ vocabulary skos {
     altLabel
 }
 
-datatypes xsd {
+vocabulary xsd {
   prefix "xsd:" "http://www.w3.org/2001/XMLSchema#"
 
-  boolean
-  date
-  dateTime
-  gYear
-  int
+  datatypes
+    boolean
+    date
+    dateTime
+    gYear
+    int
 }
