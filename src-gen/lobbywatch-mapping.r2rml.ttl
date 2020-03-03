@@ -167,13 +167,13 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		];
 	];
 	rr:predicateObjectMap [
-		rr:predicate schema:member ;
+		rr:predicate schema:memberOf ;
 		rr:objectMap [
 			rr:template "https://lod.lobbywatch.ch/party/{party_fk}" ;
 		];
 	];
 	rr:predicateObjectMap [
-		rr:predicate schema:member ;
+		rr:predicate schema:memberOf ;
 		rr:objectMap [
 			rr:template "https://lod.lobbywatch.ch/lobby/{beruf_interessengruppe_id}" ;
 		];
@@ -377,11 +377,17 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:logicalTable [ rr:sqlQuery """select o.*, ir.name as fk_geographical from organisation as o left join interessenraum as ir on o.interessenraum_id = ir.id""" ];
 	
 	rr:subjectMap [
-		rr:template "https://lod.lobbywatch.ch/organisation/{uid}" ;
+		rr:template "https://lod.lobbywatch.ch/organisation/{id}" ;
 		rr:class org:Organization ;
 		rr:class schema:Organization ;
 	];
 	
+	rr:predicateObjectMap [
+		rr:predicate org:identifier ;
+		rr:objectMap [
+			rr:column "uid" ;
+		];
+	];
 	rr:predicateObjectMap [
 		rr:predicate schema:name ;
 		rr:objectMap [
@@ -487,10 +493,10 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	]
 .
 <#OrganizationMembership>
-	rr:logicalTable [ rr:sqlQuery """select o.uid as o_uid, m.id as m_id from mandat as m inner join organisation as o on m.organisation_id = o.id""" ];
+	rr:logicalTable [ rr:sqlQuery """select o.id as o_id, o.uid as o_uid, m.id as m_id from mandat as m inner join organisation as o on m.organisation_id = o.id""" ];
 	
 	rr:subjectMap [
-		rr:template "https://lod.lobbywatch.ch/organisation/{o_uid}" ;
+		rr:template "https://lod.lobbywatch.ch/organisation/{o_id}" ;
 	];
 	
 	rr:predicateObjectMap [
@@ -959,7 +965,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:predicateObjectMap [
 		rr:predicate org:organization ;
 		rr:objectMap [
-			rr:template "https://lod.lobbywatch.ch/organisation/{organisation_uid}" ;
+			rr:template "https://lod.lobbywatch.ch/organisation/{organisation_id}" ;
 		];
 	];
 	rr:predicateObjectMap [

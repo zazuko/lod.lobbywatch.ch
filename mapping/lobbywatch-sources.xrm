@@ -214,9 +214,10 @@ source-group lobbywatchdb {
   }
 
   logical-source t_organization_membership {
-    source query "select o.uid as o_uid, m.id as m_id from mandat as m inner join organisation as o on m.organisation_id = o.id"
+    source query "select o.id as o_id, o.uid as o_uid, m.id as m_id from mandat as m inner join organisation as o on m.organisation_id = o.id"
 
     referenceables
+      o_id
       o_uid
       m_id
   }

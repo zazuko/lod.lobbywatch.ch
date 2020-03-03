@@ -122,6 +122,7 @@ vocabulary org {
 
   properties
     hasMember
+    identifier
     member
     memberOf
     organization

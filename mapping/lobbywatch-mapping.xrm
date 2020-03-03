@@ -47,8 +47,8 @@ map People from lobbywatchdb.t_person {
     schema.familyName from nachname;
 
     schema.hasOccupation link PeopleOccupation with beruf;
-    schema.member link Party with party_fk;
-    schema.member link Lobby with beruf_interessengruppe_id;
+    schema.memberOf link Party with party_fk;
+    schema.memberOf link Lobby with beruf_interessengruppe_id;
 }
 
 map PersonMembership from lobbywatchdb.t_person_membership {
@@ -123,11 +123,12 @@ map StatesCouncil from lobbywatchdb.t_state_council {
 }
 
 map Organization from lobbywatchdb.t_organisation {
-  subject template "https://lod.lobbywatch.ch/organisation/{0}" with uid;
+  subject template "https://lod.lobbywatch.ch/organisation/{0}" with id;
 
   types org.Organization schema.Organization
 
   properties
+    org.identifier from uid;
     schema.name from name_de with language-tag de;
     schema.name from name_fr with language-tag fr;
     schema.name from name_it with language-tag it;
@@ -148,7 +149,7 @@ map Organization from lobbywatchdb.t_organisation {
 }
 
 map OrganizationMembership from lobbywatchdb.t_organization_membership {
-  subject template "https://lod.lobbywatch.ch/organisation/{0}" with o_uid;
+  subject template "https://lod.lobbywatch.ch/organisation/{0}" with o_id;
 
   properties
     org.member link Mandate with m_id;
@@ -293,7 +294,7 @@ map MembersInterests from lobbywatchdb.t_interessenbindung {
     lobbywatch.joined from von with datatype xsd.date;
     lobbywatch.left from bis with datatype xsd.date;
 
-    org.organization link Organization with organisation_uid;
+    org.organization link Organization with organisation_id;
 
     lobbywatch.parliamentMember link Parliament with parlament_biografie_id;
 }
