@@ -19,6 +19,7 @@
   },
   "ontodia" : {
     "default": {
+      "path": "/ontodia",
       "template": "cwd:views/ontodia.html"
     }
   },
@@ -32,5 +33,19 @@
   },
   "staticViews": {
     "/": "cwd:views/home.html"
+  },
+  "breakDown": {
+    "ontodia": {},
+    "ontodia.default": {},
+    "ontodia.default.endpointUrl": [
+      "sparqlProxy.default.path",
+      "sparqlEndpointUrl"
+    ]
+  },
+  "plugins": {
+    "ontodia": {
+      "priority": 115,
+      "module": "trifid-plugin-ontodia"
+    }
   }
 }
