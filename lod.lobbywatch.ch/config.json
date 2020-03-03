@@ -17,6 +17,11 @@
       "template": "cwd:views/yasgui.html"
     }
   },
+  "ontodia" : {
+    "default": {
+      "template": "cwd:views/ontodia.html"
+    }
+  },
   "patchHeaders": {
     "static": {
       "Access-Control-Allow-Origin": "*",
