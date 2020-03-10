@@ -23,10 +23,11 @@ ${include('cwd:views/footer.html')}
 
 <script src="dist/yasgui.min.js"></script>
 <script type="text/javascript">
-   // set SPARQL endpoint URL
-   YASGUI.defaults.yasqe.sparql.endpoint = '${endpointUrl}'
-   var config = {"api":{"urlShortener":"//yasgui.org/shorten"}}
-   var yasgui = YASGUI(document.getElementById('yasgui'), config)
+  // set SPARQL endpoint URL
+  YASGUI.defaults.yasqe.sparql.endpoint = '${endpointUrl}'
+  var config = {"api":{}}
+  ${typeof urlShortener !== 'undefined' ? "config.api.urlShortener = '" + urlShortener + "'" : ''}
+  var yasgui = YASGUI(document.getElementById('yasgui'), config)
 </script>
 
 </body>
