@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "trifid": "^2.3.3",
-    "trifid-plugin-ontodia": "^0.1.0"
+    "trifid": "^2.3.4",
+    "trifid-plugin-ontodia": "^0.1.1"
   },
   "devDependencies": {},
   "license": "GPL-2.0-only",
