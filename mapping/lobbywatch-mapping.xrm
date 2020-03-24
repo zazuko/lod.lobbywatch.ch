@@ -12,6 +12,7 @@ map Parliament from lobbywatchdb.t_parlamentarier {
     schema.birthDate from geburtstag;
     lobbywatch.joined from im_rat_seit with datatype xsd.date;
     lobbywatch.left from im_rat_bis with datatype xsd.date;
+    wdtp.P1307 from parlament_biografie_id;
 
     schema.hasOccupation link PeopleOccupation with beruf;
     schema.memberOf link Party with party_fk;

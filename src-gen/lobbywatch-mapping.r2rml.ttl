@@ -56,6 +56,12 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		];
 	];
 	rr:predicateObjectMap [
+		rr:predicate wdtp:P1307 ;
+		rr:objectMap [
+			rr:column "parlament_biografie_id" ;
+		];
+	];
+	rr:predicateObjectMap [
 		rr:predicate schema:hasOccupation ;
 		rr:objectMap [
 			rr:template "https://lod.lobbywatch.ch/occupation/{beruf}" ;

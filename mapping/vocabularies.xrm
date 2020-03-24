@@ -85,6 +85,7 @@ vocabulary wdtp {
 
   properties
     P39 // position held
+    P1307 // Swiss parliament ID
 }
 
 vocabulary wdt {
