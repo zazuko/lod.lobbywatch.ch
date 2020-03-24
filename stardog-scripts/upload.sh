@@ -1,7 +1,7 @@
 #!/bin/sh
 curl -n -v \
      -X PUT \
-     -H Content-Type:text/turtle \
-     -T ./lobbywatch.ttl \
+     -H Content-Type:application/n-triples \
+     -T ./lobbywatch-slug.nt \
      -G http://data.zazuko.com/lobbywatch \
      --data-urlencode graph=https://lod.lobbywatch.ch

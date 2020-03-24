@@ -3,7 +3,7 @@ IFS=$'\n\t'
 set -euo pipefail
 
 # delete DB and recreate
-stardog-admin db drop -n lobbywatch
+stardog-admin db drop -n lobbywatch || true
 stardog-admin db create -n lobbywatch || true
 
 # cache triples count (if any)
@@ -14,6 +14,8 @@ stardog-admin virtual import -v --format r2rml lobbywatch lobbywatch-mysql.prope
 
 # export triple data as Turtle
 curl --silent -G -u admin:admin -H  "Accept: text/turtle" -o lobbywatch.ttl http://localhost:5820/lobbywatch
+# export triple data as Turtle
+curl --silent -G -u admin:admin -H  "Accept: application/n-triples" -o lobbywatch.nt http://localhost:5820/lobbywatch
 
 # show triples count before/after
 AFTER=$(wc -l lobbywatch.ttl)
