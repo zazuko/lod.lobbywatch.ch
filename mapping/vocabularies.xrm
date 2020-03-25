@@ -80,22 +80,23 @@ vocabulary dbpedia {
     politicalFunction
 }
 
-vocabulary wdtp {
-  prefix "wdtp:" "https://www.wikidata.org/wiki/Property:"
-
-  properties
-    P39 // position held
-    P1307 // Swiss parliament ID
-}
-
-vocabulary wdt {
-  prefix "wdt:" "https://www.wikidata.org/wiki/"
+vocabulary wd {
+  prefix "wd:" "http://www.wikidata.org/entity/Q18510612"
 
   classes
     Q18510612 // Member of the Swiss National Council
     Q18510613 // Member of the Swiss Council of States
     Q11811941 // Member of the Swiss Federal Council
 }
+
+vocabulary wdt {
+  prefix "wdt:" "http://www.wikidata.org/prop/direct/"
+
+  properties
+    P39 // position held
+    P1307 // Swiss parliament ID
+}
+
 
 vocabulary rdf {
   prefix "rdf:" "http://www.w3.org/1999/02/22-rdf-syntax-ns#"

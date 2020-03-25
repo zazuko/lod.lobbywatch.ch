@@ -5,7 +5,7 @@ PREFIX org: <http://www.w3.org/ns/org#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX schema: <http://schema.org/>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-PREFIX wdtp: <https://www.wikidata.org/wiki/Property:>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
 <#Parliament>
@@ -56,7 +56,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		];
 	];
 	rr:predicateObjectMap [
-		rr:predicate wdtp:P1307 ;
+		rr:predicate wdt:P1307 ;
 		rr:objectMap [
 			rr:column "parlament_biografie_id" ;
 		];
@@ -88,7 +88,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	];
 	
 	rr:predicateObjectMap [
-		rr:predicate wdtp:P39 ;
+		rr:predicate wdt:P39 ;
 		rr:objectMap [
 			rr:constant <https://www.wikidata.org/wiki/Q11811941> ;
 		];
@@ -108,7 +108,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	];
 	
 	rr:predicateObjectMap [
-		rr:predicate wdtp:P39 ;
+		rr:predicate wdt:P39 ;
 		rr:objectMap [
 			rr:constant <https://www.wikidata.org/wiki/Q18510612> ;
 		];
@@ -128,7 +128,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	];
 	
 	rr:predicateObjectMap [
-		rr:predicate wdtp:P39 ;
+		rr:predicate wdt:P39 ;
 		rr:objectMap [
 			rr:constant <https://www.wikidata.org/wiki/Q18510613> ;
 		];
