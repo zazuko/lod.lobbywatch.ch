@@ -1,6 +1,6 @@
 .PHONY: load pipeline upload wd
 
-all: load pipeline upload
+all: load pipeline upload wd
 
 load:
 	cd stardog-scripts && ./load.sh

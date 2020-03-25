@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # link parliament members to wikidata
-curl -n \
+curl -n -v \
 --data timeout=1000000 \
 --data-urlencode update='
   INSERT {
