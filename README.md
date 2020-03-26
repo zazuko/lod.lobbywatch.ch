@@ -4,6 +4,10 @@ This project contains the source and tooling related to [lod.lobbywatch.ch](http
 
 ## Repository Structure
 
+* [`Makefile`](./Makefile)
+
+    `make` runs all targets: converting the MySQL db into triples, enriching the triples, running them through the pipeline, uploading to lod.lobbywatch.ch
+
 * [`database/`](./database/)
 
     Retrieving a SQL dump of the lobbywatch database and serving it locally.
@@ -15,6 +19,10 @@ This project contains the source and tooling related to [lod.lobbywatch.ch](http
 * [`mapping/`](./mapping/)
 
     [R2RML](https://www.w3.org/TR/r2rml/#abstract) mappings used to convert the MySQL database content into triples. The R2RML mappings are generated using the [RDF Mapping DSL](https://github.com/zazuko/rdf-mapping-dsl-user).
+
+* [`pipeline/`](./pipeline/)
+
+    Pipeline used to slugify some IRIs.
 
 * [`stardog-scripts/`](./stardog-scripts/)
 

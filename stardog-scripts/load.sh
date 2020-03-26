@@ -12,6 +12,10 @@ BEFORE=$(wc -l lobbywatch.nt)
 # import SQL data using R2RML mapping as Virtual Graph
 stardog-admin virtual import -v --format r2rml lobbywatch lobbywatch-mysql.properties ../mapping/src-gen/lobbywatch-mapping.r2rml.ttl
 
+# link against external sources
+stardog query lobbywatch queries/wikidata-parliament-member.rq
+stardog query lobbywatch queries/wikidata-party.rq
+
 # export triple data as n-triples
 curl --silent -G -u admin:admin -H  "Accept: application/n-triples" -o lobbywatch.nt http://localhost:5820/lobbywatch
 

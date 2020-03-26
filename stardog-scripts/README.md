@@ -4,7 +4,7 @@ Scripts used to load the generated triples into a local [Stardog](https://www.st
 
 * `./load.sh`
 
-    Create triples using R2RML mapping, dump them as Turtle.
+    Create triples using R2RML mapping, link against wikidata, dump as NTriple.
 
 * `./upload.sh`
 
