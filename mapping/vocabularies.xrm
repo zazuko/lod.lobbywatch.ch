@@ -1,5 +1,8 @@
 language-tags {
-  de en fr it
+  de
+  en
+  fr
+  it
 }
 
 vocabulary schema {
@@ -97,7 +100,6 @@ vocabulary wdt {
     P1307 // Swiss parliament ID
 }
 
-
 vocabulary rdf {
   prefix "rdf" "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 
@@ -134,7 +136,7 @@ vocabulary org {
 
 vocabulary skos {
   prefix "skos" "http://www.w3.org/2004/02/skos/core#"
-  
+
   properties
     altLabel
 }
