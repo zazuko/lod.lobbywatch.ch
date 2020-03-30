@@ -8,7 +8,7 @@ PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX wdt: <http://www.wikidata.org/prop/direct/>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
-<#Parliament>
+<#ParliamentMember>
 	rr:logicalTable [ rr:sqlQuery """select parlamentarier.*, rat.parlament_id as council_fk, partei.abkuerzung as party_fk from parlamentarier left join rat on parlamentarier.rat_id = rat.id left join partei on partei.id = parlamentarier.partei_id""" ];
 	
 	rr:subjectMap [

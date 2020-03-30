@@ -3,7 +3,7 @@ language-tags {
 }
 
 vocabulary schema {
-  prefix "schema:" "http://schema.org/"
+  prefix "schema" "http://schema.org/"
 
   classes
     Occupation
@@ -29,7 +29,7 @@ vocabulary schema {
 }
 
 vocabulary lobbywatch {
-  prefix "lw:" "https://lod.lobbywatch.ch/"
+  prefix "lw" "https://lod.lobbywatch.ch/"
 
   classes
     BusinessSector
@@ -64,7 +64,7 @@ vocabulary lobbywatch {
 }
 
 vocabulary dbpedia {
-  prefix "dbo:" "http://dbpedia.org/ontology/"
+  prefix "dbo" "http://dbpedia.org/ontology/"
 
   // http://mappings.dbpedia.org/server/ontology/classes/
   classes
@@ -81,7 +81,7 @@ vocabulary dbpedia {
 }
 
 vocabulary wd {
-  prefix "wd:" "http://www.wikidata.org/entity/Q18510612"
+  prefix "wd" "http://www.wikidata.org/entity/Q18510612"
 
   classes
     Q18510612 // Member of the Swiss National Council
@@ -90,7 +90,7 @@ vocabulary wd {
 }
 
 vocabulary wdt {
-  prefix "wdt:" "http://www.wikidata.org/prop/direct/"
+  prefix "wdt" "http://www.wikidata.org/prop/direct/"
 
   properties
     P39 // position held
@@ -99,7 +99,7 @@ vocabulary wdt {
 
 
 vocabulary rdf {
-  prefix "rdf:" "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  prefix "rdf" "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 
   classes
     Class
@@ -107,7 +107,7 @@ vocabulary rdf {
 }
 
 vocabulary rdfs {
-  prefix "rdfs:" "http://www.w3.org/2000/01/rdf-schema#"
+  prefix "rdfs" "http://www.w3.org/2000/01/rdf-schema#"
 
   properties
     comment
@@ -115,7 +115,7 @@ vocabulary rdfs {
 }
 
 vocabulary org {
-  prefix "org:" "http://www.w3.org/ns/org#"
+  prefix "org" "http://www.w3.org/ns/org#"
 
   classes
     Membership
@@ -133,14 +133,14 @@ vocabulary org {
 }
 
 vocabulary skos {
-  prefix "skos:" "http://www.w3.org/2004/02/skos/core#"
+  prefix "skos" "http://www.w3.org/2004/02/skos/core#"
   
   properties
     altLabel
 }
 
 vocabulary xsd {
-  prefix "xsd:" "http://www.w3.org/2001/XMLSchema#"
+  prefix "xsd" "http://www.w3.org/2001/XMLSchema#"
 
   datatypes
     boolean
