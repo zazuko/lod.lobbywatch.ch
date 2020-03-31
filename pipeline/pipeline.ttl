@@ -5,45 +5,18 @@
 
 <variables>
   p:variable [ a p:Variable;
-    p:name "inputFilePattern";
-    p:value "input/*.nt"
+    p:name "inputFile";
+    p:value "./input/lobbywatch.nt"
   ], [ a p:Variable;
     p:name "outputFile";
     p:value "../stardog-scripts/lobbywatch-slug.nt"
-  ].
+  ] .
 
 <FilePipeline> a p:Pipeline;
   p:variables <variables>;
   p:steps [
-    p:stepList ( <globFiles> <loopFiles> <slugUris> <serialize> <writeFile> )
+    p:stepList ( <readFile> <parse> <slugUris> <serialize> <writeFile> )
   ].
-
-<parseFilePipeline> a p:Pipeline, p:ReadableObjectMode;
-  p:steps [
-    p:stepList ( <readFile> <parse> )
-  ].
-
-<globFiles> a p:Step;
-  code:implementedBy [ a code:EcmaScript;
-    code:link <file:lib/glob.js>
-  ];
-  code:arguments [
-    code:name "pattern";
-    code:value "inputFilePattern"^^p:VariableName
-  ].
-
-<loopFiles> a p:Step;
-  code:implementedBy [ a code:EcmaScript;
-    code:link <node:barnard59-core#forEach>
-  ];
-  code:arguments (
-    <parseFilePipeline>
-    """(p, file) => {
-      const path = require('path')
-
-      p.variables.set('inputFile', file)
-    }"""^^code:EcmaScript
-  ).
 
 <readFile> a p:Step;
   code:implementedBy [ a code:EcmaScript;
@@ -79,10 +52,11 @@
   const rdf = require('rdf-ext');
 
   if (quad.predicate.value === 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type') {
-    return quad;
+    return rdf.quad(fixNamedNode(quad.subject), quad.predicate, quad.object, quad.graph)
   }
+  return rdf.quad(fixNamedNode(quad.subject), quad.predicate, fixNamedNode(quad.object), quad.graph)
 
-  const fixNamedNode = term => {
+  function fixNamedNode (term) {
     if (term.termType !== 'NamedNode') {
       return term;
     }
@@ -97,7 +71,7 @@
       .split('/')
       .map((part, index, all) => {
         if (index === all.length - 1) {
-          return urlSlug(decodeURI(part));
+          return urlSlug(decodeURIComponent(part));
         }
         return part;
       })
@@ -117,6 +91,4 @@
 
     return rdf.namedNode(url.toString());
   };
-
-  return rdf.quad(fixNamedNode(quad.subject), quad.predicate, fixNamedNode(quad.object), quad.graph);
 }"""^^code:EcmaScript) .
