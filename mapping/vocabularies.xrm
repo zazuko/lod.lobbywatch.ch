@@ -140,6 +140,7 @@ vocabulary org {
 
   properties
     hasMember
+    hasMembership
     identifier
     member
     memberOf

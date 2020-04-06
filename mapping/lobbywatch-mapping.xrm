@@ -80,7 +80,7 @@ map PersonMembership from lobbywatchdb.t_person_membership {
   subject template peopleIri with p_id;
 
   properties
-    org.member template mandateIri with m_id;
+    org.hasMembership template mandateIri with m_id;
 }
 
 map PeopleOccupation from lobbywatchdb.t_occupation_people {

@@ -193,7 +193,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	];
 	
 	rr:predicateObjectMap [
-		rr:predicate org:member ;
+		rr:predicate org:hasMembership ;
 		rr:objectMap [
 			rr:template "https://lod.lobbywatch.ch/mandate/{m_id}" ;
 		];
