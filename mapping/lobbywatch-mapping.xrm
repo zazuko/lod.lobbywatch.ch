@@ -15,6 +15,8 @@ template partyIri "https://lod.lobbywatch.ch/party/{0}"
 template peopleIri "https://lod.lobbywatch.ch/people/{0}"
 template roleIri "https://lod.lobbywatch.ch/role/{0}"
 template transparencyIri "https://lod.lobbywatch.ch/transparency/{0}"
+template accessIri "https://lod.lobbywatch.ch/access-right/{0}"
+template committeeIri "https://lod.lobbywatch.ch/committee/{0}"
 
 map ParliamentMember from lobbywatchdb.t_parlamentarier {
   subject template parliamentMemberIri with parlament_biografie_id;
@@ -108,6 +110,25 @@ map Party from lobbywatchdb.t_partei {
     schema.url from homepage;
 }
 
+map Committee from lobbywatchdb.t_kommission {
+  subject template committeeIri with abkuerzung;
+
+  types
+    lobbywatch.Committee
+
+  properties
+    schema.name from name with language-tag de;
+    schema.name from name_fr with language-tag fr;
+    skos.altLabel from abkuerzung with language-tag de;
+    skos.altLabel from abkuerzung_fr with language-tag fr;
+    schema.description from beschreibung with language-tag de;
+    schema.description from beschreibung_fr with language-tag fr;
+    lobbywatch.^type from typ with language-tag de;
+    lobbywatch.kind from art with language-tag de;
+    lobbywatch.chamber template councilIri with rat_id;
+    lobbywatch.secondChamberCommittee template committeeIri with fk_zweitrat_committee;
+}
+
 map Council from lobbywatchdb.t_rat {
   subject template councilIri with parlament_id;
 
@@ -122,7 +143,7 @@ map Council from lobbywatchdb.t_rat {
     schema.name from name_en with language-tag en;
     skos.altLabel from abkuerzung with language-tag de;
     skos.altLabel from abkuerzung_fr with language-tag fr;
-    lobbywatch.geographicalInfluence template geographicalInfluenceIri with interessenraum_id;
+    lobbywatch.geographicalInfluence template geographicalInfluenceIri with fk_geographical;
 }
 
 map FederalCouncil from lobbywatchdb.t_federal_council {
@@ -184,6 +205,21 @@ map Organization from lobbywatchdb.t_organisation {
 
 }
 
+map AccessRight from lobbywatchdb.t_zutrittsberechtigung {
+  subject template accessIri with id;
+
+  types
+    lobbywatch.AccessRight
+
+  properties
+    lobbywatch.issuedBy template parliamentMemberIri with fk_parlamentarier;
+    lobbywatch.issuedTo template peopleIri with person_id;
+    lobbywatch.authorizedAs from funktion with language-tag de;
+    lobbywatch.authorizedAs from funktion_fr with language-tag fr;
+    lobbywatch.fromDate from von with datatype xsd.date;
+    lobbywatch.toDate from bis with datatype xsd.date;
+}
+
 map OrganizationMembership from lobbywatchdb.t_organization_membership {
   subject template organisationIri with o_id;
 
@@ -202,6 +238,8 @@ map BusinessSector from lobbywatchdb.t_branche {
     rdfs.label from name_fr with language-tag fr;
     rdfs.comment from beschreibung with language-tag de;
     rdfs.comment from beschreibung_fr with language-tag fr;
+    lobbywatch.nationalCouncilCommission template committeeIri with kommission_id;
+    lobbywatch.councilOfStateCommission template committeeIri with kommission2_id;
 }
 
 map Lobby from lobbywatchdb.t_interessengruppe {

@@ -54,7 +54,7 @@ source-group lobbywatchdb {
 
   // https://www.parlament.ch/en/%C3%BCber-das-parlament/parlamentsw%C3%B6rterbuch/parlamentsw%C3%B6rterbuch-detail?WordId=115
   logical-source t_interessenbindung {
-    source query "select p.parlament_biografie_id, i.*, o.uid as organisation_uid, CASE WHEN hauptberuflich = 1 THEN 'full-time' ELSE 'part-time' END as employment_type, CASE WHEN behoerden_vertreter = 'N' THEN 'no' ELSE CASE WHEN behoerden_vertreter = 'J' THEN 'yes' ELSE 'unknown' END END as official_capacity, CASE WHEN status = 'deklariert' THEN true ELSE false END as disclosed, CASE WHEN deklarationstyp = 'deklarationspflichtig' THEN true ELSE false END as compulsory_disclosure from interessenbindung as i inner join parlamentarier as p on p.id = i.parlamentarier_id inner join organisation as o on o.id = i.organisation_id"
+    source query "select p.parlament_biografie_id, i.*, CASE WHEN hauptberuflich = 1 THEN 'full-time' ELSE 'part-time' END as employment_type, CASE WHEN behoerden_vertreter = 'N' THEN 'no' ELSE CASE WHEN behoerden_vertreter = 'J' THEN 'yes' ELSE 'unknown' END END as official_capacity, CASE WHEN status = 'deklariert' THEN true ELSE false END as disclosed, CASE WHEN deklarationstyp = 'deklarationspflichtig' THEN true ELSE false END as compulsory_disclosure from interessenbindung as i inner join parlamentarier as p on p.id = i.parlamentarier_id inner join organisation as o on o.id = i.organisation_id"
     referenceables
       id                  // int(11)
       organisation_id     // int(11)
@@ -77,7 +77,6 @@ source-group lobbywatchdb {
       disclosed // bool
       compulsory_disclosure // bool
       official_capacity // yes/no/unknown
-      organisation_uid
 
       bis                 // date
       von                 // date
@@ -174,11 +173,11 @@ source-group lobbywatchdb {
   }
 
   logical-source t_kommission {
-    source "kommission"
+    source query "SELECT k1.*, k2.abkuerzung as fk_zweitrat_committee FROM `kommission` as k1 left join kommission as k2 on k1.zweitrat_kommission_id = k2.id"
 
     referenceables
       id                            // int(11)
-      mutter_kommission_id          // int(11)
+      mutter_kommission_id          // int(11) always null
       parlament_id                  // int(11)
       rat_id                        // int(11)
       zweitrat_kommission_id        // int(11)
@@ -203,6 +202,8 @@ source-group lobbywatchdb {
 
       von                           // date
       bis                           // date
+
+      fk_zweitrat_committee
   }
 
   logical-source t_person_membership {
@@ -471,7 +472,7 @@ logical-source t_federal_council {
 }
 
   logical-source t_rat {
-    source "rat"
+    source query "select r.*, ir.name as fk_geographical from rat as r left join interessenraum as ir on r.interessenraum_id = ir.id"
 
     referenceables
       id                                // int(11)
@@ -498,10 +499,12 @@ logical-source t_federal_council {
       name_it                           // varchar(50)
       parlament_type                    // char(1)
       typ                               // enum('legislativ','exekutiv','judikativ')
+
+      fk_geographical
   }
 
   logical-source t_zutrittsberechtigung {
-    source "zutrittsberechtigung"
+    source query "select a.*, pa.parlament_biografie_id as fk_parlamentarier from zutrittsberechtigung as a inner join parlamentarier as pa on pa.id = a.parlamentarier_id inner join person as pe on pe.id = a.person_id"
 
     referenceables
       id                          // int(11)
@@ -515,6 +518,8 @@ logical-source t_federal_council {
       bis                         // date
       von                         // date
       updated_by_import           // timestamp
+
+      fk_parlamentarier
   }
 
   logical-source t_federal_council_member {

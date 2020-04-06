@@ -35,7 +35,9 @@ vocabulary lobbywatch {
   prefix "lw" "https://lod.lobbywatch.ch/"
 
   classes
+    AccessRight
     BusinessSector
+    Committee
     GeographicalInfluence
     Lobby
     Mandate
@@ -45,24 +47,36 @@ vocabulary lobbywatch {
 
   properties
     agency
+    authorizedAs
     businessSector
+    chamber
+    compulsoryDisclosure
     date
     disclosed
-    compulsoryDisclosure
-    officialCapacity
     employmentType
+    fromDate
     geographicalInfluence
     interest
+    issuedBy
+    issuedTo
     joined
+    kind
     left
     mandateType
+    nationalCouncilCommission
     occupation
+    officialCapacity
+    parliamentId
     parliamentMember
     permitLevel
     positionOnBoard
     sourceUrl
+    toDate
+    secondChamberCommittee
     ^source
+    councilOfStateCommission
     transparency
+    ^type
     year
 }
 
