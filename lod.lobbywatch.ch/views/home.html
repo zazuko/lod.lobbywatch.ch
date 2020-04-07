@@ -16,13 +16,8 @@ ${include('cwd:views/navigation.html')}
       <h4>Sample Queries</h4>
       <ul>
         <li>
-          <a href="https://lod.lobbywatch.ch/sparql/#query=PREFIX+rdf%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%3E%0APREFIX+rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0APREFIX+schema%3A+%3Chttp%3A%2F%2Fschema.org%2F%3E%0APREFIX+dbo%3A+%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2F%3E%0A%0ASELECT+%3Fmember+%3FfirstName+%3FfamilyName+%3FchamberName+%3Fchamber+WHERE+%7B%0A++%3Fchamber+rdf%3Atype+dbo%3AParliament+.%0A++%3Fchamber+schema%3Aname+%3FchamberName+.%0A++%3Fmember+schema%3AgivenName+%3FfirstName+.%0A++%3Fmember+schema%3AfamilyName+%3FfamilyName+.%0A++%3Fmember+schema%3AmemberOf+%3Fchamber+.%0A++FILTER(LANG(%3FchamberName)+%3D+%22en%22)%0A%7D&contentTypeConstruct=text%2Fturtle&contentTypeSelect=application%2Fsparql-results%2Bjson&endpoint=https%3A%2F%2Flod.lobbywatch.ch%2Fquery&requestMethod=POST&tabTitle=Parliament+Member&headers=%7B%7D&outputFormat=table">
-            Parliament Members
-          </a>
-        </li>
-        <li>
-          <a href="https://lod.lobbywatch.ch/sparql/#query=PREFIX+rdf%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%3E%0APREFIX+rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0APREFIX+schema%3A+%3Chttp%3A%2F%2Fschema.org%2F%3E%0APREFIX+dbo%3A+%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2F%3E%0A%0ASELECT+*+WHERE+%7B%0A++%3Fparty+rdf%3Atype+dbo%3APoliticalParty+%3B%0A++schema%3Aname+%3Fname+.%0A++FILTER(LANG(%3Fname)+%3D+%22de%22)%0A%7D&contentTypeConstruct=text%2Fturtle&contentTypeSelect=application%2Fsparql-results%2Bjson&endpoint=https%3A%2F%2Flod.lobbywatch.ch%2Fquery&requestMethod=POST&tabTitle=Political+Parties&headers=%7B%7D&outputFormat=table">
-            Political Parties
+          <a href="https://s.zazuko.com/2KiWa">
+            All lobbies and their business sector
           </a>
         </li>
         <li>
@@ -41,6 +36,31 @@ ${include('cwd:views/navigation.html')}
           <a href="https://s.zazuko.com/N3Yb">
             People involved in energy-related lobbies, and their political party
           </a>
+        </li>
+      </ul>
+
+      <h3>Main Concepts Index</h3>
+      <ul>
+        <li>
+          <a href="https://lod.lobbywatch.ch/parliament-member/">Parliament Members</a><br>
+          <a href="https://www.parlament.ch/en/%C3%BCber-das-parlament/parlamentsw%C3%B6rterbuch/parlamentsw%C3%B6rterbuch-detail?WordId=182">Lexicon</a>
+        </li>
+        <li>
+          <a href="https://lod.lobbywatch.ch/party/">Political Parties</a><br>
+        </li>
+        <li>
+          <a href="https://lod.lobbywatch.ch/people/">People</a>
+        </li>
+        <li>
+          <a href="https://lod.lobbywatch.ch/organisation/">Organizations</a>
+        </li>
+        <li>
+          <a href="https://lod.lobbywatch.ch/lobby/">Lobbies</a><br>
+          <a href="https://www.parlament.ch/en/%C3%BCber-das-parlament/parlamentsw%C3%B6rterbuch/parlamentsw%C3%B6rterbuch-detail?WordId=137">Lexicon</a>
+        </li>
+        <li>
+          <a href="https://lod.lobbywatch.ch/access-right/">Access Rights</a><br>
+          Lobbyists gain the right to access the Parliament Building when an Assembly member has an entry pass issued to them.
         </li>
       </ul>
     </div>
