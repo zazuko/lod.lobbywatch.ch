@@ -92,12 +92,6 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		rr:objectMap [
 			rr:constant <https://www.wikidata.org/wiki/Q11811941> ;
 		];
-	];
-	rr:predicateObjectMap [
-		rr:predicate schema:memberOf ;
-		rr:objectMap [
-			rr:constant <https://www.wikidata.org/wiki/Q30917> ;
-		];
 	]
 .
 <#MemberOfNationalCouncil>
@@ -112,12 +106,6 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		rr:objectMap [
 			rr:constant <https://www.wikidata.org/wiki/Q18510612> ;
 		];
-	];
-	rr:predicateObjectMap [
-		rr:predicate schema:memberOf ;
-		rr:objectMap [
-			rr:constant <https://www.wikidata.org/wiki/Q676078> ;
-		];
 	]
 .
 <#MemberOfStateCouncil>
@@ -131,12 +119,6 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		rr:predicate wdt:P39 ;
 		rr:objectMap [
 			rr:constant <https://www.wikidata.org/wiki/Q18510613> ;
-		];
-	];
-	rr:predicateObjectMap [
-		rr:predicate schema:memberOf ;
-		rr:objectMap [
-			rr:constant <https://www.wikidata.org/wiki/Q609037> ;
 		];
 	]
 .

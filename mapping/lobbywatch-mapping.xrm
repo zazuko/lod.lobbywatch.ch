@@ -43,21 +43,18 @@ map MemberOfFederalCouncil from lobbywatchdb.t_federal_council_member {
 
   properties
     wdt.P39 constant "https://www.wikidata.org/wiki/Q11811941";
-    schema.memberOf constant "https://www.wikidata.org/wiki/Q30917";
 }
 map MemberOfNationalCouncil from lobbywatchdb.t_national_council_member {
   subject template parliamentMemberIri with parlament_biografie_id;
 
   properties
     wdt.P39 constant "https://www.wikidata.org/wiki/Q18510612";
-    schema.memberOf constant "https://www.wikidata.org/wiki/Q676078";
 }
 map MemberOfStateCouncil from lobbywatchdb.t_state_council_member {
   subject template parliamentMemberIri with parlament_biografie_id;
 
   properties
     wdt.P39 constant "https://www.wikidata.org/wiki/Q18510613";
-    schema.memberOf constant "https://www.wikidata.org/wiki/Q609037";
 }
 
 map People from lobbywatchdb.t_person {
