@@ -28,6 +28,12 @@ This project contains the source and tooling related to [lod.lobbywatch.ch](http
 
     Scripts used to load the generated triples into a local [Stardog](https://www.stardog.com/) server and upload them to the hosted Stardog server used by [lod.lobbywatch.ch](https://lod.lobbywatch.ch).
 
+    Required config for Stardog:
+    ```
+    $ cat $STARDOG_HOME/stardog.properties
+    sql.server.enabled = true
+    ```
+
 ## Deployment
 
 Pushing a new version triggers a CI build and deploys the version on success:
