@@ -9,7 +9,15 @@ PREFIX wdt: <http://www.wikidata.org/prop/direct/>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
 <#ParliamentMember>
-	rr:logicalTable [ rr:sqlQuery """select parlamentarier.*, rat.parlament_id as council_fk, partei.abkuerzung as party_fk from parlamentarier left join rat on parlamentarier.rat_id = rat.id left join partei on partei.id = parlamentarier.partei_id""" ];
+	rr:logicalTable [ rr:sqlQuery """
+	      select
+	        parlamentarier.*,
+	        rat.parlament_id as council_fk,
+	        partei.abkuerzung as party_fk
+	      from
+	        parlamentarier
+	        left join rat on parlamentarier.rat_id = rat.id
+	        left join partei on partei.id = parlamentarier.partei_id""" ];
 	
 	rr:subjectMap [
 		rr:template "https://lod.lobbywatch.ch/parliament-member/{parlament_biografie_id}" ;
@@ -81,7 +89,15 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	]
 .
 <#MemberOfFederalCouncil>
-	rr:logicalTable [ rr:sqlQuery """select parlamentarier.parlament_biografie_id from parlamentarier inner join rat on parlamentarier.rat_id = rat.id where rat.parlament_id = 0""" ];
+	rr:logicalTable [ rr:sqlQuery """
+	      SELECT
+	        parlamentarier.parlament_biografie_id
+	      FROM
+	        parlamentarier
+	        INNER JOIN rat ON parlamentarier.rat_id = rat.id
+	      WHERE
+	        rat.parlament_id = 0
+	      """ ];
 	
 	rr:subjectMap [
 		rr:template "https://lod.lobbywatch.ch/parliament-member/{parlament_biografie_id}" ;
@@ -95,7 +111,15 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	]
 .
 <#MemberOfNationalCouncil>
-	rr:logicalTable [ rr:sqlQuery """select parlamentarier.parlament_biografie_id from parlamentarier inner join rat on parlamentarier.rat_id = rat.id where rat.parlament_id = 1""" ];
+	rr:logicalTable [ rr:sqlQuery """
+	      SELECT
+	        parlamentarier.parlament_biografie_id
+	      FROM
+	        parlamentarier
+	        INNER JOIN rat ON parlamentarier.rat_id = rat.id
+	      WHERE
+	        rat.parlament_id = 1
+	      """ ];
 	
 	rr:subjectMap [
 		rr:template "https://lod.lobbywatch.ch/parliament-member/{parlament_biografie_id}" ;
@@ -109,7 +133,15 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	]
 .
 <#MemberOfStateCouncil>
-	rr:logicalTable [ rr:sqlQuery """select parlamentarier.parlament_biografie_id from parlamentarier inner join rat on parlamentarier.rat_id = rat.id where rat.parlament_id = 2""" ];
+	rr:logicalTable [ rr:sqlQuery """
+	      SELECT
+	        parlamentarier.parlament_biografie_id
+	      FROM
+	        parlamentarier
+	        INNER JOIN rat ON parlamentarier.rat_id = rat.id
+	      WHERE
+	        rat.parlament_id = 2
+	      """ ];
 	
 	rr:subjectMap [
 		rr:template "https://lod.lobbywatch.ch/parliament-member/{parlament_biografie_id}" ;
@@ -123,7 +155,14 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	]
 .
 <#People>
-	rr:logicalTable [ rr:sqlQuery """select p.*, y.abkuerzung as party_fk from person as p left join partei as y on p.partei_id = y.id""" ];
+	rr:logicalTable [ rr:sqlQuery """
+	      SELECT
+	        p.*,
+	        y.abkuerzung AS party_fk
+	      FROM
+	        person AS p
+	        LEFT JOIN partei AS y ON p.partei_id = y.id
+	    """ ];
 	
 	rr:subjectMap [
 		rr:template "https://lod.lobbywatch.ch/people/{id}" ;
@@ -168,7 +207,14 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	]
 .
 <#PersonMembership>
-	rr:logicalTable [ rr:sqlQuery """select p.id as p_id, m.id as m_id from mandat as m inner join person as p on p.id = m.person_id""" ];
+	rr:logicalTable [ rr:sqlQuery """
+	      SELECT
+	        p.id AS p_id,
+	        m.id AS m_id
+	      FROM
+	        mandat AS m
+	        INNER JOIN person AS p ON p.id = m.person_id
+	      """ ];
 	
 	rr:subjectMap [
 		rr:template "https://lod.lobbywatch.ch/people/{p_id}" ;
@@ -182,7 +228,29 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	]
 .
 <#PeopleOccupation>
-	rr:logicalTable [ rr:sqlQuery """select distinct(beruf) as beruf, beruf_fr from ((select beruf, beruf_fr from person) union (select beruf, beruf_fr from parlamentarier)) as foo""" ];
+	rr:logicalTable [ rr:sqlQuery """
+	      SELECT
+	        DISTINCT(beruf) AS beruf,
+	        beruf_fr
+	      FROM
+	        (
+	          (
+	            SELECT
+	              beruf,
+	              beruf_fr
+	            FROM
+	              person
+	          )
+	          union
+	          (
+	            SELECT
+	              beruf,
+	              beruf_fr
+	            FROM
+	              parlamentarier
+	          )
+	        ) AS foo
+	      """ ];
 	
 	rr:subjectMap [
 		rr:template "https://lod.lobbywatch.ch/occupation/{beruf}" ;
@@ -256,7 +324,14 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	]
 .
 <#Committee>
-	rr:logicalTable [ rr:sqlQuery """SELECT k1.*, k2.abkuerzung as fk_zweitrat_committee FROM `kommission` as k1 left join kommission as k2 on k1.zweitrat_kommission_id = k2.id""" ];
+	rr:logicalTable [ rr:sqlQuery """
+	      SELECT
+	        k1.*,
+	        k2.abkuerzung AS fk_zweitrat_committee
+	      FROM
+	        `kommission` AS k1
+	        LEFT JOIN kommission AS k2 ON k1.zweitrat_kommission_id = k2.id
+	      """ ];
 	
 	rr:subjectMap [
 		rr:template "https://lod.lobbywatch.ch/committee/{abkuerzung}" ;
@@ -333,7 +408,14 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	]
 .
 <#Council>
-	rr:logicalTable [ rr:sqlQuery """select r.*, ir.name as fk_geographical from rat as r left join interessenraum as ir on r.interessenraum_id = ir.id""" ];
+	rr:logicalTable [ rr:sqlQuery """
+	      SELECT
+	        r.*,
+	        ir.name AS fk_geographical
+	      FROM
+	        rat AS r
+	        LEFT JOIN interessenraum AS ir ON r.interessenraum_id = ir.id
+	    """ ];
 	
 	rr:subjectMap [
 		rr:template "https://lod.lobbywatch.ch/council/{parlament_id}" ;
@@ -439,7 +521,14 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	]
 .
 <#Organization>
-	rr:logicalTable [ rr:sqlQuery """select o.*, ir.name as fk_geographical from organisation as o left join interessenraum as ir on o.interessenraum_id = ir.id""" ];
+	rr:logicalTable [ rr:sqlQuery """
+	      SELECT
+	        o.*,
+	        ir.name AS fk_geographical
+	      FROM
+	        organisation AS o
+	        LEFT JOIN interessenraum AS ir ON o.interessenraum_id = ir.id
+	    """ ];
 	
 	rr:subjectMap [
 		rr:template "https://lod.lobbywatch.ch/organisation/{id}" ;
@@ -558,7 +647,15 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	]
 .
 <#AccessRight>
-	rr:logicalTable [ rr:sqlQuery """select a.*, pa.parlament_biografie_id as fk_parlamentarier from zutrittsberechtigung as a inner join parlamentarier as pa on pa.id = a.parlamentarier_id inner join person as pe on pe.id = a.person_id""" ];
+	rr:logicalTable [ rr:sqlQuery """
+	      SELECT
+	        a.*,
+	        pa.parlament_biografie_id AS fk_parlamentarier
+	      FROM
+	        zutrittsberechtigung AS a
+	        INNER JOIN parlamentarier AS pa ON pa.id = a.parlamentarier_id
+	        INNER JOIN person AS pe ON pe.id = a.person_id
+	    """ ];
 	
 	rr:subjectMap [
 		rr:template "https://lod.lobbywatch.ch/access-right/{id}" ;
@@ -607,7 +704,15 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	]
 .
 <#OrganizationMembership>
-	rr:logicalTable [ rr:sqlQuery """select o.id as o_id, o.uid as o_uid, m.id as m_id from mandat as m inner join organisation as o on m.organisation_id = o.id""" ];
+	rr:logicalTable [ rr:sqlQuery """
+	      SELECT
+	        o.id AS o_id,
+	        o.uid AS o_uid,
+	        m.id AS m_id
+	      FROM
+	        mandat AS m
+	        INNER JOIN organisation AS o ON m.organisation_id = o.id
+	      """ ];
 	
 	rr:subjectMap [
 		rr:template "https://lod.lobbywatch.ch/organisation/{o_id}" ;
@@ -670,7 +775,16 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	]
 .
 <#Lobby>
-	rr:logicalTable [ rr:sqlQuery """select i.*, branche.technischer_name as business_sector_fk, p.id as person_fk from interessengruppe as i left join branche on i.branche_id = branche.id left join person as p on p.beruf_interessengruppe_id = i.id""" ];
+	rr:logicalTable [ rr:sqlQuery """
+	      SELECT
+	        i.*,
+	        branche.technischer_name AS business_sector_fk,
+	        p.id AS person_fk
+	      FROM
+	        interessengruppe AS i
+	        LEFT JOIN branche ON i.branche_id = branche.id
+	        LEFT JOIN person AS p ON p.beruf_interessengruppe_id = i.id
+	    """ ];
 	
 	rr:subjectMap [
 		rr:template "https://lod.lobbywatch.ch/lobby/{id}" ;
@@ -770,7 +884,31 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	]
 .
 <#Role>
-	rr:logicalTable [ rr:sqlQuery """select distinct(art) as role, organisation_id from ((select art, organisation_id from mandat) union (select funktion_im_gremium, organisation_id from mandat)) as foo where art is not null""" ];
+	rr:logicalTable [ rr:sqlQuery """
+	      SELECT
+	        distinct(art) AS role,
+	        organisation_id
+	      FROM
+	        (
+	          (
+	            SELECT
+	              art,
+	              organisation_id
+	            FROM
+	              mandat
+	          )
+	          union
+	          (
+	            SELECT
+	              funktion_im_gremium,
+	              organisation_id
+	            FROM
+	              mandat
+	          )
+	        ) AS foo
+	      where
+	        art IS NOT NULL
+	    """ ];
 	
 	rr:subjectMap [
 		rr:template "https://lod.lobbywatch.ch/role/{role}" ;
@@ -786,7 +924,16 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	]
 .
 <#Mandate>
-	rr:logicalTable [ rr:sqlQuery """select *, CASE WHEN hauptberuflich = 1 THEN 'full-time' ELSE 'part-time' END as employment_type from mandat""" ];
+	rr:logicalTable [ rr:sqlQuery """
+	      SELECT
+	        *,
+	        CASE
+	          WHEN hauptberuflich = 1 THEN 'full-time'
+	          ELSE 'part-time'
+	        END AS employment_type
+	      FROM
+	        mandat
+	    """ ];
 	
 	rr:subjectMap [
 		rr:template "https://lod.lobbywatch.ch/mandate/{id}" ;
@@ -915,7 +1062,16 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	]
 .
 <#Transparency1>
-	rr:logicalTable [ rr:sqlQuery """select t.*, p.parlament_biografie_id from parlamentarier_transparenz as t inner join parlamentarier as p on p.id = t.parlamentarier_id where verguetung_transparent = 'ja'""" ];
+	rr:logicalTable [ rr:sqlQuery """
+	      SELECT
+	        t.*,
+	        p.parlament_biografie_id
+	      FROM
+	        parlamentarier_transparenz AS t
+	        INNER JOIN parlamentarier AS p ON p.id = t.parlamentarier_id
+	      WHERE
+	        verguetung_transparent = 'ja'
+	      """ ];
 	
 	rr:subjectMap [
 		rr:template "https://lod.lobbywatch.ch/transparency/{id}" ;
@@ -943,7 +1099,16 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	]
 .
 <#Transparency2>
-	rr:logicalTable [ rr:sqlQuery """select t.*, p.parlament_biografie_id from parlamentarier_transparenz as t inner join parlamentarier as p on p.id = t.parlamentarier_id where verguetung_transparent = 'nein'""" ];
+	rr:logicalTable [ rr:sqlQuery """
+	      SELECT
+	        t.*,
+	        p.parlament_biografie_id
+	      FROM
+	        parlamentarier_transparenz AS t
+	        INNER JOIN parlamentarier AS p ON p.id = t.parlamentarier_id
+	      WHERE
+	        verguetung_transparent = 'nein'
+	      """ ];
 	
 	rr:subjectMap [
 		rr:template "https://lod.lobbywatch.ch/transparency/{id}" ;
@@ -971,7 +1136,16 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	]
 .
 <#Transparency3>
-	rr:logicalTable [ rr:sqlQuery """select t.*, p.parlament_biografie_id from parlamentarier_transparenz as t inner join parlamentarier as p on p.id = t.parlamentarier_id where verguetung_transparent = 'teilweise'""" ];
+	rr:logicalTable [ rr:sqlQuery """
+	      SELECT
+	        t.*,
+	        p.parlament_biografie_id
+	      FROM
+	        parlamentarier_transparenz AS t
+	        INNER JOIN parlamentarier AS p ON p.id = t.parlamentarier_id
+	      WHERE
+	        verguetung_transparent = 'teilweise'
+	      """ ];
 	
 	rr:subjectMap [
 		rr:template "https://lod.lobbywatch.ch/transparency/{id}" ;
@@ -999,7 +1173,34 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	]
 .
 <#MembersInterests>
-	rr:logicalTable [ rr:sqlQuery """select p.parlament_biografie_id, i.*, CASE WHEN hauptberuflich = 1 THEN 'full-time' ELSE 'part-time' END as employment_type, CASE WHEN behoerden_vertreter = 'N' THEN 'no' ELSE CASE WHEN behoerden_vertreter = 'J' THEN 'yes' ELSE 'unknown' END END as official_capacity, CASE WHEN status = 'deklariert' THEN true ELSE false END as disclosed, CASE WHEN deklarationstyp = 'deklarationspflichtig' THEN true ELSE false END as compulsory_disclosure from interessenbindung as i inner join parlamentarier as p on p.id = i.parlamentarier_id inner join organisation as o on o.id = i.organisation_id""" ];
+	rr:logicalTable [ rr:sqlQuery """
+	      SELECT
+	        p.parlament_biografie_id,
+	        i.*,
+	        CASE
+	          WHEN hauptberuflich = 1 THEN 'full-time'
+	          ELSE 'part-time'
+	        END AS employment_type,
+	        CASE
+	          WHEN behoerden_vertreter = 'N' THEN 'no'
+	          ELSE CASE
+	            WHEN behoerden_vertreter = 'J' THEN 'yes'
+	            ELSE 'unknown'
+	          END
+	        END AS official_capacity,
+	        CASE
+	          WHEN status = 'deklariert' THEN true
+	          ELSE false
+	        END AS disclosed,
+	        CASE
+	          WHEN deklarationstyp = 'deklarationspflichtig' THEN true
+	          ELSE false
+	        END AS compulsory_disclosure
+	      FROM
+	        interessenbindung AS i
+	        INNER JOIN parlamentarier AS p ON p.id = i.parlamentarier_id
+	        INNER JOIN organisation AS o ON o.id = i.organisation_id
+	    """ ];
 	
 	rr:subjectMap [
 		rr:template "https://lod.lobbywatch.ch/members-interest/{id}" ;

@@ -5,16 +5,15 @@ source-group lobbywatchdb {
     source "branche"
 
     referenceables
-      id               // int(11)
-      kommission_id    // int(11)
-      kommission2_id   // int(11)
-
-      angaben          // mediumtext
-      angaben_fr       // mediumtext
-      beschreibung     // mediumtext
-      beschreibung_fr  // mediumtext
-      name             // varchar(100)
-      name_fr          // varchar(100)
+      id // int(11)
+      kommission_id // int(11)
+      kommission2_id // int(11)
+      angaben // mediumtext
+      angaben_fr // mediumtext
+      beschreibung // mediumtext
+      beschreibung_fr // mediumtext
+      name // varchar(100)
+      name_fr // varchar(100)
       technischer_name // varchar(30)
   }
 
@@ -22,96 +21,122 @@ source-group lobbywatchdb {
     source "fraktion"
 
     referenceables
-      id              // int(11)
-
-      abkuerzung      // varchar(20)
-      beschreibung    // mediumtext
+      id // int(11)
+      abkuerzung // varchar(20)
+      beschreibung // mediumtext
       beschreibung_fr // mediumtext
-      farbcode        // varchar(15)
-      name            // varchar(100)
-      name_fr         // varchar(100)
-      position        // enum('links','rechts','mitte')
-
-      bis             // date
-      von             // date
+      farbcode // varchar(15)
+      name // varchar(100)
+      name_fr // varchar(100)
+      position // enum('links','rechts','mitte')
+      bis // date
+      von // date
   }
 
   logical-source t_in_kommission {
     source "in_kommission"
 
     referenceables
-      id                                // int(11)
-      kommission_id                     // int(11)
-      parlamentarier_id                 // int(11)
-
-      funktion                          // enum('praesident','vizepraesident','mitglied','co-praesident')
-      parlament_committee_function      // int(11)
+      id // int(11)
+      kommission_id // int(11)
+      parlamentarier_id // int(11)
+      funktion // enum('praesident','vizepraesident','mitglied','co-praesident')
+      parlament_committee_function // int(11)
       parlament_committee_function_name // varchar(40)
-
-      bis                               // date
-      von                               // date
+      bis // date
+      von // date
   }
 
   // https://www.parlament.ch/en/%C3%BCber-das-parlament/parlamentsw%C3%B6rterbuch/parlamentsw%C3%B6rterbuch-detail?WordId=115
   logical-source t_interessenbindung {
-    source query "select p.parlament_biografie_id, i.*, CASE WHEN hauptberuflich = 1 THEN 'full-time' ELSE 'part-time' END as employment_type, CASE WHEN behoerden_vertreter = 'N' THEN 'no' ELSE CASE WHEN behoerden_vertreter = 'J' THEN 'yes' ELSE 'unknown' END END as official_capacity, CASE WHEN status = 'deklariert' THEN true ELSE false END as disclosed, CASE WHEN deklarationstyp = 'deklarationspflichtig' THEN true ELSE false END as compulsory_disclosure from interessenbindung as i inner join parlamentarier as p on p.id = i.parlamentarier_id inner join organisation as o on o.id = i.organisation_id"
+    source query "
+      SELECT
+        p.parlament_biografie_id,
+        i.*,
+        CASE
+          WHEN hauptberuflich = 1 THEN 'full-time'
+          ELSE 'part-time'
+        END AS employment_type,
+        CASE
+          WHEN behoerden_vertreter = 'N' THEN 'no'
+          ELSE CASE
+            WHEN behoerden_vertreter = 'J' THEN 'yes'
+            ELSE 'unknown'
+          END
+        END AS official_capacity,
+        CASE
+          WHEN status = 'deklariert' THEN true
+          ELSE false
+        END AS disclosed,
+        CASE
+          WHEN deklarationstyp = 'deklarationspflichtig' THEN true
+          ELSE false
+        END AS compulsory_disclosure
+      FROM
+        interessenbindung AS i
+        INNER JOIN parlamentarier AS p ON p.id = i.parlamentarier_id
+        INNER JOIN organisation AS o ON o.id = i.organisation_id
+    "
+
     referenceables
-      id                  // int(11)
-      organisation_id     // int(11)
-      parlamentarier_id   // int(11)
-
-      art                 // enum('mitglied','geschaeftsfuehrend','vorstand','taetig','beirat','finanziell','gesellschafter')
+      id // int(11)
+      organisation_id // int(11)
+      parlamentarier_id // int(11)
+      art // enum('mitglied','geschaeftsfuehrend','vorstand','taetig','beirat','finanziell','gesellschafter')
       behoerden_vertreter // enum('J','N')
-      beschreibung        // varchar(150)
-      beschreibung_fr     // varchar(150)
-      deklarationstyp     // enum('deklarationspflichtig','nicht deklarationspflicht')
+      beschreibung // varchar(150)
+      beschreibung_fr // varchar(150)
+      deklarationstyp // enum('deklarationspflichtig','nicht deklarationspflicht')
       funktion_im_gremium // enum('praesident','vizepraesident','mitglied')
-      hauptberuflich      // tinyint(1)
-      quelle              // varchar(80)
-      quelle_url          // varchar(255)
-      quelle_url_gueltig  // tinyint(1)
-      status              // enum('deklariert','nicht-deklariert')
-
+      hauptberuflich // tinyint(1)
+      quelle // varchar(80)
+      quelle_url // varchar(255)
+      quelle_url_gueltig // tinyint(1)
+      status // enum('deklariert','nicht-deklariert')
       employment_type // string en
       parlament_biografie_id // fk
       disclosed // bool
       compulsory_disclosure // bool
       official_capacity // yes/no/unknown
-
-      bis                 // date
-      von                 // date
+      bis // date
+      von // date
   }
 
   logical-source t_interessenbindung_jahr {
     source "interessenbindung_jahr"
 
     referenceables
-      id                   // int(11)
+      id // int(11)
       interessenbindung_id // int(11)
-
-      beschreibung         // varchar(150)
-      jahr                 // smallint(6)
-      quelle               // varchar(80)
-      quelle_url           // varchar(255)
-      quelle_url_gueltig   // tinyint(1)
-      verguetung           // int(11)
+      beschreibung // varchar(150)
+      jahr // smallint(6)
+      quelle // varchar(80)
+      quelle_url // varchar(255)
+      quelle_url_gueltig // tinyint(1)
+      verguetung // int(11)
   }
 
   logical-source t_interessengruppe {
-    source query "select i.*, branche.technischer_name as business_sector_fk, p.id as person_fk from interessengruppe as i left join branche on i.branche_id = branche.id left join person as p on p.beruf_interessengruppe_id = i.id"
+    source query "
+      SELECT
+        i.*,
+        branche.technischer_name AS business_sector_fk,
+        p.id AS person_fk
+      FROM
+        interessengruppe AS i
+        LEFT JOIN branche ON i.branche_id = branche.id
+        LEFT JOIN person AS p ON p.beruf_interessengruppe_id = i.id
+    "
 
     referenceables
-      id              // int(11)
-      branche_id      // int(11)
-
-      beschreibung    // mediumtext
+      id // int(11)
+      branche_id // int(11)
+      beschreibung // mediumtext
       beschreibung_fr // mediumtext
-
-      name            // varchar(150)
-      name_fr         // varchar(150)
-      alias_namen     // varchar(255)
-      alias_namen_fr  // varchar(255)
-
+      name // varchar(150)
+      name_fr // varchar(150)
+      alias_namen // varchar(255)
+      alias_namen_fr // varchar(255)
       business_sector_fk
       person_fk
   }
@@ -120,94 +145,104 @@ source-group lobbywatchdb {
     source "interessenraum"
 
     referenceables
-      id              // int(11)
-      beschreibung    // mediumtext
+      id // int(11)
+      beschreibung // mediumtext
       beschreibung_fr // mediumtext
-      name            // varchar(50)
-      name_fr         // varchar(50)
-      reihenfolge     // int(11)
+      name // varchar(50)
+      name_fr // varchar(50)
+      reihenfolge // int(11)
   }
 
   logical-source t_kanton {
     source "kanton"
 
     referenceables
-      id                  // int(11)
-      abkuerzung          // enum('AG','AR','AI','BL','BS','BE','FR','GE','GL','GR','JU','LU','NE','NW','OW','SH','SZ','SO','SG','TI','TG','UR','VD','VS','ZG','ZH')
-      amtssprache         // set('de','fr','it','rm')
+      id // int(11)
+      abkuerzung // enum('AG','AR','AI','BL','BS','BE','FR','GE','GL','GR','JU','LU','NE','NW','OW','SH','SZ','SO','SG','TI','TG','UR','VD','VS','ZG','ZH')
+      amtssprache // set('de','fr','it','rm')
       anzahl_staenderaete // tinyint(4)
-      beitrittsjahr       // smallint(6)
-      beschreibung        // mediumtext
-      flaeche_km2         // int(11)
-      hauptort_de         // varchar(50)
-      hauptort_fr         // varchar(50)
-      hauptort_it         // varchar(50)
-      homepage            // varchar(255)
-      kantonsnr           // tinyint(4)
-      lagebild            // varchar(255)
-      name_de             // varchar(50)
-      name_fr             // varchar(50)
-      name_it             // varchar(50)
-      romandie            // tinyint(1)
-      wappen              // varchar(255)
-      wappen_klein        // varchar(255)
+      beitrittsjahr // smallint(6)
+      beschreibung // mediumtext
+      flaeche_km2 // int(11)
+      hauptort_de // varchar(50)
+      hauptort_fr // varchar(50)
+      hauptort_it // varchar(50)
+      homepage // varchar(255)
+      kantonsnr // tinyint(4)
+      lagebild // varchar(255)
+      name_de // varchar(50)
+      name_fr // varchar(50)
+      name_it // varchar(50)
+      romandie // tinyint(1)
+      wappen // varchar(255)
+      wappen_klein // varchar(255)
   }
 
   logical-source t_kanton_jahr {
     source "kanton_jahr"
 
     referenceables
-      id                   // int(11)
-      kanton_id            // int(11)
-
-      anzahl_gemeinden     // smallint(6)
+      id // int(11)
+      kanton_id // int(11)
+      anzahl_gemeinden // smallint(6)
       anzahl_nationalraete // tinyint(4)
-      ausgaben             // int(11)
-      auslaenderanteil     // float
-      bevoelkerungsdichte  // smallint(6)
-      einwohner            // int(11)
-      finanzausgleich      // int(11)
-      jahr                 // smallint(6)
-      schulden             // int(11)
-      steuereinnahmen      // int(11)
+      ausgaben // int(11)
+      auslaenderanteil // float
+      bevoelkerungsdichte // smallint(6)
+      einwohner // int(11)
+      finanzausgleich // int(11)
+      jahr // smallint(6)
+      schulden // int(11)
+      steuereinnahmen // int(11)
   }
 
   logical-source t_kommission {
-    source query "SELECT k1.*, k2.abkuerzung as fk_zweitrat_committee FROM `kommission` as k1 left join kommission as k2 on k1.zweitrat_kommission_id = k2.id"
+    source query "
+      SELECT
+        k1.*,
+        k2.abkuerzung AS fk_zweitrat_committee
+      FROM
+        `kommission` AS k1
+        LEFT JOIN kommission AS k2 ON k1.zweitrat_kommission_id = k2.id
+      "
 
     referenceables
-      id                            // int(11)
-      mutter_kommission_id          // int(11) always null
-      parlament_id                  // int(11)
-      rat_id                        // int(11)
-      zweitrat_kommission_id        // int(11)
-
-      abkuerzung                    // varchar(15)
-      abkuerzung_fr                 // varchar(15)
-      anzahl_mitglieder             // tinyint(3)
-      anzahl_nationalraete          // tinyint(3)
-      anzahl_staenderaete           // tinyint(3)
-      art                           // enum('legislativkommission','aufsichtskommission','parlam verwaltungskontrolle','weitere kommission','delegation im weiteren sinne')
-      beschreibung                  // mediumtext
-      beschreibung_fr               // mediumtext
-      name                          // varchar(100)
-      name_fr                       // varchar(100)
-      parlament_committee_number    // int(11)
+      id // int(11)
+      mutter_kommission_id // int(11) always null
+      parlament_id // int(11)
+      rat_id // int(11)
+      zweitrat_kommission_id // int(11)
+      abkuerzung // varchar(15)
+      abkuerzung_fr // varchar(15)
+      anzahl_mitglieder // tinyint(3)
+      anzahl_nationalraete // tinyint(3)
+      anzahl_staenderaete // tinyint(3)
+      art // enum('legislativkommission','aufsichtskommission','parlam verwaltungskontrolle','weitere kommission','delegation im weiteren sinne')
+      beschreibung // mediumtext
+      beschreibung_fr // mediumtext
+      name // varchar(100)
+      name_fr // varchar(100)
+      parlament_committee_number // int(11)
       parlament_subcommittee_number // int(11)
-      parlament_type_code           // int(11)
-      parlament_url                 // varchar(255)
-      sachbereiche                  // mediumtext
-      sachbereiche_fr               // mediumtext
-      typ                           // enum('kommission','subkommission','spezialkommission')
-
-      von                           // date
-      bis                           // date
-
+      parlament_type_code // int(11)
+      parlament_url // varchar(255)
+      sachbereiche // mediumtext
+      sachbereiche_fr // mediumtext
+      typ // enum('kommission','subkommission','spezialkommission')
+      von // date
+      bis // date
       fk_zweitrat_committee
   }
 
   logical-source t_person_membership {
-    source query "select p.id as p_id, m.id as m_id from mandat as m inner join person as p on p.id = m.person_id"
+    source query "
+      SELECT
+        p.id AS p_id,
+        m.id AS m_id
+      FROM
+        mandat AS m
+        INNER JOIN person AS p ON p.id = m.person_id
+      "
 
     referenceables
       p_id
@@ -215,7 +250,15 @@ source-group lobbywatchdb {
   }
 
   logical-source t_organization_membership {
-    source query "select o.id as o_id, o.uid as o_uid, m.id as m_id from mandat as m inner join organisation as o on m.organisation_id = o.id"
+    source query "
+      SELECT
+        o.id AS o_id,
+        o.uid AS o_uid,
+        m.id AS m_id
+      FROM
+        mandat AS m
+        INNER JOIN organisation AS o ON m.organisation_id = o.id
+      "
 
     referenceables
       o_id
@@ -224,7 +267,31 @@ source-group lobbywatchdb {
   }
 
   logical-source t_role {
-    source query "select distinct(art) as role, organisation_id from ((select art, organisation_id from mandat) union (select funktion_im_gremium, organisation_id from mandat)) as foo where art is not null"
+    source query "
+      SELECT
+        distinct(art) AS role,
+        organisation_id
+      FROM
+        (
+          (
+            SELECT
+              art,
+              organisation_id
+            FROM
+              mandat
+          )
+          union
+          (
+            SELECT
+              funktion_im_gremium,
+              organisation_id
+            FROM
+              mandat
+          )
+        ) AS foo
+      where
+        art IS NOT NULL
+    "
 
     referenceables
       organisation_id
@@ -232,158 +299,174 @@ source-group lobbywatchdb {
   }
 
   logical-source t_mandat {
-    source query "select *, CASE WHEN hauptberuflich = 1 THEN 'full-time' ELSE 'part-time' END as employment_type from mandat"
+    source query "
+      SELECT
+        *,
+        CASE
+          WHEN hauptberuflich = 1 THEN 'full-time'
+          ELSE 'part-time'
+        END AS employment_type
+      FROM
+        mandat
+    "
 
     referenceables
-      id                  // int(11)
-      organisation_id     // int(11)
-      person_id           // int(11)
-
-      art                 // enum('mitglied','geschaeftsfuehrend','vorstand','taetig','beirat','finanziell','gesellschafter')
-      beschreibung        // varchar(150)
-      beschreibung_fr     // varchar(150)
+      id // int(11)
+      organisation_id // int(11)
+      person_id // int(11)
+      art // enum('mitglied','geschaeftsfuehrend','vorstand','taetig','beirat','finanziell','gesellschafter')
+      beschreibung // varchar(150)
+      beschreibung_fr // varchar(150)
       funktion_im_gremium // enum('praesident','vizepraesident','mitglied')
-      hauptberuflich      // tinyint(1)
-      quelle              // varchar(80)
-      quelle_url          // varchar(255)
-      quelle_url_gueltig  // tinyint(1)
-
+      hauptberuflich // tinyint(1)
+      quelle // varchar(80)
+      quelle_url // varchar(255)
+      quelle_url_gueltig // tinyint(1)
       employment_type
 
-      bis                 // date
-      von                 // date
+      bis // date
+      von // date
   }
 
   logical-source t_mandat_jahr {
     source "mandat_jahr"
 
     referenceables
-      id                 // int(11)
-      mandat_id          // int(11)
-
-      beschreibung       // varchar(150)
-      jahr               // smallint(6)
-      quelle             // varchar(80)
-      quelle_url         // varchar(255)
+      id // int(11)
+      mandat_id // int(11)
+      beschreibung // varchar(150)
+      jahr // smallint(6)
+      quelle // varchar(80)
+      quelle_url // varchar(255)
       quelle_url_gueltig // tinyint(1)
-      verguetung         // int(11)
+      verguetung // int(11)
   }
 
   logical-source t_organisation {
-    source query "select o.*, ir.name as fk_geographical from organisation as o left join interessenraum as ir on o.interessenraum_id = ir.id"
+    source query "
+      SELECT
+        o.*,
+        ir.name AS fk_geographical
+      FROM
+        organisation AS o
+        LEFT JOIN interessenraum AS ir ON o.interessenraum_id = ir.id
+    "
 
     referenceables
-      id                         // int(11)
-      interessengruppe_id        // int(11)
-      interessengruppe2_id       // int(11)
-      interessengruppe3_id       // int(11)
+      id // int(11)
+      interessengruppe_id // int(11)
+      interessengruppe2_id // int(11)
+      interessengruppe3_id // int(11)
       // interessenraum_id          // int(11)
       fk_geographical
 
-      land_id                    // int(11)
-      uid                        // varchar(15)
-
-      abkuerzung_de              // varchar(20)
-      abkuerzung_fr              // varchar(20)
-      abkuerzung_it              // varchar(20)
-      adresse_plz                // varchar(10)
-      name_de                    // varchar(150)
-      name_fr                    // varchar(150)
-      name_it                    // varchar(150)
-      alias_namen_de             // varchar(255)
-      alias_namen_fr             // varchar(255)
-      alias_namen_it             // varchar(255)
-      beschreibung               // mediumtext
-      beschreibung_fr            // mediumtext
-      handelsregister_url        // varchar(255)
-      homepage                   // varchar(255)
-      ort                        // varchar(100)
-      rechtsform                 // enum('AG','GmbH','Stiftung','Verein','Informelle Gruppe','Parlamentarische Gruppe','Oeffentlich-rechtlich','Einzelunternehmen','KG','Genossenschaft','Staatlich','Ausserparlamentarische Kommission','Einfache Gesellschaft')
+      land_id // int(11)
+      uid // varchar(15)
+      abkuerzung_de // varchar(20)
+      abkuerzung_fr // varchar(20)
+      abkuerzung_it // varchar(20)
+      adresse_plz // varchar(10)
+      name_de // varchar(150)
+      name_fr // varchar(150)
+      name_it // varchar(150)
+      alias_namen_de // varchar(255)
+      alias_namen_fr // varchar(255)
+      alias_namen_it // varchar(255)
+      beschreibung // mediumtext
+      beschreibung_fr // mediumtext
+      handelsregister_url // varchar(255)
+      homepage // varchar(255)
+      ort // varchar(100)
+      rechtsform // enum('AG','GmbH','Stiftung','Verein','Informelle Gruppe','Parlamentarische Gruppe','Oeffentlich-rechtlich','Einzelunternehmen','KG','Genossenschaft','Staatlich','Ausserparlamentarische Kommission','Einfache Gesellschaft')
       rechtsform_handelsregister // varchar(4)
-      rechtsform_zefix           // int(11)
-      sekretariat                // varchar(500)
-      twitter_name               // varchar(50)
-      typ                        // set('EinzelOrganisation','DachOrganisation','MitgliedsOrganisation','LeistungsErbringer','dezidierteLobby','Gemeinnuetzig','Gewinnorientiert')
-      updated_by_import          // timestamp
-      vernehmlassung             // enum('immer','punktuell','nie')
+      rechtsform_zefix // int(11)
+      sekretariat // varchar(500)
+      twitter_name // varchar(50)
+      typ // set('EinzelOrganisation','DachOrganisation','MitgliedsOrganisation','LeistungsErbringer','dezidierteLobby','Gemeinnuetzig','Gewinnorientiert')
+      updated_by_import // timestamp
+      vernehmlassung // enum('immer','punktuell','nie')
   }
 
   logical-source t_organisation_jahr {
     source "organisation_jahr"
 
     referenceables
-      id                    // int(11)
-      organisation_id       // int(11)
-
+      id // int(11)
+      organisation_id // int(11)
       geschaeftsbericht_url // varchar(255)
-      gewinn                // bigint(20)
-      jahr                  // smallint(6)
-      kapital               // bigint(20)
-      mitarbeiter_schweiz   // int(11)
-      mitarbeiter_weltweit  // int(11)
-      quelle                // varchar(80)
-      quelle_url            // varchar(255)
-      quelle_url_gueltig    // tinyint(1)
-      umsatz                // bigint(20)
+      gewinn // bigint(20)
+      jahr // smallint(6)
+      kapital // bigint(20)
+      mitarbeiter_schweiz // int(11)
+      mitarbeiter_weltweit // int(11)
+      quelle // varchar(80)
+      quelle_url // varchar(255)
+      quelle_url_gueltig // tinyint(1)
+      umsatz // bigint(20)
   }
 
   logical-source t_parlamentarier {
-    source query "select parlamentarier.*, rat.parlament_id as council_fk, partei.abkuerzung as party_fk from parlamentarier left join rat on parlamentarier.rat_id = rat.id left join partei on partei.id = parlamentarier.partei_id"
+    source query "
+      select
+        parlamentarier.*,
+        rat.parlament_id as council_fk,
+        partei.abkuerzung as party_fk
+      from
+        parlamentarier
+        left join rat on parlamentarier.rat_id = rat.id
+        left join partei on partei.id = parlamentarier.partei_id"
 
     referenceables
-      id                                    // int(11)
-      beruf_interessengruppe_id             // int(11)
-      fraktion_id                           // int(11)
-      kanton_id                             // int(11)
-      militaerischer_grad_id                // int(11)
-      parlament_biografie_id                // int(11)
-      partei_id                             // int(11)
-      rat_id                                // int(11)
-
-      vorname                               // varchar(50)
-      zweiter_vorname                       // varchar(50)
-      nachname                              // varchar(100)
-      geburtstag                            // date
-
-      adresse_firma                         // varchar(100)
-      adresse_ort                           // varchar(100)
-      adresse_plz                           // varchar(10)
-      aemter                                // mediumtext
-      anzahl_kinder                         // tinyint(3)
-      arbeitssprache                        // enum('de','fr','it')
-      beruf                                 // varchar(150)
-      beruf_fr                              // varchar(150)
-      facebook_name                         // varchar(150)
-      fraktionsfunktion                     // enum('mitglied','praesident','vizepraesident')
-      geschlecht                            // enum('M','F')
-      homepage                              // varchar(255)
-      homepage_2                            // varchar(255)
-      im_rat_bis                            // date
-      im_rat_seit                           // date
-      kleinbild                             // varchar(80)
-      kommissionen                          // varchar(100)
-      linkedin_profil_url                   // varchar(255)
-      parlament_interessenbindungen         // mediumtext
-      parlament_interessenbindungen_json    // json
+      id // int(11)
+      beruf_interessengruppe_id // int(11)
+      fraktion_id // int(11)
+      kanton_id // int(11)
+      militaerischer_grad_id // int(11)
+      parlament_biografie_id // int(11)
+      partei_id // int(11)
+      rat_id // int(11)
+      vorname // varchar(50)
+      zweiter_vorname // varchar(50)
+      nachname // varchar(100)
+      geburtstag // date
+      adresse_firma // varchar(100)
+      adresse_ort // varchar(100)
+      adresse_plz // varchar(10)
+      aemter // mediumtext
+      anzahl_kinder // tinyint(3)
+      arbeitssprache // enum('de','fr','it')
+      beruf // varchar(150)
+      beruf_fr // varchar(150)
+      facebook_name // varchar(150)
+      fraktionsfunktion // enum('mitglied','praesident','vizepraesident')
+      geschlecht // enum('M','F')
+      homepage // varchar(255)
+      homepage_2 // varchar(255)
+      im_rat_bis // date
+      im_rat_seit // date
+      kleinbild // varchar(80)
+      kommissionen // varchar(100)
+      linkedin_profil_url // varchar(255)
+      parlament_interessenbindungen // mediumtext
+      parlament_interessenbindungen_json // json
       parlament_interessenbindungen_updated // timestamp
-      parlament_number                      // int(11)
-      parteifunktion                        // enum('mitglied','praesident','vizepraesident')
-      photo_dateierweiterung                // varchar(15)
-      photo_dateiname                       // varchar(255)
-      photo_dateiname_voll                  // varchar(255)
-      photo_mime_type                       // varchar(100)
-      ratsunterbruch_bis                    // date
-      ratsunterbruch_von                    // date
-      ratswechsel                           // date
-      sitzplatz                             // int(11)
-      sprache                               // enum('de','fr','it','sk','rm','tr')
-      titel                                 // varchar(100)
-      twitter_name                          // varchar(50)
-      weitere_aemter                        // mediumtext
-      wikipedia                             // varchar(255)
-      xing_profil_name                      // varchar(150)
-      zivilstand                            // enum('ledig','verheiratet','geschieden','eingetragene partnerschaft','getrennt','verwitwet')
-
+      parlament_number // int(11)
+      parteifunktion // enum('mitglied','praesident','vizepraesident')
+      photo_dateierweiterung // varchar(15)
+      photo_dateiname // varchar(255)
+      photo_dateiname_voll // varchar(255)
+      photo_mime_type // varchar(100)
+      ratsunterbruch_bis // date
+      ratsunterbruch_von // date
+      ratswechsel // date
+      sitzplatz // int(11)
+      sprache // enum('de','fr','it','sk','rm','tr')
+      titel // varchar(100)
+      twitter_name // varchar(50)
+      weitere_aemter // mediumtext
+      wikipedia // varchar(255)
+      xing_profil_name // varchar(150)
+      zivilstand // enum('ledig','verheiratet','geschieden','eingetragene partnerschaft','getrennt','verwitwet')
       council_fk
       party_fk
   }
@@ -392,27 +475,48 @@ source-group lobbywatchdb {
     source "partei"
 
     referenceables
-      id              // int(11)
-      fraktion_id     // int(11)
-
-      abkuerzung      // varchar(20)
-      abkuerzung_fr   // varchar(20)
-      beschreibung    // mediumtext
+      id // int(11)
+      fraktion_id // int(11)
+      abkuerzung // varchar(20)
+      abkuerzung_fr // varchar(20)
+      beschreibung // mediumtext
       beschreibung_fr // mediumtext
-      email_fr        // varchar(100)
-      farbcode        // varchar(15)
-      gruendung       // date
-      homepage        // varchar(255)
-      homepage_fr     // varchar(255)
-      name            // varchar(100)
-      name_fr         // varchar(100)
-      position        // enum('links','rechts','mitte')
-      twitter_name    // varchar(50)
+      email_fr // varchar(100)
+      farbcode // varchar(15)
+      gruendung // date
+      homepage // varchar(255)
+      homepage_fr // varchar(255)
+      name // varchar(100)
+      name_fr // varchar(100)
+      position // enum('links','rechts','mitte')
+      twitter_name // varchar(50)
       twitter_name_fr // varchar(50)
   }
 
   logical-source t_occupation_people {
-    source query "select distinct(beruf) as beruf, beruf_fr from ((select beruf, beruf_fr from person) union (select beruf, beruf_fr from parlamentarier)) as foo"
+    source query "
+      SELECT
+        DISTINCT(beruf) AS beruf,
+        beruf_fr
+      FROM
+        (
+          (
+            SELECT
+              beruf,
+              beruf_fr
+            FROM
+              person
+          )
+          union
+          (
+            SELECT
+              beruf,
+              beruf_fr
+            FROM
+              parlamentarier
+          )
+        ) AS foo
+      "
 
     referenceables
       beruf
@@ -420,130 +524,177 @@ source-group lobbywatchdb {
   }
 
   logical-source t_person {
-    source query "select p.*, y.abkuerzung as party_fk from person as p left join partei as y on p.partei_id = y.id"
+    source query "
+      SELECT
+        p.*,
+        y.abkuerzung AS party_fk
+      FROM
+        person AS p
+        LEFT JOIN partei AS y ON p.partei_id = y.id
+    "
 
     referenceables
-      id                          // int(11)
-      partei_id                   // int(11)
-
-      arbeitssprache              // enum('de','fr','it')
-      beruf                       // varchar(150)
-      beruf_fr                    // varchar(150)
-      beruf_interessengruppe_id   // int(11)
-      beschreibung_de             // mediumtext
-      beschreibung_fr             // mediumtext
-      facebook_name               // varchar(150)
-      geschlecht                  // enum('M','F')
-      homepage                    // varchar(255)
-      linkedin_profil_url         // varchar(255)
-      nachname                    // varchar(100)
-      namensunterscheidung        // varchar(15)
+      id // int(11)
+      partei_id // int(11)
+      arbeitssprache // enum('de','fr','it')
+      beruf // varchar(150)
+      beruf_fr // varchar(150)
+      beruf_interessengruppe_id // int(11)
+      beschreibung_de // mediumtext
+      beschreibung_fr // mediumtext
+      facebook_name // varchar(150)
+      geschlecht // enum('M','F')
+      homepage // varchar(255)
+      linkedin_profil_url // varchar(255)
+      nachname // varchar(100)
+      namensunterscheidung // varchar(15)
       parlamentarier_kommissionen // varchar(100)
-      titel                       // varchar(100)
-      twitter_name                // varchar(50)
-      updated_by_import           // timestamp
-      vorname                     // varchar(50)
-      xing_profil_name            // varchar(150)
-      zutrittsberechtigung_von    // varchar(75)
-      zweiter_vorname             // varchar(50)
-
+      titel // varchar(100)
+      twitter_name // varchar(50)
+      updated_by_import // timestamp
+      vorname // varchar(50)
+      xing_profil_name // varchar(150)
+      zutrittsberechtigung_von // varchar(75)
+      zweiter_vorname // varchar(50)
       party_fk
   }
 
-logical-source t_national_council {
-  source query "SELECT * FROM rat where parlament_id = 1"
+  logical-source t_national_council {
+    source query "SELECT * FROM rat where parlament_id = 1"
 
     referenceables
-      parlament_id                      // int(11)
-}
+      parlament_id // int(11)
+  }
 
-logical-source t_state_council {
+  logical-source t_state_council {
     source query "SELECT * FROM rat where parlament_id = 2"
 
     referenceables
-      parlament_id                      // int(11)
-}
+      parlament_id // int(11)
+  }
 
-logical-source t_federal_council {
+  logical-source t_federal_council {
     source query "SELECT * FROM rat where parlament_id = 0"
 
     referenceables
-      parlament_id                      // int(11)
-}
+      parlament_id // int(11)
+  }
 
   logical-source t_rat {
-    source query "select r.*, ir.name as fk_geographical from rat as r left join interessenraum as ir on r.interessenraum_id = ir.id"
+    source query "
+      SELECT
+        r.*,
+        ir.name AS fk_geographical
+      FROM
+        rat AS r
+        LEFT JOIN interessenraum AS ir ON r.interessenraum_id = ir.id
+    "
 
     referenceables
-      id                                // int(11)
-      interessenraum_id                 // int(11)
-      parlament_id                      // int(11)
-
-      abkuerzung                        // varchar(10)
-      abkuerzung_fr                     // varchar(10)
-      anzahl_mitglieder                 // smallint(6)
-      anzeigestufe                      // int(11)
-      beschreibung                      // mediumtext
-      gewicht                           // int(11)
-      homepage_de                       // varchar(255)
-      homepage_en                       // varchar(255)
-      homepage_fr                       // varchar(255)
-      homepage_it                       // varchar(255)
+      id // int(11)
+      interessenraum_id // int(11)
+      parlament_id // int(11)
+      abkuerzung // varchar(10)
+      abkuerzung_fr // varchar(10)
+      anzahl_mitglieder // smallint(6)
+      anzeigestufe // int(11)
+      beschreibung // mediumtext
+      gewicht // int(11)
+      homepage_de // varchar(255)
+      homepage_en // varchar(255)
+      homepage_fr // varchar(255)
+      homepage_it // varchar(255)
       mitglied_bezeichnung_maennlich_de // varchar(50)
       mitglied_bezeichnung_maennlich_fr // varchar(50)
-      mitglied_bezeichnung_weiblich_de  // varchar(50)
-      mitglied_bezeichnung_weiblich_fr  // varchar(50)
-      name_de                           // varchar(50)
-      name_en                           // varchar(50)
-      name_fr                           // varchar(50)
-      name_it                           // varchar(50)
-      parlament_type                    // char(1)
-      typ                               // enum('legislativ','exekutiv','judikativ')
-
+      mitglied_bezeichnung_weiblich_de // varchar(50)
+      mitglied_bezeichnung_weiblich_fr // varchar(50)
+      name_de // varchar(50)
+      name_en // varchar(50)
+      name_fr // varchar(50)
+      name_it // varchar(50)
+      parlament_type // char(1)
+      typ // enum('legislativ','exekutiv','judikativ')
       fk_geographical
   }
 
   logical-source t_zutrittsberechtigung {
-    source query "select a.*, pa.parlament_biografie_id as fk_parlamentarier from zutrittsberechtigung as a inner join parlamentarier as pa on pa.id = a.parlamentarier_id inner join person as pe on pe.id = a.person_id"
+    source query "
+      SELECT
+        a.*,
+        pa.parlament_biografie_id AS fk_parlamentarier
+      FROM
+        zutrittsberechtigung AS a
+        INNER JOIN parlamentarier AS pa ON pa.id = a.parlamentarier_id
+        INNER JOIN person AS pe ON pe.id = a.person_id
+    "
 
     referenceables
-      id                          // int(11)
-      parlamentarier_id           // int(11)
-      person_id                   // int(11)
-
-      funktion                    // varchar(150)
-      funktion_fr                 // varchar(150)
+      id // int(11)
+      parlamentarier_id // int(11)
+      person_id // int(11)
+      funktion // varchar(150)
+      funktion_fr // varchar(150)
       parlamentarier_kommissionen // varchar(100)
-
-      bis                         // date
-      von                         // date
-      updated_by_import           // timestamp
-
+      bis // date
+      von // date
+      updated_by_import // timestamp
       fk_parlamentarier
   }
 
   logical-source t_federal_council_member {
-    source query "select parlamentarier.parlament_biografie_id from parlamentarier inner join rat on parlamentarier.rat_id = rat.id where rat.parlament_id = 0"
+    source query "
+      SELECT
+        parlamentarier.parlament_biografie_id
+      FROM
+        parlamentarier
+        INNER JOIN rat ON parlamentarier.rat_id = rat.id
+      WHERE
+        rat.parlament_id = 0
+      "
 
     referenceables
       parlament_biografie_id
   }
   logical-source t_national_council_member {
-    source query "select parlamentarier.parlament_biografie_id from parlamentarier inner join rat on parlamentarier.rat_id = rat.id where rat.parlament_id = 1"
+    source query "
+      SELECT
+        parlamentarier.parlament_biografie_id
+      FROM
+        parlamentarier
+        INNER JOIN rat ON parlamentarier.rat_id = rat.id
+      WHERE
+        rat.parlament_id = 1
+      "
 
     referenceables
       parlament_biografie_id
   }
   logical-source t_state_council_member {
-    source query "select parlamentarier.parlament_biografie_id from parlamentarier inner join rat on parlamentarier.rat_id = rat.id where rat.parlament_id = 2"
+    source query "
+      SELECT
+        parlamentarier.parlament_biografie_id
+      FROM
+        parlamentarier
+        INNER JOIN rat ON parlamentarier.rat_id = rat.id
+      WHERE
+        rat.parlament_id = 2
+      "
 
     referenceables
       parlament_biografie_id
   }
 
-
   logical-source t_parlamentarier_transparenz_ja {
-    source query "select t.*, p.parlament_biografie_id from parlamentarier_transparenz as t inner join parlamentarier as p on p.id = t.parlamentarier_id where verguetung_transparent = 'ja'"
+    source query "
+      SELECT
+        t.*,
+        p.parlament_biografie_id
+      FROM
+        parlamentarier_transparenz AS t
+        INNER JOIN parlamentarier AS p ON p.id = t.parlamentarier_id
+      WHERE
+        verguetung_transparent = 'ja'
+      "
 
     referenceables
       id
@@ -551,7 +702,16 @@ logical-source t_federal_council {
       parlament_biografie_id
   }
   logical-source t_parlamentarier_transparenz_nein {
-    source query "select t.*, p.parlament_biografie_id from parlamentarier_transparenz as t inner join parlamentarier as p on p.id = t.parlamentarier_id where verguetung_transparent = 'nein'"
+    source query "
+      SELECT
+        t.*,
+        p.parlament_biografie_id
+      FROM
+        parlamentarier_transparenz AS t
+        INNER JOIN parlamentarier AS p ON p.id = t.parlamentarier_id
+      WHERE
+        verguetung_transparent = 'nein'
+      "
 
     referenceables
       id
@@ -559,7 +719,16 @@ logical-source t_federal_council {
       parlament_biografie_id
   }
   logical-source t_parlamentarier_transparenz_teilweise {
-    source query "select t.*, p.parlament_biografie_id from parlamentarier_transparenz as t inner join parlamentarier as p on p.id = t.parlamentarier_id where verguetung_transparent = 'teilweise'"
+    source query "
+      SELECT
+        t.*,
+        p.parlament_biografie_id
+      FROM
+        parlamentarier_transparenz AS t
+        INNER JOIN parlamentarier AS p ON p.id = t.parlamentarier_id
+      WHERE
+        verguetung_transparent = 'teilweise'
+      "
 
     referenceables
       id
