@@ -6,10 +6,10 @@
 <variables>
   p:variable [ a p:Variable;
     p:name "inputFile";
-    p:value "./input/lobbywatch.nt"
+    p:value "./input/triples.nt"
   ], [ a p:Variable;
     p:name "outputFile";
-    p:value "../stardog-scripts/lobbywatch-slug.nt"
+    p:value "../ontop-scripts/triples-slug.nt"
   ] .
 
 <FilePipeline> a p:Pipeline;

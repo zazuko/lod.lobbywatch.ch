@@ -231,21 +231,21 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:logicalTable [ rr:sqlQuery """
 	      SELECT
 	        DISTINCT(beruf) AS beruf,
-	        beruf_fr
+	        beruf_fr as beruf_fr
 	      FROM
 	        (
 	          (
 	            SELECT
-	              beruf,
-	              beruf_fr
+	              TRIM(CHAR(9) FROM TRIM(beruf)) AS beruf,
+	              TRIM(CHAR(9) FROM TRIM(beruf_fr)) AS beruf_fr
 	            FROM
 	              person
 	          )
 	          union
 	          (
 	            SELECT
-	              beruf,
-	              beruf_fr
+	              TRIM(CHAR(9) FROM TRIM(beruf)) AS beruf,
+	              TRIM(CHAR(9) FROM TRIM(beruf_fr)) AS beruf_fr
 	            FROM
 	              parlamentarier
 	          )

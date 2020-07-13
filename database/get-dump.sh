@@ -1,7 +1,7 @@
 #!/bin/bash
 BEFORE=$(wc -l lobbywatch.sql)
 wget https://cms.lobbywatch.ch/sites/lobbywatch.ch/files/exports/lobbywatch_export.sql.zip
-unzip lobbywatch_export.sql.zip
+unzip -o lobbywatch_export.sql.zip
 rm lobbywatch_export.sql.zip
 AFTER=$(wc -l lobbywatch.sql)
 echo "wc -l lobbywatch.sql BEFORE: $BEFORE"

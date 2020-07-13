@@ -24,15 +24,9 @@ This project contains the source and tooling related to [lod.lobbywatch.ch](http
 
     Pipeline used to slugify some IRIs.
 
-* [`stardog-scripts/`](./stardog-scripts/)
+* [`ontop-scripts/`](./ontop-scripts/)
 
-    Scripts used to load the generated triples into a local [Stardog](https://www.stardog.com/) server and upload them to the hosted Stardog server used by [lod.lobbywatch.ch](https://lod.lobbywatch.ch).
-
-    Required config for Stardog:
-    ```
-    $ cat $STARDOG_HOME/stardog.properties
-    sql.server.enabled = true
-    ```
+    Scripts used to install Ontop, to generate triples from MySQL to n-triples server, transform them, upload them to the hosted Stardog server used by [lod.lobbywatch.ch](https://lod.lobbywatch.ch) and link them.
 
 ## Deployment
 
