@@ -10,7 +10,7 @@ spec:
         runAsGroup: 65534
       containers:
         - name: trifid
-          image: trifid
+          image: docker.io/zazuko/lod-lobbywatch-ch
           imagePullPolicy: Always
 
           ports:
