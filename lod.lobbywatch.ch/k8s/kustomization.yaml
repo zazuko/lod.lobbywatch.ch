@@ -6,6 +6,6 @@ commonLabels:
   app.kubernetes.io/name: trifid
 
 resources:
-- deployment.yaml
-- service.yaml
-- ingress.yaml
+  - deployment.yaml
+  - service.yaml
+  - ingress.yaml

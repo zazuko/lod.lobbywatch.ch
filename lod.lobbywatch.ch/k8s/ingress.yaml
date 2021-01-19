@@ -8,14 +8,14 @@ metadata:
     external-dns.alpha.kubernetes.io/hostname: lobbywatch.zazukoians.org
 spec:
   tls:
-  - secretName: lod-lobbywatch-ch-cert
-    hosts:
-    - lod.lobbywatch.ch
+    - secretName: lod-lobbywatch-ch-cert
+      hosts:
+        - lod.lobbywatch.ch
   rules:
-  - host: lod.lobbywatch.ch
-    http:
-      paths:
-      - path: /
-        backend:
-          serviceName: trifid
-          servicePort: 80
+    - host: lod.lobbywatch.ch
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: trifid
+              servicePort: 80

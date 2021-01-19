@@ -4,5 +4,5 @@ metadata:
   name: trifid
 spec:
   ports:
-  - port: 80
-    targetPort: http
+    - port: 80
+      targetPort: http
