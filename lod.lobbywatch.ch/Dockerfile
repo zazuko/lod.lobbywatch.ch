@@ -1,24 +1,33 @@
-FROM node:lts-alpine
+FROM node:12 as builder
 
+# Add tini to act as PID1 for proper signal handling
+ENV TINI_VERSION v0.19.0
+ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /tini
+RUN chmod +x /tini
+
+# Build the app
 WORKDIR /app
-
-# Copy the package.json and install the dependencies
-COPY package*.json ./
-RUN npm ci --only=production
+COPY package.json package-lock.json ./
+ENV NODE_ENV production
+RUN npm ci
 COPY . .
 
-USER nobody:nobody
+# Build runtime
+FROM gcr.io/distroless/nodejs:12 as runtime
 
-# Ideally set those for published images. To do so, run something like
-#
-#   docker build . \
-#     --tag YOUR_TAG \
-#     --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') \
-#     --build-arg COMMIT=$(git rev-parse HEAD) \
-#     --build-arg VERSION=$(git describe)
-#
+# Add tini from build stage
+COPY --from=builder /tini /tini
+ENTRYPOINT ["/tini", "--", "/nodejs/bin/node"]
+
+# Copy the app from build stage
+COPY --from=builder /app /app
+WORKDIR /app
+
+# RFC 3339 format
 ARG BUILD_DATE
+# Git commit hash
 ARG COMMIT
+# Should be semver
 ARG VERSION
 
 LABEL org.label-schema.build-date=$BUILD_DATE \
@@ -31,12 +40,13 @@ LABEL org.label-schema.build-date=$BUILD_DATE \
       org.label-schema.version=$VERSION \
       org.label-schema.schema-version="1.0"
 
-ENTRYPOINT []
+ENV NODE_ENV production
+ENV DEBUG trifid:*
 
-# Using npm scripts for running the app allows two things:
-#  - Handle signals correctly (Node does not like to be PID1)
-#  - Let Skaffold detect it's a node app so it can attach the Node debugger
-CMD ["npm", "run", "start"]
+# Run as non-privileged, user "nobody"
+USER 65534
 
+# Expose the HTTP service under the unprivileged (>1024) http-alt port
 EXPOSE 8080
-HEALTHCHECK CMD wget -q -O- http://localhost:8080/health
+
+CMD ["./node_modules/.bin/trifid", "--config", "config.json"]
