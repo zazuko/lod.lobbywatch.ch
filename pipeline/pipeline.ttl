@@ -50,6 +50,7 @@
   const { URL } = require('url');
   const urlSlug = require('url-slug');
   const rdf = require('rdf-ext');
+  const decode = require('safe-decode-uri-component');
 
   if (quad.predicate.value === 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type') {
     return rdf.quad(fixNamedNode(quad.subject), quad.predicate, quad.object, quad.graph)
@@ -71,7 +72,12 @@
       .split('/')
       .map((part, index, all) => {
         if (index === all.length - 1) {
-          return urlSlug(decodeURIComponent(part));
+          try {
+            decodeURIComponent(part)
+          } catch (err) {
+            console.warn(`Failed to properly decode \"${part}\", fallback to \"${decode(part)}\"`)
+          }
+          return urlSlug(decode(part));
         }
         return part;
       })
