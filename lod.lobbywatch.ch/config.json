@@ -12,12 +12,18 @@
       "templateError": "cwd:views/error.html"
     }
   },
-  "yasgui" : {
+  "yasgui": {
     "default": {
       "template": "cwd:views/yasgui.html"
     }
   },
-  "ontodia" : {
+  "graphexplorer": {
+    "default": {
+      "path": "/graph-explorer",
+      "template": "cwd:views/graph-explorer.html"
+    }
+  },
+  "redirect": {
     "default": {
       "path": "/ontodia",
       "template": "cwd:views/ontodia.html"
@@ -35,17 +41,27 @@
     "/": "cwd:views/home.html"
   },
   "breakDown": {
-    "ontodia": {},
-    "ontodia.default": {},
-    "ontodia.default.endpointUrl": [
+    "graphexplorer": {},
+    "graphexplorer.default": {},
+    "graphexplorer.default.endpointUrl": [
+      "sparqlProxy.default.path",
+      "sparqlEndpointUrl"
+    ],
+    "redirect": {},
+    "redirect.default": {},
+    "redirect.default.endpointUrl": [
       "sparqlProxy.default.path",
       "sparqlEndpointUrl"
     ]
   },
   "plugins": {
-    "ontodia": {
+    "graphexplorer": {
       "priority": 115,
-      "module": "trifid-plugin-ontodia"
+      "module": "trifid-plugin-graph-explorer"
+    },
+    "redirect": {
+      "priority": 116,
+      "module": "trifid-plugin-graph-explorer"
     }
   }
 }

@@ -5,7 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "trifid": "^2.3.5",
-    "trifid-plugin-ontodia": "^0.1.1"
+    "trifid-plugin-graph-explorer": "^0.2.0"
   },
   "devDependencies": {},
   "license": "GPL-2.0-only",
