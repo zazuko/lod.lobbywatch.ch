@@ -44,8 +44,21 @@ ${set('moduleAbout','<a href="http://about.yasgui.org/" target="_blank">YASGUI</
         });
       }
 
+      const languages = [
+        { code: 'en', label: 'English' },
+        { code: 'de', label: 'German' },
+        { code: 'fr', label: 'French' },
+        { code: 'it', label: 'Italian' },
+      ]
+
+      const props = {
+        languages,
+        ref: onWorkspaceMounted
+      }
+
+
       ReactDOM.render(
-        React.createElement(GraphExplorer.Workspace, { ref: onWorkspaceMounted }),
+        React.createElement(GraphExplorer.Workspace, props),
         document.getElementById('container')
       );
     }
