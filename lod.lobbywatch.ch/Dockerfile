@@ -23,23 +23,6 @@ ENTRYPOINT ["/tini", "--", "/nodejs/bin/node"]
 COPY --from=builder /app /app
 WORKDIR /app
 
-# RFC 3339 format
-ARG BUILD_DATE
-# Git commit hash
-ARG COMMIT
-# Should be semver
-ARG VERSION
-
-LABEL org.label-schema.build-date=$BUILD_DATE \
-      org.label-schema.name="lod.lobbywatch.ch" \
-      org.label-schema.description="Linked Data Pilot" \
-      org.label-schema.url="https://lod.lobbywatch.ch" \
-      org.label-schema.vcs-url="https://github.com/zazuko/lod.lobbywatch.ch" \
-      org.label-schema.vcs-ref=$COMMIT \
-      org.label-schema.vendor="Zazuko" \
-      org.label-schema.version=$VERSION \
-      org.label-schema.schema-version="1.0"
-
 ENV NODE_ENV production
 ENV DEBUG trifid:*
 
