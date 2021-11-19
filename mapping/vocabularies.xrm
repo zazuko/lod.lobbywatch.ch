@@ -14,6 +14,7 @@ vocabulary schema {
     Person
 
   properties
+    alternativeName
     additionalName
     affiliation
     alternateName
@@ -49,7 +50,6 @@ vocabulary lobbywatch {
     agency
     authorizedAs
     businessSector
-    chamber
     compulsoryDisclosure
     date
     disclosed
@@ -149,13 +149,6 @@ vocabulary org {
     role
 }
 
-vocabulary skos {
-  prefix "skos" "http://www.w3.org/2004/02/skos/core#"
-
-  properties
-    altLabel
-}
-
 vocabulary xsd {
   prefix "xsd" "http://www.w3.org/2001/XMLSchema#"
 
@@ -166,3 +159,4 @@ vocabulary xsd {
     gYear
     int
 }
+
