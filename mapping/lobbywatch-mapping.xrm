@@ -102,8 +102,8 @@ map Party from lobbywatchdb.t_partei {
     schema.foundingDate from gruendung with datatype xsd.date;
     schema.name from name with language-tag de;
     schema.name from name_fr with language-tag fr;
-    schema.alternativeName from abkuerzung with language-tag de;
-    schema.alternativeName from abkuerzung_fr with language-tag fr;
+    schema.alternateName from abkuerzung with language-tag de;
+    schema.alternateName from abkuerzung_fr with language-tag fr;
     schema.url from homepage;
 }
 
@@ -111,13 +111,13 @@ map Committee from lobbywatchdb.t_kommission {
   subject template committeeIri with abkuerzung;
 
   types
-    lobbywatch.Committee
+    paf.Committee
 
   properties
     schema.name from name with language-tag de;
     schema.name from name_fr with language-tag fr;
-    schema.alternativeName from abkuerzung with language-tag de;
-    schema.alternativeName from abkuerzung_fr with language-tag fr;
+    schema.alternateName from abkuerzung with language-tag de;
+    schema.alternateName from abkuerzung_fr with language-tag fr;
     schema.description from beschreibung with language-tag de;
     schema.description from beschreibung_fr with language-tag fr;
     lobbywatch.^type from typ with language-tag de;
@@ -138,8 +138,8 @@ map Council from lobbywatchdb.t_rat {
     schema.name from name_fr with language-tag fr;
     schema.name from name_it with language-tag it;
     schema.name from name_en with language-tag en;
-    schema.alternativeName from abkuerzung with language-tag de;
-    schema.alternativeName from abkuerzung_fr with language-tag fr;
+    schema.alternateName from abkuerzung with language-tag de;
+    schema.alternateName from abkuerzung_fr with language-tag fr;
     lobbywatch.geographicalInfluence template geographicalInfluenceIri with fk_geographical;
 }
 
@@ -186,12 +186,12 @@ map Organization from lobbywatchdb.t_organisation {
     schema.name from name_de with language-tag de;
     schema.name from name_fr with language-tag fr;
     schema.name from name_it with language-tag it;
-    schema.alternativeName from alias_namen_de with language-tag de;
-    schema.alternativeName from alias_namen_fr with language-tag fr;
-    schema.alternativeName from alias_namen_it with language-tag it;
-    schema.alternativeName from abkuerzung_de with language-tag de;
-    schema.alternativeName from abkuerzung_fr with language-tag fr;
-    schema.alternativeName from abkuerzung_it with language-tag it;
+    schema.alternateName from alias_namen_de with language-tag de;
+    schema.alternateName from alias_namen_fr with language-tag fr;
+    schema.alternateName from alias_namen_it with language-tag it;
+    schema.alternateName from abkuerzung_de with language-tag de;
+    schema.alternateName from abkuerzung_fr with language-tag fr;
+    schema.alternateName from abkuerzung_it with language-tag it;
     schema.description from beschreibung with language-tag de;
     schema.description from beschreibung_fr with language-tag fr;
     schema.name from name_fr with language-tag fr;
@@ -248,8 +248,8 @@ map Lobby from lobbywatchdb.t_interessengruppe {
   properties
     rdfs.label from name with language-tag de;
     rdfs.label from name_fr with language-tag fr;
-    schema.alternativeName from alias_namen with language-tag de;
-    schema.alternativeName from alias_namen_fr with language-tag fr;
+    schema.alternateName from alias_namen with language-tag de;
+    schema.alternateName from alias_namen_fr with language-tag fr;
     schema.member template peopleIri with person_fk;
     rdfs.comment from beschreibung with language-tag de;
     rdfs.comment from beschreibung_fr with language-tag fr;

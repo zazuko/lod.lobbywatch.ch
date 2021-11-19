@@ -14,7 +14,7 @@ vocabulary schema {
     Person
 
   properties
-    alternativeName
+    alternateName
     additionalName
     affiliation
     alternateName
@@ -38,7 +38,6 @@ vocabulary lobbywatch {
   classes
     AccessRight
     BusinessSector
-    Committee
     GeographicalInfluence
     Lobby
     Mandate
@@ -95,6 +94,13 @@ vocabulary dbpedia {
     birthDate
     electionDate
     politicalFunction
+}
+
+vocabulary paf {
+  prefix "paf" "https://paf.link/"
+
+  classes
+    Committee
 }
 
 vocabulary wd {

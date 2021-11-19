@@ -15,7 +15,7 @@
 <FilePipeline> a p:Pipeline;
   p:variables <variables>;
   p:steps [
-    p:stepList ( <readFile> <parse> <slugUris> <serialize> <writeFile> )
+    p:stepList ( <readFile> <parse> <slugUris> <mapCouncils> <serialize> <writeFile> )
   ].
 
 <readFile> a p:Step;
@@ -98,3 +98,26 @@
     return rdf.namedNode(url.toString());
   };
 }"""^^code:EcmaScript) .
+
+<mapCouncils> a p:Step ;
+  code:implementedBy [
+    code:link <node:barnard59-base#map> ;
+    a code:EcmaScript
+  ];
+  code:arguments ( """quad => {
+  const rdf = require('rdf-ext');
+  if (quad.subject.value === 'https://lod.lobbywatch.ch/council/1') {
+      return rdf.quad(rdf.namedNode('https://politics.ld.admin.ch/council/N'), quad.predicate, quad.object, quad.graph)
+  }
+  if (quad.subject.value === 'https://lod.lobbywatch.ch/council/2') {
+      return rdf.quad(rdf.namedNode('https://politics.ld.admin.ch/council/S'), quad.predicate, quad.object, quad.graph)
+  }
+  if (quad.object.value === 'https://lod.lobbywatch.ch/council/1') {
+      return rdf.quad(quad.subject, quad.predicate, rdf.namedNode('https://politics.ld.admin.ch/council/N'), quad.graph)
+  }
+  if (quad.object.value === 'https://lod.lobbywatch.ch/council/2') {
+      return rdf.quad(quad.subject, quad.predicate, rdf.namedNode('https://politics.ld.admin.ch/council/S'), quad.graph)
+  }
+
+  return quad
+  }"""^^code:EcmaScript) .
