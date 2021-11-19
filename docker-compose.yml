@@ -3,7 +3,6 @@ services:
   db:
     image: mysql:5
     command: --max_allowed_packet=20M
-      --default-authentication-plugin=mysql_native_password
     volumes:
       - ./database/mysql.cnf:/etc/mysql/conf.d/custom.cnf
       - ./database/lobbywatch.sql:/docker-entrypoint-initdb.d/lobbywatch.sql

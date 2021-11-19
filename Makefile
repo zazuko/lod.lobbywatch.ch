@@ -11,7 +11,7 @@ convert:
 	cd ontop-scripts && ./1-convert.sh
 
 pipeline:
-	cd pipeline && npm run pipeline-file
+	cd pipeline && npm install && npm run pipeline-file
 
 upload:
 	cd ontop-scripts && ./2-upload.sh

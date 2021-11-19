@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "postinstall": "mkdir -p input && mkdir -p target ",
-    "pipeline-file": "barnard59 run -v --format text/turtle --pipeline=https://lod.lobbywatch.ch/pipeline/FilePipeline pipeline.ttl"
+    "pipeline-file": "./node_modules/.bin/barnard59 run -v --format text/turtle --pipeline=https://lod.lobbywatch.ch/pipeline/FilePipeline pipeline.ttl"
   },
   "author": "",
   "license": "",
