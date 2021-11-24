@@ -118,6 +118,12 @@
   if (quad.object.value === 'https://lod.lobbywatch.ch/council/2') {
       return rdf.quad(quad.subject, quad.predicate, rdf.namedNode('https://politics.ld.admin.ch/council/S'), quad.graph)
   }
+  if (quad.subject.value === 'https://lod.lobbywatch.ch/council/4') {
+      return rdf.quad(rdf.namedNode('https://politics.ld.admin.ch/council/FA'), quad.predicate, quad.object, quad.graph)
+  }
+  if (quad.object.value === 'https://lod.lobbywatch.ch/council/4') {
+      return rdf.quad(quad.subject, quad.predicate, rdf.namedNode('https://politics.ld.admin.ch/council/FA'), quad.graph)
+  }
 
   return quad
   }"""^^code:EcmaScript) .

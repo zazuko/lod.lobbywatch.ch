@@ -231,7 +231,11 @@ source-group lobbywatchdb {
       typ // enum('kommission','subkommission','spezialkommission')
       von // date
       bis // date
+      wikipedia
       fk_zweitrat_committee
+      zweitrat_kommission_id
+      sachbereiche
+      sachbereiche_fr
   }
 
   logical-source t_person_membership {
@@ -249,53 +253,29 @@ source-group lobbywatchdb {
       m_id
   }
 
+  // logical-source t_organization_membership {
+  // source query "
+  // SELECT
+  // o.id AS o_id,
+  // o.uid AS o_uid,
+  // m.id AS m_id
+  // FROM
+  // mandat AS m
+  // INNER JOIN organisation AS o ON m.organisation_id = o.id
+  // "
+//
+  // referenceables
+  // o_id
+  // o_uid
+  // m_id
+  // }
   logical-source t_organization_membership {
-    source query "
-      SELECT
-        o.id AS o_id,
-        o.uid AS o_uid,
-        m.id AS m_id
-      FROM
-        mandat AS m
-        INNER JOIN organisation AS o ON m.organisation_id = o.id
-      "
+    source query " SELECT organisation_id AS o_id, person_id AS p_id, id AS role_id FROM mandat"
 
     referenceables
       o_id
-      o_uid
-      m_id
-  }
-
-  logical-source t_role {
-    source query "
-      SELECT
-        distinct(art) AS role,
-        organisation_id
-      FROM
-        (
-          (
-            SELECT
-              art,
-              organisation_id
-            FROM
-              mandat
-          )
-          union
-          (
-            SELECT
-              funktion_im_gremium,
-              organisation_id
-            FROM
-              mandat
-          )
-        ) AS foo
-      where
-        art IS NOT NULL
-    "
-
-    referenceables
-      organisation_id
-      role
+      p_id
+      role_id
   }
 
   logical-source t_mandat {

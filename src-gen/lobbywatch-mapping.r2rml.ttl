@@ -20,7 +20,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	        left join partei on partei.id = parlamentarier.partei_id""" ];
 	
 	rr:subjectMap [
-		rr:template "https://lod.lobbywatch.ch/parliament-member/{parlament_biografie_id}" ;
+		rr:template "https://lod.lobbywatch.ch/person/{parlament_biografie_id}" ;
 		rr:class schema:Person ;
 		rr:class dbo:MemberOfParliament ;
 	];
@@ -50,20 +50,6 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		];
 	];
 	rr:predicateObjectMap [
-		rr:predicate lw:joined ;
-		rr:objectMap [
-			rr:column "im_rat_seit" ;
-			rr:datatype xsd:date ;
-		];
-	];
-	rr:predicateObjectMap [
-		rr:predicate lw:left ;
-		rr:objectMap [
-			rr:column "im_rat_bis" ;
-			rr:datatype xsd:date ;
-		];
-	];
-	rr:predicateObjectMap [
 		rr:predicate wdt:P1307 ;
 		rr:objectMap [
 			rr:column "parlament_biografie_id" ;
@@ -78,15 +64,63 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:predicateObjectMap [
 		rr:predicate schema:memberOf ;
 		rr:objectMap [
-			rr:template "https://lod.lobbywatch.ch/party/{party_fk}" ;
+			rr:template "https://lod.lobbywatch.ch/party/{party_fk}/role/{parlament_biografie_id}" ;
 		];
 	];
 	rr:predicateObjectMap [
 		rr:predicate schema:memberOf ;
 		rr:objectMap [
-			rr:template "https://lod.lobbywatch.ch/council/{council_fk}" ;
+			rr:template "https://lod.lobbywatch.ch/council/{council_fk}/role/{parlament_biografie_id}" ;
 		];
 	]
+.
+<#CouncilRole>
+	rr:logicalTable [ rr:sqlQuery """
+	      select
+	        parlamentarier.*,
+	        rat.parlament_id as council_fk,
+	        partei.abkuerzung as party_fk
+	      from
+	        parlamentarier
+	        left join rat on parlamentarier.rat_id = rat.id
+	        left join partei on partei.id = parlamentarier.partei_id""" ];
+	
+	rr:subjectMap [
+		rr:template "https://lod.lobbywatch.ch/council/{council_fk}/role/{parlament_biografie_id}" ;
+		rr:class schema:Role ;
+	];
+	
+	rr:predicateObjectMap [
+		rr:predicate schema:startDate ;
+		rr:objectMap [
+			rr:column "im_rat_seit" ;
+			rr:datatype xsd:date ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate schema:endDate ;
+		rr:objectMap [
+			rr:column "im_rat_bis" ;
+			rr:datatype xsd:date ;
+		];
+	]
+.
+<#PartyRole>
+	rr:logicalTable [ rr:sqlQuery """
+	      select
+	        parlamentarier.*,
+	        rat.parlament_id as council_fk,
+	        partei.abkuerzung as party_fk
+	      from
+	        parlamentarier
+	        left join rat on parlamentarier.rat_id = rat.id
+	        left join partei on partei.id = parlamentarier.partei_id""" ];
+	
+	rr:subjectMap [
+		rr:template "https://lod.lobbywatch.ch/party/{party_fk}/role/{parlament_biografie_id}" ;
+		rr:class schema:Role ;
+	]
+	
 .
 <#MemberOfFederalCouncil>
 	rr:logicalTable [ rr:sqlQuery """
@@ -100,7 +134,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	      """ ];
 	
 	rr:subjectMap [
-		rr:template "https://lod.lobbywatch.ch/parliament-member/{parlament_biografie_id}" ;
+		rr:template "https://lod.lobbywatch.ch/person/{parlament_biografie_id}" ;
 	];
 	
 	rr:predicateObjectMap [
@@ -122,7 +156,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	      """ ];
 	
 	rr:subjectMap [
-		rr:template "https://lod.lobbywatch.ch/parliament-member/{parlament_biografie_id}" ;
+		rr:template "https://lod.lobbywatch.ch/person/{parlament_biografie_id}" ;
 	];
 	
 	rr:predicateObjectMap [
@@ -144,7 +178,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	      """ ];
 	
 	rr:subjectMap [
-		rr:template "https://lod.lobbywatch.ch/parliament-member/{parlament_biografie_id}" ;
+		rr:template "https://lod.lobbywatch.ch/person/{parlament_biografie_id}" ;
 	];
 	
 	rr:predicateObjectMap [
@@ -165,7 +199,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	    """ ];
 	
 	rr:subjectMap [
-		rr:template "https://lod.lobbywatch.ch/people/{id}" ;
+		rr:template "https://lod.lobbywatch.ch/person/{id}" ;
 		rr:class schema:Person ;
 	];
 	
@@ -196,34 +230,13 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:predicateObjectMap [
 		rr:predicate schema:memberOf ;
 		rr:objectMap [
-			rr:template "https://lod.lobbywatch.ch/party/{party_fk}" ;
+			rr:template "https://lod.lobbywatch.ch/party/{party_fk}/role/{id}" ;
 		];
 	];
 	rr:predicateObjectMap [
 		rr:predicate schema:memberOf ;
 		rr:objectMap [
 			rr:template "https://lod.lobbywatch.ch/lobby/{beruf_interessengruppe_id}" ;
-		];
-	]
-.
-<#PersonMembership>
-	rr:logicalTable [ rr:sqlQuery """
-	      SELECT
-	        p.id AS p_id,
-	        m.id AS m_id
-	      FROM
-	        mandat AS m
-	        INNER JOIN person AS p ON p.id = m.person_id
-	      """ ];
-	
-	rr:subjectMap [
-		rr:template "https://lod.lobbywatch.ch/people/{p_id}" ;
-	];
-	
-	rr:predicateObjectMap [
-		rr:predicate org:hasMembership ;
-		rr:objectMap [
-			rr:template "https://lod.lobbywatch.ch/mandate/{m_id}" ;
 		];
 	]
 .
@@ -381,17 +394,15 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		];
 	];
 	rr:predicateObjectMap [
-		rr:predicate lw:type ;
+		rr:predicate schema:additionalType ;
 		rr:objectMap [
-			rr:column "typ" ;
-			rr:language "de" ;
+			rr:template "https://lod.lobbywatch.ch/committee/type/{typ}" ;
 		];
 	];
 	rr:predicateObjectMap [
-		rr:predicate lw:kind ;
+		rr:predicate schema:additionalType ;
 		rr:objectMap [
-			rr:column "art" ;
-			rr:language "de" ;
+			rr:template "https://lod.lobbywatch.ch/committee/type/{art}" ;
 		];
 	];
 	rr:predicateObjectMap [
@@ -401,122 +412,41 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		];
 	];
 	rr:predicateObjectMap [
+		rr:predicate schema:identifier ;
+		rr:objectMap [
+			rr:column "parlament_id" ;
+		];
+	];
+	rr:predicateObjectMap [
 		rr:predicate lw:secondChamberCommittee ;
 		rr:objectMap [
 			rr:template "https://lod.lobbywatch.ch/committee/{fk_zweitrat_committee}" ;
 		];
-	]
-.
-<#Council>
-	rr:logicalTable [ rr:sqlQuery """
-	      SELECT
-	        r.*,
-	        ir.name AS fk_geographical
-	      FROM
-	        rat AS r
-	        LEFT JOIN interessenraum AS ir ON r.interessenraum_id = ir.id
-	    """ ];
-	
-	rr:subjectMap [
-		rr:template "https://lod.lobbywatch.ch/council/{parlament_id}" ;
-		rr:class dbo:Parliament ;
-		rr:class schema:Organization ;
 	];
-	
 	rr:predicateObjectMap [
-		rr:predicate schema:name ;
+		rr:predicate rdfs:seeAlso ;
 		rr:objectMap [
-			rr:column "name_de" ;
+			rr:column "parlament_url" ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate rdfs:seeAlso ;
+		rr:objectMap [
+			rr:column "wikipedia" ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate lw:domain ;
+		rr:objectMap [
+			rr:column "sachbereiche" ;
 			rr:language "de" ;
 		];
 	];
 	rr:predicateObjectMap [
-		rr:predicate schema:name ;
+		rr:predicate lw:domain ;
 		rr:objectMap [
-			rr:column "name_fr" ;
+			rr:column "sachbereiche_fr" ;
 			rr:language "fr" ;
-		];
-	];
-	rr:predicateObjectMap [
-		rr:predicate schema:name ;
-		rr:objectMap [
-			rr:column "name_it" ;
-			rr:language "it" ;
-		];
-	];
-	rr:predicateObjectMap [
-		rr:predicate schema:name ;
-		rr:objectMap [
-			rr:column "name_en" ;
-			rr:language "en" ;
-		];
-	];
-	rr:predicateObjectMap [
-		rr:predicate schema:alternateName ;
-		rr:objectMap [
-			rr:column "abkuerzung" ;
-			rr:language "de" ;
-		];
-	];
-	rr:predicateObjectMap [
-		rr:predicate schema:alternateName ;
-		rr:objectMap [
-			rr:column "abkuerzung_fr" ;
-			rr:language "fr" ;
-		];
-	];
-	rr:predicateObjectMap [
-		rr:predicate lw:geographicalInfluence ;
-		rr:objectMap [
-			rr:template "https://lod.lobbywatch.ch/geographical-influence/{fk_geographical}" ;
-		];
-	]
-.
-<#FederalCouncil>
-	rr:logicalTable [ rr:sqlQuery """SELECT * FROM rat where parlament_id = 0""" ];
-	
-	rr:subjectMap [
-		rr:template "https://lod.lobbywatch.ch/council/{parlament_id}" ;
-		rr:class dbo:Parliament ;
-		rr:class schema:Organization ;
-	];
-	
-	rr:predicateObjectMap [
-		rr:predicate schema:sameAs ;
-		rr:objectMap [
-			rr:constant <https://www.wikidata.org/wiki/Q30917> ;
-		];
-	]
-.
-<#NationalCouncil>
-	rr:logicalTable [ rr:sqlQuery """SELECT * FROM rat where parlament_id = 1""" ];
-	
-	rr:subjectMap [
-		rr:template "https://lod.lobbywatch.ch/council/{parlament_id}" ;
-		rr:class dbo:Parliament ;
-		rr:class schema:Organization ;
-	];
-	
-	rr:predicateObjectMap [
-		rr:predicate schema:sameAs ;
-		rr:objectMap [
-			rr:constant <https://www.wikidata.org/wiki/Q676078> ;
-		];
-	]
-.
-<#StatesCouncil>
-	rr:logicalTable [ rr:sqlQuery """SELECT * FROM rat where parlament_id = 2""" ];
-	
-	rr:subjectMap [
-		rr:template "https://lod.lobbywatch.ch/council/{parlament_id}" ;
-		rr:class dbo:Parliament ;
-		rr:class schema:Organization ;
-	];
-	
-	rr:predicateObjectMap [
-		rr:predicate schema:sameAs ;
-		rr:objectMap [
-			rr:constant <https://www.wikidata.org/wiki/Q609037> ;
 		];
 	]
 .
@@ -531,13 +461,12 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	    """ ];
 	
 	rr:subjectMap [
-		rr:template "https://lod.lobbywatch.ch/organisation/{id}" ;
-		rr:class org:Organization ;
+		rr:template "https://lod.lobbywatch.ch/organization/{id}" ;
 		rr:class schema:Organization ;
 	];
 	
 	rr:predicateObjectMap [
-		rr:predicate org:identifier ;
+		rr:predicate schema:identifier ;
 		rr:objectMap [
 			rr:column "uid" ;
 		];
@@ -665,13 +594,13 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:predicateObjectMap [
 		rr:predicate lw:issuedBy ;
 		rr:objectMap [
-			rr:template "https://lod.lobbywatch.ch/parliament-member/{fk_parlamentarier}" ;
+			rr:template "https://lod.lobbywatch.ch/person/{fk_parlamentarier}" ;
 		];
 	];
 	rr:predicateObjectMap [
 		rr:predicate lw:issuedTo ;
 		rr:objectMap [
-			rr:template "https://lod.lobbywatch.ch/people/{person_id}" ;
+			rr:template "https://lod.lobbywatch.ch/person/{person_id}" ;
 		];
 	];
 	rr:predicateObjectMap [
@@ -704,24 +633,23 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	]
 .
 <#OrganizationMembership>
-	rr:logicalTable [ rr:sqlQuery """
-	      SELECT
-	        o.id AS o_id,
-	        o.uid AS o_uid,
-	        m.id AS m_id
-	      FROM
-	        mandat AS m
-	        INNER JOIN organisation AS o ON m.organisation_id = o.id
-	      """ ];
+	rr:logicalTable [ rr:sqlQuery """ SELECT organisation_id AS o_id, person_id AS p_id, id AS role_id FROM mandat""" ];
 	
 	rr:subjectMap [
-		rr:template "https://lod.lobbywatch.ch/organisation/{o_id}" ;
+		rr:template "https://lod.lobbywatch.ch/role/{role_id}" ;
+		rr:class schema:Role ;
 	];
 	
 	rr:predicateObjectMap [
-		rr:predicate org:member ;
+		rr:predicate schema:memberOf ;
 		rr:objectMap [
-			rr:template "https://lod.lobbywatch.ch/mandate/{m_id}" ;
+			rr:template "https://lod.lobbywatch.ch/organization/{o_id}" ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate schema:member ;
+		rr:objectMap [
+			rr:template "https://lod.lobbywatch.ch/person/{p_id}" ;
 		];
 	]
 .
@@ -822,7 +750,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:predicateObjectMap [
 		rr:predicate schema:member ;
 		rr:objectMap [
-			rr:template "https://lod.lobbywatch.ch/people/{person_fk}" ;
+			rr:template "https://lod.lobbywatch.ch/person/{person_fk}" ;
 		];
 	];
 	rr:predicateObjectMap [
@@ -883,46 +811,6 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		];
 	]
 .
-<#Role>
-	rr:logicalTable [ rr:sqlQuery """
-	      SELECT
-	        distinct(art) AS role,
-	        organisation_id
-	      FROM
-	        (
-	          (
-	            SELECT
-	              art,
-	              organisation_id
-	            FROM
-	              mandat
-	          )
-	          union
-	          (
-	            SELECT
-	              funktion_im_gremium,
-	              organisation_id
-	            FROM
-	              mandat
-	          )
-	        ) AS foo
-	      where
-	        art IS NOT NULL
-	    """ ];
-	
-	rr:subjectMap [
-		rr:template "https://lod.lobbywatch.ch/role/{role}" ;
-		rr:class org:Role ;
-	];
-	
-	rr:predicateObjectMap [
-		rr:predicate rdfs:label ;
-		rr:objectMap [
-			rr:column "role" ;
-			rr:language "de" ;
-		];
-	]
-.
 <#Mandate>
 	rr:logicalTable [ rr:sqlQuery """
 	      SELECT
@@ -937,7 +825,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	
 	rr:subjectMap [
 		rr:template "https://lod.lobbywatch.ch/mandate/{id}" ;
-		rr:class org:Membership ;
+		rr:class schema:Role ;
 	];
 	
 	rr:predicateObjectMap [
@@ -988,29 +876,29 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		];
 	];
 	rr:predicateObjectMap [
-		rr:predicate lw:joined ;
+		rr:predicate schema:startDate ;
 		rr:objectMap [
 			rr:column "von" ;
 			rr:datatype xsd:date ;
 		];
 	];
 	rr:predicateObjectMap [
-		rr:predicate lw:left ;
+		rr:predicate schema:endDate ;
 		rr:objectMap [
 			rr:column "bis" ;
 			rr:datatype xsd:date ;
 		];
 	];
 	rr:predicateObjectMap [
-		rr:predicate org:organization ;
+		rr:predicate schema:memberOf ;
 		rr:objectMap [
-			rr:template "https://lod.lobbywatch.ch/organisation/{organisation_id}" ;
+			rr:template "https://lod.lobbywatch.ch/organization/{organisation_id}" ;
 		];
 	];
 	rr:predicateObjectMap [
-		rr:predicate org:hasMember ;
+		rr:predicate schema:member ;
 		rr:objectMap [
-			rr:template "https://lod.lobbywatch.ch/people/{person_id}" ;
+			rr:template "https://lod.lobbywatch.ch/person/{person_id}" ;
 		];
 	]
 .
@@ -1018,8 +906,8 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:logicalTable [ rr:tableName "mandat_jahr" ];
 	
 	rr:subjectMap [
-		rr:template "https://lod.lobbywatch.ch/mandate-compensation/{id}" ;
-		rr:class lw:Mandate ;
+		rr:template "https://lod.lobbywatch.ch/mandate/{mandat_id}/compensation" ;
+		rr:class lw:Compensation ;
 	];
 	
 	rr:predicateObjectMap [
@@ -1055,7 +943,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		];
 	];
 	rr:predicateObjectMap [
-		rr:predicate org:memberOf ;
+		rr:predicate schema:memberOf ;
 		rr:objectMap [
 			rr:template "https://lod.lobbywatch.ch/mandate/{mandat_id}" ;
 		];
@@ -1094,7 +982,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:predicateObjectMap [
 		rr:predicate lw:parliamentMember ;
 		rr:objectMap [
-			rr:template "https://lod.lobbywatch.ch/parliament-member/{parlament_biografie_id}" ;
+			rr:template "https://lod.lobbywatch.ch/person/{parlament_biografie_id}" ;
 		];
 	]
 .
@@ -1131,7 +1019,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:predicateObjectMap [
 		rr:predicate lw:parliamentMember ;
 		rr:objectMap [
-			rr:template "https://lod.lobbywatch.ch/parliament-member/{parlament_biografie_id}" ;
+			rr:template "https://lod.lobbywatch.ch/person/{parlament_biografie_id}" ;
 		];
 	]
 .
@@ -1168,7 +1056,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:predicateObjectMap [
 		rr:predicate lw:parliamentMember ;
 		rr:objectMap [
-			rr:template "https://lod.lobbywatch.ch/parliament-member/{parlament_biografie_id}" ;
+			rr:template "https://lod.lobbywatch.ch/person/{parlament_biografie_id}" ;
 		];
 	]
 .
@@ -1292,13 +1180,13 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:predicateObjectMap [
 		rr:predicate org:organization ;
 		rr:objectMap [
-			rr:template "https://lod.lobbywatch.ch/organisation/{organisation_id}" ;
+			rr:template "https://lod.lobbywatch.ch/organization/{organisation_id}" ;
 		];
 	];
 	rr:predicateObjectMap [
 		rr:predicate lw:parliamentMember ;
 		rr:objectMap [
-			rr:template "https://lod.lobbywatch.ch/parliament-member/{parlament_biografie_id}" ;
+			rr:template "https://lod.lobbywatch.ch/person/{parlament_biografie_id}" ;
 		];
 	]
 .
@@ -1306,7 +1194,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:logicalTable [ rr:tableName "interessenbindung_jahr" ];
 	
 	rr:subjectMap [
-		rr:template "https://lod.lobbywatch.ch/members-interest-compensation/{id}" ;
+		rr:template "https://lod.lobbywatch.ch/members-interest/compensation/{id}" ;
 		rr:class lw:MembersInterestsCompensation ;
 	];
 	
@@ -1343,7 +1231,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		];
 	];
 	rr:predicateObjectMap [
-		rr:predicate org:memberOf ;
+		rr:predicate schema:memberOf ;
 		rr:objectMap [
 			rr:template "https://lod.lobbywatch.ch/members-interest/{interessenbindung_id}" ;
 		];

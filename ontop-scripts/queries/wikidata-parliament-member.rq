@@ -1,5 +1,5 @@
 INSERT {
-  ?lwPerson <http://schema.org/sameAs> ?wikidataPerson .
+  ?lwPerson <http://www.w3.org/2002/07/owl#sameAs> ?wikidataPerson .
 }
 WHERE {
   ?lwPerson a <http://dbpedia.org/ontology/MemberOfParliament> ;

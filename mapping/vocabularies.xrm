@@ -12,6 +12,7 @@ vocabulary schema {
     Occupation
     Organization
     Person
+    Role
 
   properties
     alternateName
@@ -29,7 +30,11 @@ vocabulary schema {
     memberOf
     name
     sameAs
+    identifier
     url
+    additionalType
+    startDate
+    endDate
 }
 
 vocabulary lobbywatch {
@@ -44,6 +49,7 @@ vocabulary lobbywatch {
     MembersInterest
     MembersInterestsCompensation
     Transparency
+    Compensation
 
   properties
     agency
@@ -77,6 +83,7 @@ vocabulary lobbywatch {
     transparency
     ^type
     year
+    domain
 }
 
 vocabulary dbpedia {
@@ -134,22 +141,25 @@ vocabulary rdfs {
   properties
     comment
     label
+    seeAlso
+}
+
+vocabulary owl {
+  prefix "owl" "http://www.w3.org/2002/07/owl#"
+
+  properties
+    sameAs
 }
 
 vocabulary org {
   prefix "org" "http://www.w3.org/ns/org#"
 
   classes
-    Membership
     Organization
     Role
 
   properties
-    hasMember
-    hasMembership
     identifier
-    member
-    memberOf
     organization
     remuneration
     role

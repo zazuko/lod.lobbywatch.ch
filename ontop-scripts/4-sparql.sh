@@ -30,3 +30,24 @@ curl \
     --header "Content-Type: application/sparql-update" \
     --data-binary '@queries/committees_map_manual.rq' \
     'http://data.zazuko.com/lobbywatch/update'
+
+curl \
+    --include -v \
+    --header "Authorization: Basic $STARDOG_AUTH" \
+    --header "Content-Type: application/sparql-update" \
+    --data-binary '@queries/second_chamber_committee.rq' \
+    'http://data.zazuko.com/lobbywatch/update'
+
+curl \
+    --include -v \
+    --header "Authorization: Basic $STARDOG_AUTH" \
+    --header "Content-Type: application/sparql-update" \
+    --data-binary '@queries/parliament.rq' \
+    'http://data.zazuko.com/lobbywatch/update'
+
+curl \
+    --include -v \
+    --header "Authorization: Basic $STARDOG_AUTH" \
+    --header "Content-Type: application/sparql-update" \
+    --data-binary '@queries/memberships.rq' \
+    'http://data.zazuko.com/lobbywatch/update'

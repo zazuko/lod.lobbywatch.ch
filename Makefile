@@ -1,6 +1,6 @@
 .PHONY: sql convert pipeline upload link
 
-all: sql convert pipeline upload link
+all: sql convert pipeline upload link map
 
 sql:
 	cd database && docker-compose down
@@ -27,6 +27,3 @@ transform:
 
 map:
 	cd ontop-scripts && ./4-sparql.sh
-
-delete:
-	cd ontop-scripts && ./5-delete.sh

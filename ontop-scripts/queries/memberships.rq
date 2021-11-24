@@ -1,0 +1,16 @@
+PREFIX schema: <http://schema.org/>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+INSERT {
+  GRAPH <https://lod.lobbywatch.ch> {
+    ?o1 schema:memberOf ?s1.
+    ?o2 schema:member ?s2.
+
+  }
+}
+WHERE {
+  GRAPH <https://lod.lobbywatch.ch> {
+  {?s1 schema:member ?o1.} UNION {?s2 schema:memberOf ?o2.}
+  }
+}
+
