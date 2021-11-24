@@ -103,6 +103,12 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 			rr:column "im_rat_bis" ;
 			rr:datatype xsd:date ;
 		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate schema:memberOf ;
+		rr:objectMap [
+			rr:template "https://lod.lobbywatch.ch/council/{council_fk}" ;
+		];
 	]
 .
 <#PartyRole>
@@ -119,8 +125,14 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:subjectMap [
 		rr:template "https://lod.lobbywatch.ch/party/{party_fk}/role/{parlament_biografie_id}" ;
 		rr:class schema:Role ;
-	]
+	];
 	
+	rr:predicateObjectMap [
+		rr:predicate schema:memberOf ;
+		rr:objectMap [
+			rr:template "https://lod.lobbywatch.ch/party/{party_fk}" ;
+		];
+	]
 .
 <#MemberOfFederalCouncil>
 	rr:logicalTable [ rr:sqlQuery """
@@ -1092,7 +1104,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	
 	rr:subjectMap [
 		rr:template "https://lod.lobbywatch.ch/members-interest/{id}" ;
-		rr:class lw:MembersInterest ;
+		rr:class schema:Role ;
 	];
 	
 	rr:predicateObjectMap [
@@ -1194,8 +1206,8 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:logicalTable [ rr:tableName "interessenbindung_jahr" ];
 	
 	rr:subjectMap [
-		rr:template "https://lod.lobbywatch.ch/members-interest/compensation/{id}" ;
-		rr:class lw:MembersInterestsCompensation ;
+		rr:template "https://lod.lobbywatch.ch/members-interest/{interessenbindung_id}compensation/{id}" ;
+		rr:class lw:Compensation ;
 	];
 	
 	rr:predicateObjectMap [
