@@ -1,3 +1,4 @@
 /ontop-scripts/ontop
 /ontop-scripts/log
 *.nt
+.env
