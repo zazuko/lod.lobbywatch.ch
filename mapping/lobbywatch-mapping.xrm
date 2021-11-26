@@ -12,16 +12,17 @@ template occupationIri "https://lod.lobbywatch.ch/occupation/{0}"
 template orgIri "https://lod.lobbywatch.ch/organization/{0}"
 template partyIri "https://lod.lobbywatch.ch/party/{0}"
 template personIri "https://lod.lobbywatch.ch/person/{0}"
+template councilMemberIri "https://politics.ld.admin.ch/council/person/{0}"
 template roleIri "https://lod.lobbywatch.ch/role/{0}"
-template rolePartyIri "https://lod.lobbywatch.ch/party/{0}/role/{1}"
-template roleCouncilIri "https://lod.lobbywatch.ch/council/{0}/role/{1}"
+template roleCouncilIri "https://politics.ld.admin.ch/council/{0}/member/{1}"
+template rolePartyIri "https://lod.lobbywatch.ch/party/{0}/member/{1}"
 template transparencyIri "https://lod.lobbywatch.ch/transparency/{0}"
 template accessIri "https://lod.lobbywatch.ch/access-right/{0}"
-template committeeIri "https://lod.lobbywatch.ch/committee/{0}"
+template committeeIri "https://politics.ld.admin.ch/council/committee/{0}"
 template committeeType "https://lod.lobbywatch.ch/committee/type/{0}"
 
 map ParliamentMember from lobbywatchdb.t_parlamentarier {
-  subject template personIri with parlament_biografie_id;
+  subject template councilMemberIri with parlament_biografie_id;
 
   types
     schema.Person
@@ -63,19 +64,19 @@ map PartyRole from lobbywatchdb.t_parlamentarier {
 }
 
 map MemberOfFederalCouncil from lobbywatchdb.t_federal_council_member {
-  subject template personIri with parlament_biografie_id;
+  subject template councilMemberIri with parlament_biografie_id;
 
   properties
     wdt.P39 constant "https://www.wikidata.org/wiki/Q11811941";
 }
 map MemberOfNationalCouncil from lobbywatchdb.t_national_council_member {
-  subject template personIri with parlament_biografie_id;
+  subject template councilMemberIri with parlament_biografie_id;
 
   properties
     wdt.P39 constant "https://www.wikidata.org/wiki/Q18510612";
 }
 map MemberOfStateCouncil from lobbywatchdb.t_state_council_member {
-  subject template personIri with parlament_biografie_id;
+  subject template councilMemberIri with parlament_biografie_id;
 
   properties
     wdt.P39 constant "https://www.wikidata.org/wiki/Q18510613";
@@ -126,7 +127,7 @@ map Party from lobbywatchdb.t_partei {
 }
 
 map Committee from lobbywatchdb.t_kommission {
-  subject template committeeIri with abkuerzung;
+  subject template committeeIri with parlament_committee_number;
 
   types
     paf.Committee
@@ -214,8 +215,8 @@ map BusinessSector from lobbywatchdb.t_branche {
     rdfs.label from name_fr with language-tag fr;
     rdfs.comment from beschreibung with language-tag de;
     rdfs.comment from beschreibung_fr with language-tag fr;
-    lobbywatch.nationalCouncilCommission template committeeIri with kommission_id;
-    lobbywatch.councilOfStateCommission template committeeIri with kommission2_id;
+    lobbywatch.nationalCouncilCommission template committeeIri with kommission1_curia_id;
+    lobbywatch.councilOfStateCommission template committeeIri with kommission2_curia_id;
 }
 
 map Lobby from lobbywatchdb.t_interessengruppe {

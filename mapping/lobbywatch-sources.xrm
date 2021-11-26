@@ -2,12 +2,23 @@ source-group lobbywatchdb {
   type rdb
 
   logical-source t_branche {
-    source "branche"
+    source query "
+    SELECT
+    b.*,
+    k1.parlament_committee_number AS kommission1_curia_id,
+    k2.parlament_committee_number AS kommission2_curia_id
+    FROM
+    branche as b
+    LEFT JOIN kommission AS k1
+    ON b.kommission_id = k1.id
+    LEFT JOIN kommission AS k2
+    ON b.kommission2_id = k2.id
+  "
 
     referenceables
       id // int(11)
-      kommission_id // int(11)
-      kommission2_id // int(11)
+      kommission1_curia_id // int(11)
+      kommission2_curia_id // int(11)
       angaben // mediumtext
       angaben_fr // mediumtext
       beschreibung // mediumtext
@@ -47,7 +58,7 @@ source-group lobbywatchdb {
       von // date
   }
 
-  // https://www.parlament.ch/en/%C3%BCber-das-parlament/parlamentsw%C3%B6rterbuch/parlamentsw%C3%B6rterbuch-detail?WordId=115
+// https://www.parlament.ch/en/%C3%BCber-das-parlament/parlamentsw%C3%B6rterbuch/parlamentsw%C3%B6rterbuch-detail?WordId=115
   logical-source t_interessenbindung {
     source query "
       SELECT
@@ -200,7 +211,7 @@ source-group lobbywatchdb {
     source query "
       SELECT
         k1.*,
-        k2.abkuerzung AS fk_zweitrat_committee
+        k2.parlament_committee_number AS fk_zweitrat_committee
       FROM
         `kommission` AS k1
         LEFT JOIN kommission AS k2 ON k1.zweitrat_kommission_id = k2.id
@@ -253,22 +264,22 @@ source-group lobbywatchdb {
       m_id
   }
 
-  // logical-source t_organization_membership {
-  // source query "
-  // SELECT
-  // o.id AS o_id,
-  // o.uid AS o_uid,
-  // m.id AS m_id
-  // FROM
-  // mandat AS m
-  // INNER JOIN organisation AS o ON m.organisation_id = o.id
-  // "
+// logical-source t_organization_membership {
+// source query "
+// SELECT
+// o.id AS o_id,
+// o.uid AS o_uid,
+// m.id AS m_id
+// FROM
+// mandat AS m
+// INNER JOIN organisation AS o ON m.organisation_id = o.id
+// "
 //
-  // referenceables
-  // o_id
-  // o_uid
-  // m_id
-  // }
+// referenceables
+// o_id
+// o_uid
+// m_id
+// }
   logical-source t_organization_membership {
     source query " SELECT organisation_id AS o_id, person_id AS p_id, id AS role_id FROM mandat"
 
