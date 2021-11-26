@@ -5,7 +5,6 @@ template councilIri "https://lod.lobbywatch.ch/council/{0}"
 template geographicalInfluenceIri "https://lod.lobbywatch.ch/geographical-influence/{0}"
 template lobbyIri "https://lod.lobbywatch.ch/lobby/{0}"
 template mandateCompensationIri "https://lod.lobbywatch.ch/mandate/{0}/compensation"
-template mandateIri "https://lod.lobbywatch.ch/mandate/{0}"
 template membersInterestCompensationIri "https://lod.lobbywatch.ch/members-interest/{0}compensation/{1}"
 template membersInterestIri "https://lod.lobbywatch.ch/members-interest/{0}"
 template occupationIri "https://lod.lobbywatch.ch/occupation/{0}"
@@ -250,7 +249,7 @@ map GeographicalInfluence from lobbywatchdb.t_interessenraum {
 }
 
 map Mandate from lobbywatchdb.t_mandat {
-  subject template mandateIri with id;
+  subject template roleIri with id;
 
   types
     schema.Role
@@ -282,7 +281,7 @@ map MandateCompensation from lobbywatchdb.t_mandat_jahr {
     lobbywatch.sourceUrl from quelle_url;
     org.remuneration from verguetung;
 
-    schema.memberOf template mandateIri with mandat_id;
+    schema.memberOf template roleIri with mandat_id;
 }
 
 map Transparency1 from lobbywatchdb.t_parlamentarier_transparenz_ja {
