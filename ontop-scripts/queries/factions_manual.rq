@@ -1,0 +1,26 @@
+PREFIX schema: <http://schema.org/>
+
+DELETE {
+  GRAPH <https://lod.lobbywatch.ch> {
+    <https://lod.lobbywatch.ch/faction/6> ?p ?o.
+  }
+}
+INSERT {
+  GRAPH <https://lod.lobbywatch.ch> {
+    <https://politics.ld.admin.ch/council/faction/140> ?p_new ?o_new.
+    <https://politics.ld.admin.ch/council/faction/140> ?p ?o.
+  }
+}
+WHERE {
+  GRAPH <https://lod.lobbywatch.ch> {
+
+    <https://lod.lobbywatch.ch/faction/6> ?p ?o.
+
+
+  SERVICE <https://test.lindas.admin.ch/query> {
+    GRAPH <https://lindas.admin.ch/fch/curia> {
+      <https://politics.ld.admin.ch/council/faction/140> ?p_new ?o_new.
+    }
+  }
+}
+}

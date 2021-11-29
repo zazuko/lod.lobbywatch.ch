@@ -1,0 +1,37 @@
+PREFIX schema: <http://schema.org/>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+DELETE {
+  GRAPH <https://lod.lobbywatch.ch> {
+    ?faction_old ?p_old ?o_old.
+
+  }
+}
+INSERT {
+  GRAPH <https://lod.lobbywatch.ch> {
+    ?faction_lindas ?p_old ?o_old;
+      ?p ?o.
+  }
+}
+WHERE {
+  GRAPH <https://lod.lobbywatch.ch> {
+
+  ?faction_old a <https://lod.lobbywatch.ch/Faction>;
+    schema:alternateName ?abb_lindas;
+    ?p_old ?o_old;
+
+  SERVICE <https://test.lindas.admin.ch/query> {
+    GRAPH <https://lindas.admin.ch/fch/curia> {
+
+      ?faction_lindas a <http://schema.org/Organization>;
+    	<https://paf.link/isActive> ?active;
+    	<https://paf.link/hasAbbreviation> ?abb_lindas;
+      ?p ?o.
+
+      FILTER (LANG(?abb_lindas) = "de")
+    }
+  }
+}
+}
+
+

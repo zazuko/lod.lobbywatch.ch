@@ -17,25 +17,20 @@ source .env
 #
 #done
 
+
+
 curl \
     --include -v \
     --header "Authorization: Basic $STARDOG_AUTH" \
     --header "Content-Type: application/sparql-update" \
-    --data-binary '@queries/committees_map_auto.rq' \
+    --data-binary '@queries/factions_manual.rq' \
     'http://data.zazuko.com/lobbywatch/update'
 
 curl \
     --include -v \
     --header "Authorization: Basic $STARDOG_AUTH" \
     --header "Content-Type: application/sparql-update" \
-    --data-binary '@queries/committees_map_manual.rq' \
-    'http://data.zazuko.com/lobbywatch/update'
-
-curl \
-    --include -v \
-    --header "Authorization: Basic $STARDOG_AUTH" \
-    --header "Content-Type: application/sparql-update" \
-    --data-binary '@queries/second_chamber_committee.rq' \
+    --data-binary '@queries/factions_auto.rq' \
     'http://data.zazuko.com/lobbywatch/update'
 
 curl \
