@@ -110,6 +110,10 @@ vocabulary paf {
 
   classes
     Committee
+    Faction
+
+  properties
+    hasAbbreviation
 }
 
 vocabulary wd {

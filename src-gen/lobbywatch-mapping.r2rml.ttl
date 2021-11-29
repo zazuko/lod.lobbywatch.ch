@@ -419,11 +419,11 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:subjectMap [
 		rr:template "https://lod.lobbywatch.ch/faction/{id}" ;
 		rr:class schema:Organization ;
-		rr:class lw:Faction ;
+		rr:class paf:Faction ;
 	];
 	
 	rr:predicateObjectMap [
-		rr:predicate schema:alternateName ;
+		rr:predicate paf:hasAbbreviation ;
 		rr:objectMap [
 			rr:column "abkuerzung" ;
 			rr:language "de" ;

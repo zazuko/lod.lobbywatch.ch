@@ -157,10 +157,10 @@ map Faction from lobbywatchdb.t_fraktion {
 
   types
     schema.Organization
-    lobbywatch.Faction
+    paf.Faction
 
   properties
-    schema.alternateName from abkuerzung with language-tag de;
+    paf.hasAbbreviation from abkuerzung with language-tag de;
     schema.sameAs template wikidata with wikidata_qid;
 }
 

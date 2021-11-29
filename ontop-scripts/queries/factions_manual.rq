@@ -2,25 +2,31 @@ PREFIX schema: <http://schema.org/>
 
 DELETE {
   GRAPH <https://lod.lobbywatch.ch> {
-    <https://lod.lobbywatch.ch/faction/6> ?p ?o.
+    <https://lod.lobbywatch.ch/faction/6> ?p_outwards ?o.
+    ?s ?p_inwards <https://lod.lobbywatch.ch/faction/6>.
   }
 }
 INSERT {
   GRAPH <https://lod.lobbywatch.ch> {
-    <https://politics.ld.admin.ch/council/faction/140> ?p_new ?o_new.
-    <https://politics.ld.admin.ch/council/faction/140> ?p ?o.
+    <https://politics.ld.admin.ch/council/faction/140> ?p_outwards_new ?o_new.
+    <https://politics.ld.admin.ch/council/faction/140> ?p_outwards ?o.
+    ?s ?p_inwards <https://politics.ld.admin.ch/council/faction/140>.
   }
 }
 WHERE {
   GRAPH <https://lod.lobbywatch.ch> {
 
-    <https://lod.lobbywatch.ch/faction/6> ?p ?o.
-
+    {?s ?p_inwards <https://lod.lobbywatch.ch/faction/6>.} UNION {
+      <https://lod.lobbywatch.ch/faction/6> ?p_outwards ?o.} UNION {
 
   SERVICE <https://test.lindas.admin.ch/query> {
     GRAPH <https://lindas.admin.ch/fch/curia> {
-      <https://politics.ld.admin.ch/council/faction/140> ?p_new ?o_new.
+          <https://politics.ld.admin.ch/council/faction/140> ?p_outwards_new ?o_new.}
+      }
     }
   }
 }
-}
+
+
+
+
