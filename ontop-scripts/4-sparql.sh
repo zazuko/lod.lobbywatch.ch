@@ -17,13 +17,21 @@ source .env
 #
 #done
 
+# Factions: order matters!
+curl \
+    --include -v \
+    --header "Authorization: Basic $STARDOG_AUTH" \
+    --header "Content-Type: application/sparql-update" \
+    --data-binary '@queries/factions_auto_inwards.rq' \
+    'http://data.zazuko.com/lobbywatch/update'
 
 curl \
     --include -v \
     --header "Authorization: Basic $STARDOG_AUTH" \
     --header "Content-Type: application/sparql-update" \
-    --data-binary '@queries/factions_auto.rq' \
+    --data-binary '@queries/factions_auto_outwards.rq' \
     'http://data.zazuko.com/lobbywatch/update'
+
 
 curl \
     --include -v \

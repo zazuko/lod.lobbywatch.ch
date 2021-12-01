@@ -129,16 +129,7 @@ source-group lobbywatchdb {
   }
 
   logical-source t_interessengruppe {
-    source query "
-      SELECT
-        i.*,
-        branche.technischer_name AS business_sector_fk,
-        p.id AS person_fk
-      FROM
-        interessengruppe AS i
-        LEFT JOIN branche ON i.branche_id = branche.id
-        LEFT JOIN person AS p ON p.beruf_interessengruppe_id = i.id
-    "
+    source "interessengruppe"
 
     referenceables
       id // int(11)
@@ -149,8 +140,6 @@ source-group lobbywatchdb {
       name_fr // varchar(150)
       alias_namen // varchar(255)
       alias_namen_fr // varchar(255)
-      business_sector_fk
-      person_fk
   }
 
   logical-source t_interessenraum {
@@ -687,7 +676,8 @@ source-group lobbywatchdb {
     source query "
       SELECT
         t.*,
-        p.parlament_biografie_id
+        p.parlament_biografie_id,
+        p.rat_id
       FROM
         parlamentarier_transparenz AS t
         INNER JOIN parlamentarier AS p ON p.id = t.parlamentarier_id
@@ -699,12 +689,14 @@ source-group lobbywatchdb {
       id
       stichdatum
       parlament_biografie_id
+      rat_id
   }
   logical-source t_parlamentarier_transparenz_nein {
     source query "
       SELECT
         t.*,
-        p.parlament_biografie_id
+        p.parlament_biografie_id,
+        p.rat_id
       FROM
         parlamentarier_transparenz AS t
         INNER JOIN parlamentarier AS p ON p.id = t.parlamentarier_id
@@ -716,12 +708,14 @@ source-group lobbywatchdb {
       id
       stichdatum
       parlament_biografie_id
+      rat_id
   }
   logical-source t_parlamentarier_transparenz_teilweise {
     source query "
       SELECT
         t.*,
-        p.parlament_biografie_id
+        p.parlament_biografie_id,
+        p.rat_id
       FROM
         parlamentarier_transparenz AS t
         INNER JOIN parlamentarier AS p ON p.id = t.parlamentarier_id
@@ -733,5 +727,6 @@ source-group lobbywatchdb {
       id
       stichdatum
       parlament_biografie_id
+      rat_id
   }
 }

@@ -5,8 +5,8 @@ template councilIri "https://politics.ld.admin.ch/council/{0}"
 template geographicalInfluenceIri "https://lod.lobbywatch.ch/geographical-influence/{0}"
 
 template mandateCompensationIri "https://lod.lobbywatch.ch/mandate/{0}/compensation"
-template membersInterestCompensationIri "https://lod.lobbywatch.ch/members-interest/{0}compensation/{1}"
-template membersInterestIri "https://lod.lobbywatch.ch/members-interest/{0}"
+template interestCompensationIri "https://lod.lobbywatch.ch/interests/{0}/compensation/{1}"
+template interestIri "https://lod.lobbywatch.ch/interests/{0}"
 template occupationIri "https://lod.lobbywatch.ch/occupation/{0}"
 
 
@@ -120,6 +120,7 @@ map People from lobbywatchdb.t_person {
     schema.hasOccupation template occupationIri with beruf;
     schema.memberOf template rolePartyIri with partei_id id;
     schema.memberOf template lobbyIri with beruf_interessengruppe_id;
+
 }
 
 
@@ -135,7 +136,7 @@ map PeopleOccupation from lobbywatchdb.t_occupation_people {
 }
 
 map Party from lobbywatchdb.t_partei {
-  subject template partyIri with abkuerzung;
+  subject template partyIri with id;
 
   types
     dbpedia.PoliticalParty
@@ -243,7 +244,7 @@ map OrganizationMembership from lobbywatchdb.t_organization_membership {
 }
 
 map BusinessSector from lobbywatchdb.t_branche {
-  subject template businessSectorIri with technischer_name;
+  subject template businessSectorIri with id;
 
   types
     lobbywatch.BusinessSector
@@ -268,10 +269,9 @@ map Lobby from lobbywatchdb.t_interessengruppe {
     rdfs.label from name_fr with language-tag fr;
     schema.alternateName from alias_namen with language-tag de;
     schema.alternateName from alias_namen_fr with language-tag fr;
-    schema.member template personIri with person_fk;
     rdfs.comment from beschreibung with language-tag de;
     rdfs.comment from beschreibung_fr with language-tag fr;
-    lobbywatch.businessSector template businessSectorIri with business_sector_fk;
+    schema.memberOf template businessSectorIri with branche_id;
 }
 
 map GeographicalInfluence from lobbywatchdb.t_interessenraum {
@@ -333,7 +333,7 @@ map Transparency1 from lobbywatchdb.t_parlamentarier_transparenz_ja {
     lobbywatch.date from stichdatum with datatype xsd.date;
     lobbywatch.transparency constant "yes";
 
-    lobbywatch.parliamentMember template personIri with parlament_biografie_id;
+    schema.memberOf template roleCouncilIri with rat_id parlament_biografie_id;
 }
 
 map Transparency2 from lobbywatchdb.t_parlamentarier_transparenz_nein {
@@ -346,7 +346,7 @@ map Transparency2 from lobbywatchdb.t_parlamentarier_transparenz_nein {
     lobbywatch.date from stichdatum with datatype xsd.date;
     lobbywatch.transparency constant "no";
 
-    lobbywatch.parliamentMember template personIri with parlament_biografie_id;
+    schema.memberOf template roleCouncilIri with rat_id parlament_biografie_id;
 }
 
 map Transparency3 from lobbywatchdb.t_parlamentarier_transparenz_teilweise {
@@ -359,11 +359,11 @@ map Transparency3 from lobbywatchdb.t_parlamentarier_transparenz_teilweise {
     lobbywatch.date from stichdatum with datatype xsd.date;
     lobbywatch.transparency constant "partial";
 
-    lobbywatch.parliamentMember template personIri with parlament_biografie_id;
+    schema.memberOf template roleCouncilIri with rat_id parlament_biografie_id;
 }
 
 map MembersInterests from lobbywatchdb.t_interessenbindung {
-  subject template membersInterestIri with id;
+  subject template interestIri with id;
 
   types
     schema.Role
@@ -379,16 +379,16 @@ map MembersInterests from lobbywatchdb.t_interessenbindung {
     rdfs.label from beschreibung_fr with language-tag fr;
     lobbywatch.^source from quelle;
     lobbywatch.sourceUrl from quelle_url;
-    lobbywatch.joined from von with datatype xsd.date;
-    lobbywatch.left from bis with datatype xsd.date;
+    schema.startDate from von with datatype xsd.date;
+    schema.endDate from bis with datatype xsd.date;
 
     org.organization template orgIri with organisation_id;
 
-    lobbywatch.parliamentMember template personIri with parlament_biografie_id;
+    schema.member template personIri with parlament_biografie_id;
 }
 
 map MembersInterestsCompensation from lobbywatchdb.t_interessenbindung_jahr {
-  subject template membersInterestCompensationIri with interessenbindung_id id;
+  subject template interestCompensationIri with interessenbindung_id id;
 
   types
     lobbywatch.Compensation
@@ -400,5 +400,5 @@ map MembersInterestsCompensation from lobbywatchdb.t_interessenbindung_jahr {
     lobbywatch.sourceUrl from quelle_url;
     org.remuneration from verguetung;
 
-    schema.memberOf template membersInterestIri with interessenbindung_id;
+    schema.memberOf template interestIri with interessenbindung_id;
 }
