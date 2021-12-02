@@ -115,17 +115,27 @@ source-group lobbywatchdb {
   }
 
   logical-source t_interessenbindung_jahr {
-    source "interessenbindung_jahr"
+    source query "
+    SELECT DATE(CONCAT_WS('-', compensation.jahr, 1, 1)) AS startDate, DATE(CONCAT_WS('-', compensation.jahr, 12, 31)) AS endDate, compensation.*, parlamentarier.parlament_biografie_id, role.organisation_id
+    FROM interessenbindung_jahr AS compensation
+    LEFT JOIN interessenbindung AS role
+    ON compensation.interessenbindung_id = role.id
+    LEFT JOIN parlamentarier
+    ON role.parlamentarier_id = parlamentarier.id
+    "
 
     referenceables
       id // int(11)
       interessenbindung_id // int(11)
       beschreibung // varchar(150)
-      jahr // smallint(6)
+      startDate
+      endDate
       quelle // varchar(80)
       quelle_url // varchar(255)
       quelle_url_gueltig // tinyint(1)
       verguetung // int(11)
+      parlament_biografie_id
+      organisation_id
   }
 
   logical-source t_interessengruppe {
@@ -295,7 +305,7 @@ source-group lobbywatchdb {
 
   logical-source t_mandat_jahr {
     source query "
-    SELECT mandat_jahr.*, m.person_id, m.organisation_id
+    SELECT DATE(CONCAT_WS('-', mandat_jahr.jahr, 1, 1)) AS startDate, DATE(CONCAT_WS('-', mandat_jahr.jahr, 12, 31)) AS endDate, mandat_jahr.*, m.person_id, m.organisation_id
     FROM mandat_jahr
     LEFT JOIN mandat AS m
     ON mandat_jahr.mandat_id = m.id"
@@ -306,7 +316,8 @@ source-group lobbywatchdb {
       person_id // int(11)
       organisation_id
       beschreibung // varchar(150)
-      jahr // smallint(6)
+      startDate
+      endDate
       quelle // varchar(80)
       quelle_url // varchar(255)
       quelle_url_gueltig // tinyint(1)
@@ -672,7 +683,7 @@ source-group lobbywatchdb {
       parlament_biografie_id
   }
 
-  logical-source t_parlamentarier_transparenz_ja {
+  logical-source t_parlamentarier_transparenz {
     source query "
       SELECT
         t.*,
@@ -681,8 +692,6 @@ source-group lobbywatchdb {
       FROM
         parlamentarier_transparenz AS t
         INNER JOIN parlamentarier AS p ON p.id = t.parlamentarier_id
-      WHERE
-        verguetung_transparent = 'ja'
       "
 
     referenceables
@@ -690,43 +699,6 @@ source-group lobbywatchdb {
       stichdatum
       parlament_biografie_id
       rat_id
-  }
-  logical-source t_parlamentarier_transparenz_nein {
-    source query "
-      SELECT
-        t.*,
-        p.parlament_biografie_id,
-        p.rat_id
-      FROM
-        parlamentarier_transparenz AS t
-        INNER JOIN parlamentarier AS p ON p.id = t.parlamentarier_id
-      WHERE
-        verguetung_transparent = 'nein'
-      "
-
-    referenceables
-      id
-      stichdatum
-      parlament_biografie_id
-      rat_id
-  }
-  logical-source t_parlamentarier_transparenz_teilweise {
-    source query "
-      SELECT
-        t.*,
-        p.parlament_biografie_id,
-        p.rat_id
-      FROM
-        parlamentarier_transparenz AS t
-        INNER JOIN parlamentarier AS p ON p.id = t.parlamentarier_id
-      WHERE
-        verguetung_transparent = 'teilweise'
-      "
-
-    referenceables
-      id
-      stichdatum
-      parlament_biografie_id
-      rat_id
+      verguetung_transparent
   }
 }

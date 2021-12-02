@@ -1,0 +1,16 @@
+PREFIX lw: <https://lod.lobbywatch.ch/>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+INSERT {
+  GRAPH <https://lod.lobbywatch.ch> {
+    ?o1 lw:hasReceived ?s1.
+    ?o2 lw:hasIssued ?s2.
+
+  }
+}
+WHERE {
+  GRAPH <https://lod.lobbywatch.ch> {
+  {?s1 lw:issuedTo ?o1.} UNION {?s2 lw:issuedBy ?o2.}
+  }
+}
+
