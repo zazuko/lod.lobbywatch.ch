@@ -46,17 +46,20 @@ source-group lobbywatchdb {
   }
 
   logical-source t_in_kommission {
-    source "in_kommission"
+    source query "
+    SELECT role.*, politician.parlament_biografie_id
+    FROM in_kommission as role
+    LEFT JOIN parlamentarier AS politician
+    ON role.parlamentarier_id = politician.id
+  "
 
     referenceables
-      id // int(11)
-      kommission_id // int(11)
-      parlamentarier_id // int(11)
-      funktion // enum('praesident','vizepraesident','mitglied','co-praesident')
-      parlament_committee_function // int(11)
-      parlament_committee_function_name // varchar(40)
-      bis // date
-      von // date
+      kommission_id
+      parlament_biografie_id
+      funktion
+      von
+      bis
+      freigabe_datum
   }
 
 // https://www.parlament.ch/en/%C3%BCber-das-parlament/parlamentsw%C3%B6rterbuch/parlamentsw%C3%B6rterbuch-detail?WordId=115

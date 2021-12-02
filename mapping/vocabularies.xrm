@@ -59,6 +59,7 @@ vocabulary lobbywatch {
     authorizedAs
     businessSector
     compulsoryDisclosure
+    secondChamberCommittee
     disclosed
     employmentType
     geographicalInfluence
