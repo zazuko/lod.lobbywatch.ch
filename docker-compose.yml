@@ -10,23 +10,10 @@ services:
       - 3306:3306
     environment:
       MYSQL_ROOT_PASSWORD: public
-  # admin:
-  #   image: phpmyadmin/phpmyadmin
-  #   links:
-  #     - db:db
-  #   ports:
-  #     - 8080:80
-  # ontop:
-  #   image: ontop/ontop-endpoint:4.0-snapshot
-  #   links:
-  #     - db:db
-  #   # ports:
-  #   #   - 8080:8080
-  #   volumes:
-  #     - ./ontop-scripts/mysql-connector-java-5.1.49/:/opt/ontop/jdbc
-  #     - ./ontop-scripts/ontop-entrypoint.sh:/opt/ontop/entrypoint.sh
-  #     - ./ontop-scripts:/opt/ontop/output
-  #     - ./src-gen:/static
-  #   environment:
-  #     - ONTOP_MAPPING_FILE=/static/lobbywatch-mapping.r2rml.ttl
-  #     - ONTOP_PROPERTIES_FILE=/static/ontop.mysql.properties
+
+  adminer:
+    image: adminer
+    links:
+      - db:db
+    ports:
+      - 3030:8080

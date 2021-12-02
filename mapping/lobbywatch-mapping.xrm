@@ -249,6 +249,8 @@ map Organization from lobbywatchdb.t_organisation {
 
 }
 
+
+
 map AccessRight from lobbywatchdb.t_zutrittsberechtigung {
   subject template accessIri with id;
 
