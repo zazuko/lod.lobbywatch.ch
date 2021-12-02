@@ -179,6 +179,21 @@ map Faction from lobbywatchdb.t_fraktion {
     schema.sameAs template wikidata with wikidata_qid;
 }
 
+map CommitteeRole from lobbywatchdb.t_in_kommission {
+  subject template roleCommitteeIri with kommission_id parlament_biografie_id;
+
+  types
+    schema.Role
+
+  properties
+    schema.startDate from von with datatype xsd.date;
+    schema.endDate from bis with datatype xsd.date;
+    schema.member template councilMemberIri with parlament_biografie_id;
+    schema.memberOf template committeeIri with kommission_id;
+    schema.datePublished from freigabe_datum with datatype xsd.date;
+    schema.additionalType template memberTypeIri with funktion;
+}
+
 map Committee from lobbywatchdb.t_kommission {
   subject template committeeIri with parlament_committee_number;
 
@@ -202,21 +217,6 @@ map Committee from lobbywatchdb.t_kommission {
     lobbywatch.domain from sachbereiche with language-tag de;
     lobbywatch.domain from sachbereiche_fr with language-tag fr;
 
-}
-
-map CommitteeRole from lobbywatchdb.t_in_kommission {
-  subject template roleCommitteeIri with kommission_id parlament_biografie_id;
-
-  types
-    schema.Role
-
-  properties
-    schema.startDate from von with datatype xsd.date;
-    schema.endDate from bis with datatype xsd.date;
-    schema.member template councilMemberIri with parlament_biografie_id;
-    schema.memberOf template committeeIri with kommission_id;
-    schema.datePublished from freigabe_datum with datatype xsd.date;
-    schema.additionalType template memberTypeIri with funktion;
 }
 
 map Organization from lobbywatchdb.t_organisation {
