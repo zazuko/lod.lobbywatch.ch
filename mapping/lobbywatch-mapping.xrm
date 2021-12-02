@@ -190,7 +190,6 @@ map CommitteeRole from lobbywatchdb.t_in_kommission {
     schema.endDate from bis with datatype xsd.date;
     schema.member template councilMemberIri with parlament_biografie_id;
     schema.memberOf template committeeIri with kommission_id;
-    schema.datePublished from freigabe_datum with datatype xsd.date;
     schema.additionalType template memberTypeIri with funktion;
 }
 

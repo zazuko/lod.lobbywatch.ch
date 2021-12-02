@@ -510,13 +510,6 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		];
 	];
 	rr:predicateObjectMap [
-		rr:predicate schema:datePublished ;
-		rr:objectMap [
-			rr:column "freigabe_datum" ;
-			rr:datatype xsd:date ;
-		];
-	];
-	rr:predicateObjectMap [
 		rr:predicate schema:additionalType ;
 		rr:objectMap [
 			rr:template "https://lod.lobbywatch.ch/member/{funktion}" ;
