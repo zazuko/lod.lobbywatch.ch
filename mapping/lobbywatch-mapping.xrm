@@ -18,10 +18,10 @@ template rolePartyIriRegular "https://lod.lobbywatch.ch/party/{0}/member/regular
 template rolePartyIriPolitician "https://lod.lobbywatch.ch/party/{0}/member/politician/{1}"
 template roleOrgIri "https://lod.lobbywatch.ch/organization/{0}/member/{1}"
 template roleCouncilIri "https://politics.ld.admin.ch/council/{0}/member/{1}"
+template roleCommitteeIri "https://politics.ld.admin.ch/council/committee/{0}/member/{1}"
 
 template personIri "https://lod.lobbywatch.ch/person/{0}"
 template councilMemberIri "https://politics.ld.admin.ch/council/person/{0}"
-
 
 template transparencyIri "https://lod.lobbywatch.ch/transparency/{0}"
 template accessIri "https://lod.lobbywatch.ch/access-right/{0}"
@@ -204,6 +204,21 @@ map Committee from lobbywatchdb.t_kommission {
 
 }
 
+map CommitteeRole from lobbywatchdb.t_in_kommission {
+  subject template roleCommitteeIri with kommission_id parlament_biografie_id;
+
+  types
+    schema.Role
+
+  properties
+    schema.startDate from von with datatype xsd.date;
+    schema.endDate from bis with datatype xsd.date;
+    schema.member template councilMemberIri with parlament_biografie_id;
+    schema.memberOf template committeeIri with kommission_id;
+    schema.datePublished from freigabe_datum with datatype xsd.date;
+    schema.additionalType template memberTypeIri with funktion;
+}
+
 map Organization from lobbywatchdb.t_organisation {
   subject template orgIri with id;
 
@@ -271,8 +286,8 @@ map BusinessSector from lobbywatchdb.t_branche {
     rdfs.label from name_fr with language-tag fr;
     rdfs.comment from beschreibung with language-tag de;
     rdfs.comment from beschreibung_fr with language-tag fr;
-    lobbywatch.nationalCouncilCommission template committeeIri with kommission1_curia_id;
-    lobbywatch.councilOfStateCommission template committeeIri with kommission2_curia_id;
+    paf.hasResponsible template committeeIri with kommission1_curia_id;
+    paf.hasResponsible template committeeIri with kommission2_curia_id;
 }
 
 map Lobby from lobbywatchdb.t_interessengruppe {
@@ -348,7 +363,7 @@ map Transparency from lobbywatchdb.t_parlamentarier_transparenz {
     lobbywatch.Transparency
 
   properties
-    lobbywatch.date from stichdatum with datatype xsd.date;
+    schema.datePublished from stichdatum with datatype xsd.date;
     lobbywatch.transparency from verguetung_transparent;
 
     schema.memberOf template roleCouncilIri with rat_id parlament_biografie_id;

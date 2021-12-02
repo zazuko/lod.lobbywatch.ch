@@ -114,6 +114,23 @@ source-group lobbywatchdb {
       von // date
   }
 
+  logical-source t_in_kommission {
+    source query "
+    SELECT role.*, politician.parlament_biografie_id
+    FROM in_kommission as role
+    LEFT JOIN parlamentarier AS politician
+    ON role.parlamentarier_id = politician.id
+    "
+
+    referenceables
+      kommission_id
+      parlament_biografie_id
+      funktion
+      von
+      bis
+      freigabe_datum
+  }
+
   logical-source t_interessenbindung_jahr {
     source query "
     SELECT DATE(CONCAT_WS('-', compensation.jahr, 1, 1)) AS startDate, DATE(CONCAT_WS('-', compensation.jahr, 12, 31)) AS endDate, compensation.*, parlamentarier.parlament_biografie_id, role.organisation_id

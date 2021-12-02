@@ -1,0 +1,25 @@
+PREFIX schema: <http://schema.org/>
+PREFIX lw: <https://lod.lobbywatch.ch/>
+PREFIX paf: <https://paf.link/>
+
+INSERT {
+  GRAPH <https://lod.lobbywatch.ch> {
+    ?o1 schema:memberOf ?s1.
+    ?o2 schema:member ?s2.
+
+    ?o3 lw:hasReceived ?s3.
+    ?o4 lw:hasIssued ?s4.
+
+    ?o5 paf:isResponsibleFor ?s5.
+
+  }
+}
+WHERE {
+  GRAPH <https://lod.lobbywatch.ch> {
+  {?s1 schema:member ?o1.} UNION
+  {?s2 schema:memberOf ?o2.} UNION
+  {?s3 lw:issuedTo ?o3.} UNION
+  {?s4 lw:issuedBy ?o4.} UNION
+  {?s5 paf:hasResponsible ?o5. }
+  }
+}

@@ -36,6 +36,7 @@ vocabulary schema {
     startDate
     endDate
     gender
+    datePublished
 }
 
 vocabulary lobbywatch {
@@ -58,10 +59,8 @@ vocabulary lobbywatch {
     authorizedAs
     businessSector
     compulsoryDisclosure
-    date
     disclosed
     employmentType
-    fromDate
     geographicalInfluence
     interest
     issuedBy
@@ -70,7 +69,6 @@ vocabulary lobbywatch {
     kind
     left
     mandateType
-    nationalCouncilCommission
     occupation
     officialCapacity
     parliamentId
@@ -79,12 +77,9 @@ vocabulary lobbywatch {
     positionOnBoard
     sourceUrl
     toDate
-    secondChamberCommittee
     ^source
-    councilOfStateCommission
     transparency
     ^type
-    year
     domain
 }
 
@@ -114,6 +109,8 @@ vocabulary paf {
 
   properties
     hasAbbreviation
+    hasResponsible
+    isResponsibleFor
 }
 
 vocabulary wd {

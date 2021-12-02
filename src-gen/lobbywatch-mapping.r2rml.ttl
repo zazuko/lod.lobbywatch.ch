@@ -584,6 +584,14 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		];
 	]
 .
+<#CommitteeRole>
+	rr:logicalTable [ rr:tableName "in_kommission" ];
+	
+	rr:subjectMap [
+		rr:template "https://politics.ld.admin.ch/council/committee/{kommission_id}" ;
+	]
+	
+.
 <#Organization>
 	rr:logicalTable [ rr:sqlQuery """
 	      SELECT
@@ -1123,7 +1131,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	];
 	
 	rr:predicateObjectMap [
-		rr:predicate lw:date ;
+		rr:predicate schema:datePublished ;
 		rr:objectMap [
 			rr:column "stichdatum" ;
 			rr:datatype xsd:date ;
