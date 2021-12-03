@@ -1,6 +1,6 @@
 .PHONY: sql convert pipeline upload link
 
-all: sql convert pipeline upload link map
+all: sql convert pipeline upload map link
 
 sql:
 	cd database && docker-compose stop db
