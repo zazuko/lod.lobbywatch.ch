@@ -1,4 +1,7 @@
-#!/bin/sh
+#!/bin/bash
+set -e
+source .env
+
 curl -v \
      -X PUT \
      --header "Authorization: Basic $STARDOG_AUTH" \

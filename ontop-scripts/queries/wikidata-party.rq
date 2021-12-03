@@ -5,7 +5,7 @@ PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX dbo: <http://dbpedia.org/ontology/>
 
 INSERT {
-  ?party schema:sameAs ?wdparty .
+  ?party <http://www.w3.org/2002/07/owl#sameAs> ?wdparty .
 }
 WHERE {
   ?party a dbo:PoliticalParty .

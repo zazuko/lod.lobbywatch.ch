@@ -15,7 +15,7 @@
 <FilePipeline> a p:Pipeline;
   p:variables <variables>;
   p:steps [
-    p:stepList ( <readFile> <parse> <slugUris> <serialize> <writeFile> )
+    p:stepList ( <readFile> <parse> <slugUris> <mapCouncils> <serialize> <writeFile> )
   ].
 
 <readFile> a p:Step;
@@ -98,3 +98,12 @@
     return rdf.namedNode(url.toString());
   };
 }"""^^code:EcmaScript) .
+
+<mapCouncils> a p:Step ;
+  code:implementedBy [
+    code:link <node:barnard59-base#map> ;
+    a code:EcmaScript
+  ];
+  code:arguments([ a code:EcmaScript;
+    code:link <file:./lib/map#mapCouncils>;
+  ]).

@@ -2,12 +2,23 @@ source-group lobbywatchdb {
   type rdb
 
   logical-source t_branche {
-    source "branche"
+    source query "
+    SELECT
+    b.*,
+    k1.parlament_committee_number AS kommission1_curia_id,
+    k2.parlament_committee_number AS kommission2_curia_id
+    FROM
+    branche as b
+    LEFT JOIN kommission AS k1
+    ON b.kommission_id = k1.id
+    LEFT JOIN kommission AS k2
+    ON b.kommission2_id = k2.id
+  "
 
     referenceables
       id // int(11)
-      kommission_id // int(11)
-      kommission2_id // int(11)
+      kommission1_curia_id // int(11)
+      kommission2_curia_id // int(11)
       angaben // mediumtext
       angaben_fr // mediumtext
       beschreibung // mediumtext
@@ -31,23 +42,27 @@ source-group lobbywatchdb {
       position // enum('links','rechts','mitte')
       bis // date
       von // date
+      wikidata_qid
   }
 
   logical-source t_in_kommission {
-    source "in_kommission"
+    source query "
+    SELECT role.*, politician.parlament_biografie_id
+    FROM in_kommission as role
+    LEFT JOIN parlamentarier AS politician
+    ON role.parlamentarier_id = politician.id
+  "
 
     referenceables
-      id // int(11)
-      kommission_id // int(11)
-      parlamentarier_id // int(11)
-      funktion // enum('praesident','vizepraesident','mitglied','co-praesident')
-      parlament_committee_function // int(11)
-      parlament_committee_function_name // varchar(40)
-      bis // date
-      von // date
+      kommission_id
+      parlament_biografie_id
+      funktion
+      von
+      bis
+      freigabe_datum
   }
 
-  // https://www.parlament.ch/en/%C3%BCber-das-parlament/parlamentsw%C3%B6rterbuch/parlamentsw%C3%B6rterbuch-detail?WordId=115
+// https://www.parlament.ch/en/%C3%BCber-das-parlament/parlamentsw%C3%B6rterbuch/parlamentsw%C3%B6rterbuch-detail?WordId=115
   logical-source t_interessenbindung {
     source query "
       SELECT
@@ -102,31 +117,49 @@ source-group lobbywatchdb {
       von // date
   }
 
+  logical-source t_in_kommission {
+    source query "
+    SELECT role.*, politician.parlament_biografie_id
+    FROM in_kommission as role
+    LEFT JOIN parlamentarier AS politician
+    ON role.parlamentarier_id = politician.id
+    "
+
+    referenceables
+      kommission_id
+      parlament_biografie_id
+      funktion
+      von
+      bis
+      freigabe_datum
+  }
+
   logical-source t_interessenbindung_jahr {
-    source "interessenbindung_jahr"
+    source query "
+    SELECT DATE(CONCAT_WS('-', compensation.jahr, 1, 1)) AS startDate, DATE(CONCAT_WS('-', compensation.jahr, 12, 31)) AS endDate, compensation.*, parlamentarier.parlament_biografie_id, role.organisation_id
+    FROM interessenbindung_jahr AS compensation
+    LEFT JOIN interessenbindung AS role
+    ON compensation.interessenbindung_id = role.id
+    LEFT JOIN parlamentarier
+    ON role.parlamentarier_id = parlamentarier.id
+    "
 
     referenceables
       id // int(11)
       interessenbindung_id // int(11)
       beschreibung // varchar(150)
-      jahr // smallint(6)
+      startDate
+      endDate
       quelle // varchar(80)
       quelle_url // varchar(255)
       quelle_url_gueltig // tinyint(1)
       verguetung // int(11)
+      parlament_biografie_id
+      organisation_id
   }
 
   logical-source t_interessengruppe {
-    source query "
-      SELECT
-        i.*,
-        branche.technischer_name AS business_sector_fk,
-        p.id AS person_fk
-      FROM
-        interessengruppe AS i
-        LEFT JOIN branche ON i.branche_id = branche.id
-        LEFT JOIN person AS p ON p.beruf_interessengruppe_id = i.id
-    "
+    source "interessengruppe"
 
     referenceables
       id // int(11)
@@ -137,8 +170,6 @@ source-group lobbywatchdb {
       name_fr // varchar(150)
       alias_namen // varchar(255)
       alias_namen_fr // varchar(255)
-      business_sector_fk
-      person_fk
   }
 
   logical-source t_interessenraum {
@@ -200,7 +231,7 @@ source-group lobbywatchdb {
     source query "
       SELECT
         k1.*,
-        k2.abkuerzung AS fk_zweitrat_committee
+        k2.parlament_committee_number AS fk_zweitrat_committee
       FROM
         `kommission` AS k1
         LEFT JOIN kommission AS k2 ON k1.zweitrat_kommission_id = k2.id
@@ -231,7 +262,11 @@ source-group lobbywatchdb {
       typ // enum('kommission','subkommission','spezialkommission')
       von // date
       bis // date
+      wikipedia
       fk_zweitrat_committee
+      zweitrat_kommission_id
+      sachbereiche
+      sachbereiche_fr
   }
 
   logical-source t_person_membership {
@@ -250,52 +285,12 @@ source-group lobbywatchdb {
   }
 
   logical-source t_organization_membership {
-    source query "
-      SELECT
-        o.id AS o_id,
-        o.uid AS o_uid,
-        m.id AS m_id
-      FROM
-        mandat AS m
-        INNER JOIN organisation AS o ON m.organisation_id = o.id
-      "
+    source query " SELECT organisation_id AS o_id, person_id AS p_id, id AS role_id FROM mandat"
 
     referenceables
       o_id
-      o_uid
-      m_id
-  }
-
-  logical-source t_role {
-    source query "
-      SELECT
-        distinct(art) AS role,
-        organisation_id
-      FROM
-        (
-          (
-            SELECT
-              art,
-              organisation_id
-            FROM
-              mandat
-          )
-          union
-          (
-            SELECT
-              funktion_im_gremium,
-              organisation_id
-            FROM
-              mandat
-          )
-        ) AS foo
-      where
-        art IS NOT NULL
-    "
-
-    referenceables
-      organisation_id
-      role
+      p_id
+      role_id
   }
 
   logical-source t_mandat {
@@ -329,13 +324,20 @@ source-group lobbywatchdb {
   }
 
   logical-source t_mandat_jahr {
-    source "mandat_jahr"
+    source query "
+    SELECT DATE(CONCAT_WS('-', mandat_jahr.jahr, 1, 1)) AS startDate, DATE(CONCAT_WS('-', mandat_jahr.jahr, 12, 31)) AS endDate, mandat_jahr.*, m.person_id, m.organisation_id
+    FROM mandat_jahr
+    LEFT JOIN mandat AS m
+    ON mandat_jahr.mandat_id = m.id"
 
     referenceables
       id // int(11)
-      mandat_id // int(11)
+      mandat_id
+      person_id // int(11)
+      organisation_id
       beschreibung // varchar(150)
-      jahr // smallint(6)
+      startDate
+      endDate
       quelle // varchar(80)
       quelle_url // varchar(255)
       quelle_url_gueltig // tinyint(1)
@@ -469,6 +471,22 @@ source-group lobbywatchdb {
       zivilstand // enum('ledig','verheiratet','geschieden','eingetragene partnerschaft','getrennt','verwitwet')
       council_fk
       party_fk
+      wikidata_qid
+  }
+
+  logical-source t_fraktion {
+    source "fraktion"
+
+    referenceables
+      id
+      abkuerzung
+      name
+      name_fr
+      position
+      von
+      bis
+      wikipedia
+      wikidata_qid
   }
 
   logical-source t_partei {
@@ -491,6 +509,7 @@ source-group lobbywatchdb {
       position // enum('links','rechts','mitte')
       twitter_name // varchar(50)
       twitter_name_fr // varchar(50)
+      wikidata_qid
   }
 
   logical-source t_occupation_people {
@@ -684,55 +703,22 @@ source-group lobbywatchdb {
       parlament_biografie_id
   }
 
-  logical-source t_parlamentarier_transparenz_ja {
+  logical-source t_parlamentarier_transparenz {
     source query "
       SELECT
         t.*,
-        p.parlament_biografie_id
+        p.parlament_biografie_id,
+        p.rat_id
       FROM
         parlamentarier_transparenz AS t
         INNER JOIN parlamentarier AS p ON p.id = t.parlamentarier_id
-      WHERE
-        verguetung_transparent = 'ja'
       "
 
     referenceables
       id
       stichdatum
       parlament_biografie_id
-  }
-  logical-source t_parlamentarier_transparenz_nein {
-    source query "
-      SELECT
-        t.*,
-        p.parlament_biografie_id
-      FROM
-        parlamentarier_transparenz AS t
-        INNER JOIN parlamentarier AS p ON p.id = t.parlamentarier_id
-      WHERE
-        verguetung_transparent = 'nein'
-      "
-
-    referenceables
-      id
-      stichdatum
-      parlament_biografie_id
-  }
-  logical-source t_parlamentarier_transparenz_teilweise {
-    source query "
-      SELECT
-        t.*,
-        p.parlament_biografie_id
-      FROM
-        parlamentarier_transparenz AS t
-        INNER JOIN parlamentarier AS p ON p.id = t.parlamentarier_id
-      WHERE
-        verguetung_transparent = 'teilweise'
-      "
-
-    referenceables
-      id
-      stichdatum
-      parlament_biografie_id
+      rat_id
+      verguetung_transparent
   }
 }

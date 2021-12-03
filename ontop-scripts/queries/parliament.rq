@@ -1,0 +1,28 @@
+PREFIX schema: <http://schema.org/>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+INSERT {
+  GRAPH <https://lod.lobbywatch.ch> {
+      <https://politics.ld.admin.ch/council/N> a <http://dbpedia.org/ontology/Parliament>;
+              a <https://paf.link/Council>;
+              owl:sameAs "https://www.wikidata.org/wiki/Q676078";
+              ?p_n ?o_n.
+      <https://politics.ld.admin.ch/council/S> a <http://dbpedia.org/ontology/Parliament>;
+              a <https://paf.link/Council>;
+              owl:sameAs "https://www.wikidata.org/wiki/Q609037";
+              ?p_s ?o_s.
+      <https://politics.ld.admin.ch/council/FA> a <http://dbpedia.org/ontology/Parliament>;
+              owl:sameAs "https://www.wikidata.org/wiki/Q684719";
+              ?p_fa ?o_fa.
+  }
+}
+WHERE {
+  SERVICE <https://lindas.admin.ch/query> {
+    GRAPH <https://lindas.admin.ch/fch/rvov> {
+      <https://politics.ld.admin.ch/council/N> ?p_n ?o_n.
+      <https://politics.ld.admin.ch/council/S> ?p_s ?o_s.
+      <https://politics.ld.admin.ch/council/FA> ?p_fa ?o_fa.
+    }
+  }
+}
+

@@ -12,8 +12,10 @@ vocabulary schema {
     Occupation
     Organization
     Person
+    Role
 
   properties
+    alternateName
     additionalName
     affiliation
     alternateName
@@ -28,7 +30,13 @@ vocabulary schema {
     memberOf
     name
     sameAs
+    identifier
     url
+    additionalType
+    startDate
+    endDate
+    gender
+    datePublished
 }
 
 vocabulary lobbywatch {
@@ -37,24 +45,23 @@ vocabulary lobbywatch {
   classes
     AccessRight
     BusinessSector
-    Committee
     GeographicalInfluence
     Lobby
     Mandate
     MembersInterest
     MembersInterestsCompensation
     Transparency
+    Compensation
+    Faction
 
   properties
     agency
     authorizedAs
     businessSector
-    chamber
     compulsoryDisclosure
-    date
+    secondChamberCommittee
     disclosed
     employmentType
-    fromDate
     geographicalInfluence
     interest
     issuedBy
@@ -63,7 +70,6 @@ vocabulary lobbywatch {
     kind
     left
     mandateType
-    nationalCouncilCommission
     occupation
     officialCapacity
     parliamentId
@@ -72,12 +78,10 @@ vocabulary lobbywatch {
     positionOnBoard
     sourceUrl
     toDate
-    secondChamberCommittee
     ^source
-    councilOfStateCommission
     transparency
     ^type
-    year
+    domain
 }
 
 vocabulary dbpedia {
@@ -95,6 +99,19 @@ vocabulary dbpedia {
     birthDate
     electionDate
     politicalFunction
+}
+
+vocabulary paf {
+  prefix "paf" "https://paf.link/"
+
+  classes
+    Committee
+    Faction
+
+  properties
+    hasAbbreviation
+    hasResponsible
+    isResponsibleFor
 }
 
 vocabulary wd {
@@ -128,32 +145,28 @@ vocabulary rdfs {
   properties
     comment
     label
+    seeAlso
+}
+
+vocabulary owl {
+  prefix "owl" "http://www.w3.org/2002/07/owl#"
+
+  properties
+    sameAs
 }
 
 vocabulary org {
   prefix "org" "http://www.w3.org/ns/org#"
 
   classes
-    Membership
     Organization
     Role
 
   properties
-    hasMember
-    hasMembership
     identifier
-    member
-    memberOf
     organization
     remuneration
     role
-}
-
-vocabulary skos {
-  prefix "skos" "http://www.w3.org/2004/02/skos/core#"
-
-  properties
-    altLabel
 }
 
 vocabulary xsd {
@@ -166,3 +179,4 @@ vocabulary xsd {
     gYear
     int
 }
+
