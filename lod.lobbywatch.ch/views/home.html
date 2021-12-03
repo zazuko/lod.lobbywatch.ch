@@ -1,84 +1,87 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 
-${include('cwd:views/header.html')}
+  ${include('cwd:views/header.html')}
 
 </head>
+
 <body>
 
-${include('cwd:views/navigation.html')}
+  ${include('cwd:views/navigation.html')}
 
-<div class="container">
-  <div class="row">
-    <div class="col-xs-12">
-      <h3>Lobbywatch <abbr title="Linked Open Data">LOD</abbr> Platform</h3>
-      <h4>Sample Queries</h4>
-      <ul>
-        <li>
-          <a href="https://s.zazuko.com/2KiWa">
-            All lobbies and their business sector
-          </a>
-        </li>
-        <li>
-          <a href="https://s.zazuko.com/5et9n">
-            Organizations and their lobbyists
-          </a>
-        </li>
-        <li>
-          <a href="https://s.zazuko.com/5RVwP">
-            Parliament members, their invitees and who they represent
-          </a>
-        </li>
-        <li>
-          Parliament member X gave access to the parliament to person Y. <br>
-          X is a <a href="https://lod.lobbywatch.ch/party/FDP">FDP party</a> member. <br>
-          <a href="https://s.zazuko.com/B2Jm">
-            What are the organizations represented by person Y?
-          </a>
-        </li>
-        <li>
-          <a href="https://s.zazuko.com/6p8B6">
-            Organizations with a global (world-wide) political influence
-          </a>
-        </li>
-        <li>
-          <a href="https://s.zazuko.com/N3Yb">
-            People involved in energy-related lobbies, and their political party
-          </a>
-        </li>
-      </ul>
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <h3>Lobbywatch <abbr title="Linked Open Data">LOD</abbr> Platform</h3>
+        <h4>Sample Queries</h4>
+        <ul>
+          <li>
+            <a href="https://s.zazuko.com/DXmiL">
+              All lobbies and their business sector
+            </a>
+          </li>
+          <li>
+            <a href="https://s.zazuko.com/28dwFZ">
+              Organizations and their lobbyists
+            </a>
+          </li>
+          <li>
+            <a href="https://s.zazuko.com/fB6CU">
+              Parliament members, their invitees and who they represent
+            </a>
+          </li>
+          <li>
+            Parliament member X gave access to the parliament to person Y. <br>
+            X is a <a href="https://lod.lobbywatch.ch/party/1">FDP party</a> member. <br>
+            <a href="https://s.zazuko.com/2qP9Tk">
+              What are the organizations represented by person Y?
+            </a>
+          </li>
+          <li>
+            <a href="https://s.zazuko.com/6p8B6">
+              Organizations with a global (world-wide) political influence
+            </a>
+          </li>
+          <li>
+            <a href="https://s.zazuko.com/ZRjKm">
+              People involved in pharma-related lobbies, and their political party
+            </a>
+          </li>
+        </ul>
 
-      <h3>Main Concepts Index</h3>
-      <ul>
-        <li>
-          <a href="https://lod.lobbywatch.ch/parliament-member/">Parliament Members</a><br>
-          <a href="https://www.parlament.ch/en/%C3%BCber-das-parlament/parlamentsw%C3%B6rterbuch/parlamentsw%C3%B6rterbuch-detail?WordId=182">Lexicon</a>
-        </li>
-        <li>
-          <a href="https://lod.lobbywatch.ch/party/">Political Parties</a><br>
-        </li>
-        <li>
-          <a href="https://lod.lobbywatch.ch/people/">People</a>
-        </li>
-        <li>
-          <a href="https://lod.lobbywatch.ch/organisation/">Organizations</a>
-        </li>
-        <li>
-          <a href="https://lod.lobbywatch.ch/lobby/">Lobbies</a><br>
-          <a href="https://www.parlament.ch/en/%C3%BCber-das-parlament/parlamentsw%C3%B6rterbuch/parlamentsw%C3%B6rterbuch-detail?WordId=137">Lexicon</a>
-        </li>
-        <li>
-          <a href="https://lod.lobbywatch.ch/access-right/">Access Rights</a><br>
-          Lobbyists gain the right to access the Parliament Building when an Assembly member has an entry pass issued to them.
-        </li>
-      </ul>
+        <h3>Main Concepts Index</h3>
+        <ul>
+          <li>
+            <a href="https://dbpedia.org/ontology/MemberOfParliament">Member of Parliament</a><br>
+            <a
+              href="https://www.parlament.ch/en/%C3%BCber-das-parlament/parlamentsw%C3%B6rterbuch/parlamentsw%C3%B6rterbuch-detail?WordId=182">Lexicon</a>
+          </li>
+          <li>
+            <a href="https://schema.org/Person">Person</a>
+          </li>
+          <li>
+            <a href="https://schema.org/Organization">Organization</a>
+          </li>
+          <li>
+            <a href="https://lod.lobbywatch.ch/lobby/">Lobbies</a><br>
+            <a
+              href="https://www.parlament.ch/en/%C3%BCber-das-parlament/parlamentsw%C3%B6rterbuch/parlamentsw%C3%B6rterbuch-detail?WordId=137">Lexicon</a>
+          </li>
+          <li>
+            <a href="https://lod.lobbywatch.ch/access-right/">Access Rights</a><br>
+            Lobbyists gain the right to access the Parliament Building when an Assembly member has an entry pass issued
+            to them.
+          </li>
+        </ul>
+      </div>
     </div>
+
+    ${include('cwd:views/footer.html')}
+
   </div>
 
-${include('cwd:views/footer.html')}
-
-</div>
-
 </body>
+
 </html>
