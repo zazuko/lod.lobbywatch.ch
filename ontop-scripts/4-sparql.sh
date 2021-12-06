@@ -10,7 +10,7 @@ source .env
 #    #    --header "Authorization: Basic $STARDOG_AUTH" \
 #    #    --header "Content-Type: application/sparql-update" \
 #    #    --data-binary $query \
-#    #    'http://data.zazuko.com/lobbywatch/update'
+#    #    "${ENDPOINT}/update"
 ##
 #
 #    #curl -v -H "Accept: text/turtle" --header "Authorization: Basic $STARDOG_AUTH" --data-urlencode update@$query 'http://data.zazuko.com/lobbywatch/update/update'
@@ -23,14 +23,14 @@ curl \
     --header "Authorization: Basic $STARDOG_AUTH" \
     --header "Content-Type: application/sparql-update" \
     --data-binary '@queries/factions_auto_inwards.rq' \
-    'http://data.zazuko.com/lobbywatch/update'
+    "${ENDPOINT}/update"
 
 curl \
     --include -v \
     --header "Authorization: Basic $STARDOG_AUTH" \
     --header "Content-Type: application/sparql-update" \
     --data-binary '@queries/factions_auto_outwards.rq' \
-    'http://data.zazuko.com/lobbywatch/update'
+    "${ENDPOINT}/update"
 
 
 curl \
@@ -38,18 +38,18 @@ curl \
     --header "Authorization: Basic $STARDOG_AUTH" \
     --header "Content-Type: application/sparql-update" \
     --data-binary '@queries/factions_manual.rq' \
-    'http://data.zazuko.com/lobbywatch/update'
+    "${ENDPOINT}/update"
 
 curl \
     --include -v \
     --header "Authorization: Basic $STARDOG_AUTH" \
     --header "Content-Type: application/sparql-update" \
     --data-binary '@queries/parliament.rq' \
-    'http://data.zazuko.com/lobbywatch/update'
+    "${ENDPOINT}/update"
 
 curl \
     --include -v \
     --header "Authorization: Basic $STARDOG_AUTH" \
     --header "Content-Type: application/sparql-update" \
     --data-binary '@queries/reverse_properties.rq' \
-    'http://data.zazuko.com/lobbywatch/update'
+    "${ENDPOINT}/update"
