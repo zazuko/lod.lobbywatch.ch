@@ -33,23 +33,23 @@ function mapEfficacy(quad) {
     let subject = quad.subject
     let object = quad.object
 
-    if (subject.value = 'https://lod.lobbywatch.ch/tief') {
+    if (subject.value === 'https://lod.lobbywatch.ch/efficacy/tief') {
         subject = rdf.namedNode(subject.value.replace('tief', 'low'))
     }
-    else if (subject.value = 'https://lod.lobbywatch.ch/mittel') {
+    else if (subject.value === 'https://lod.lobbywatch.ch/efficacy/mittel') {
         subject = rdf.namedNode(subject.value.replace('mittel', 'medium'))
     }
-    else if (subject.value = 'https://lod.lobbywatch.ch/hoch') {
+    else if (subject.value === 'https://lod.lobbywatch.ch/efficacy/hoch') {
         subject = rdf.namedNode(subject.value.replace('hoch', 'high'))
     }
 
-    if (object.value = 'https://lod.lobbywatch.ch/tief') {
+    if (object.value === 'https://lod.lobbywatch.ch/efficacy/tief') {
         object = rdf.namedNode(object.value.replace('tief', 'low'))
     }
-    else if (object.value = 'https://lod.lobbywatch.ch/mittel') {
+    else if (object.value === 'https://lod.lobbywatch.ch/efficacy/mittel') {
         object = rdf.namedNode(object.value.replace('mittel', 'medium'))
     }
-    else if (object.value = 'https://lod.lobbywatch.ch/hoch') {
+    else if (object.value === 'https://lod.lobbywatch.ch/efficacy/hoch') {
         object = rdf.namedNode(object.value.replace('hoch', 'high'))
     }
 
