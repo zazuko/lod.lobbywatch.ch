@@ -277,7 +277,7 @@ map OrganizationMembership from lobbywatchdb.t_organization_membership {
     schema.member template personIri with p_id;
 }
 
-map ParliamentMemberRole from lobbywatch.t_interessenbindung_medium_raw {
+map ParliamentMemberRole from lobbywatchdb.t_interessenbindung_medium_raw {
   subject template roleOrgIri with organisation_id parlament_biografie_id;
 
   types
