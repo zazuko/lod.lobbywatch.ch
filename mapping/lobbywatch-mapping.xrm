@@ -285,10 +285,10 @@ map ParliamentMemberRole from lobbywatch.t_interessenbindung_medium_raw {
 
   properties
     schema.memberOf template orgIri with organisation_id;
-    lw.hasEfficacy template efficiacyIri with wirksamkeit;
+    lobbywatch.hasEfficacy template efficiacyIri with wirksamkeit;
     schema.additionalType template memberTypeIri with art;
     schema.additionalType template memberTypeIri with funktion_im_gremium;
-    lw.isMainOccupation from hauptberuflich with datatype xsd.boolean;
+    lobbywatch.isMainOccupation from hauptberuflich with datatype xsd.boolean;
 }
 
 map BusinessSector from lobbywatchdb.t_branche {
