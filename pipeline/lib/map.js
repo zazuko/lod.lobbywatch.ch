@@ -28,4 +28,32 @@ function mapCouncils(quad) {
     return rdf.quad(subject, quad.predicate, object)
 }
 
-module.exports = { mapCouncils }
+function mapEfficacy(quad) {
+
+    let subject = quad.subject
+    let object = quad.object
+
+    if (subject.value = 'https://lod.lobbywatch.ch/tief') {
+        subject = rdf.namedNode(subject.value.replace('tief', 'low'))
+    }
+    else if (subject.value = 'https://lod.lobbywatch.ch/mittel') {
+        subject = rdf.namedNode(subject.value.replace('mittel', 'medium'))
+    }
+    else if (subject.value = 'https://lod.lobbywatch.ch/hoch') {
+        subject = rdf.namedNode(subject.value.replace('hoch', 'high'))
+    }
+
+    if (object.value = 'https://lod.lobbywatch.ch/tief') {
+        object = rdf.namedNode(object.value.replace('tief', 'low'))
+    }
+    else if (object.value = 'https://lod.lobbywatch.ch/mittel') {
+        object = rdf.namedNode(object.value.replace('mittel', 'medium'))
+    }
+    else if (object.value = 'https://lod.lobbywatch.ch/hoch') {
+        object = rdf.namedNode(object.value.replace('hoch', 'high'))
+    }
+
+    return rdf.quad(subject, quad.predicate, object)
+}
+
+module.exports = { mapCouncils, mapEfficacy }

@@ -67,7 +67,7 @@ source-group lobbywatchdb {
   logical-source t_in_kommission {
     source query "
     SELECT role.*, politician.parlament_biografie_id
-    FROM in_kommission as role
+    FROM v_interessenbindung_medium_raw as role
     LEFT JOIN parlamentarier AS politician
     ON role.parlamentarier_id = politician.id
   "

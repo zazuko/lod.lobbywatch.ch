@@ -15,7 +15,7 @@
 <FilePipeline> a p:Pipeline;
   p:variables <variables>;
   p:steps [
-    p:stepList ( <readFile> <parse> <slugUris> <mapCouncils> <serialize> <writeFile> )
+    p:stepList ( <readFile> <parse> <slugUris> <mapCouncils> <mapEfficacy> <serialize> <writeFile> )
   ].
 
 <readFile> a p:Step;
@@ -107,3 +107,13 @@
   code:arguments([ a code:EcmaScript;
     code:link <file:./lib/map#mapCouncils>;
   ]).
+
+<mapEfficacy> a p:Step ;
+  code:implementedBy [
+    code:link <node:barnard59-base#map> ;
+    a code:EcmaScript
+  ];
+  code:arguments([ a code:EcmaScript;
+    code:link <file:./lib/map#mapEfficacy>;
+  ]).
+
