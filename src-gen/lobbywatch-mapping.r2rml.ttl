@@ -968,7 +968,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	
 	rr:subjectMap [
 		rr:template "https://lod.lobbywatch.ch/lobby/{id}" ;
-		rr:class lw:Lobby ;
+		rr:class lw:LobbyGroup ;
 	];
 	
 	rr:predicateObjectMap [

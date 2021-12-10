@@ -46,7 +46,7 @@ vocabulary lobbywatch {
     AccessRight
     BusinessSector
     GeographicalInfluence
-    Lobby
+    LobbyGroup
     Mandate
     MembersInterest
     MembersInterestsCompensation

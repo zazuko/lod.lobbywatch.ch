@@ -310,7 +310,7 @@ map Lobby from lobbywatchdb.t_interessengruppe {
   subject template lobbyIri with id;
 
   types
-    lobbywatch.Lobby
+    lobbywatch.LobbyGroup
 
   properties
     rdfs.label from name with language-tag de;
