@@ -633,7 +633,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 <#Organization>
 	rr:logicalTable [ rr:sqlQuery """
 	      SELECT
-	        o.*,
+	        o.*, REPLACE(REPLACE(o.uid, '.', ''), '-', '') AS uid_trimmed,
 	        ir.name AS fk_geographical
 	      FROM
 	        organisation AS o
@@ -648,7 +648,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:predicateObjectMap [
 		rr:predicate schema:identifier ;
 		rr:objectMap [
-			rr:column "uid" ;
+			rr:column "uid_trimmed" ;
 		];
 	];
 	rr:predicateObjectMap [
@@ -746,6 +746,13 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		rr:predicate schema:url ;
 		rr:objectMap [
 			rr:column "homepage" ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate lw:inCommerceRegister ;
+		rr:objectMap [
+			rr:column "in_handelsregister" ;
+			rr:datatype xsd:boolean ;
 		];
 	];
 	rr:predicateObjectMap [

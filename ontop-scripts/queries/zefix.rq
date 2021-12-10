@@ -1,0 +1,23 @@
+PREFIX schema: <http://schema.org/>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+INSERT {
+  GRAPH <https://lod.lobbywatch.ch> {
+    ?company_old schema:sameAs ?company_new.
+  }
+}
+WHERE {
+	?company_old a schema:Organization;
+    <https://lod.lobbywatch.ch/inCommerceRegister> "true"^^xsd:boolean;
+    schema:identifier ?uid.
+
+
+  SERVICE <https://lindas.admin.ch/query> {
+    GRAPH <https://lindas.admin.ch/foj/zefix> {
+    ?company_new a <https://schema.ld.admin.ch/ZefixOrganisation>;
+       schema:identifier ?id.
+    ?id schema:value ?uid;
+       schema:name "CompanyUID".
+    }
+  }
+}

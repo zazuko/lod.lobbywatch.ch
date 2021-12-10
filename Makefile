@@ -5,7 +5,9 @@ all: sql convert pipeline upload map link
 sql:
 	cd database && docker-compose stop db
 	cd database && ./get-dump.sh
-	cd database && docker-compose start db && sleep 20
+	cd database && docker-compose start db
+	sleep 20
+	mysql -h 127.0.0.1 -u root --database lobbywatch_public --password=public < database/wirksamkeit.sql
 
 convert:
 	cd ontop-scripts && ./1-convert.sh

@@ -30,6 +30,8 @@ template committeeType "https://lod.lobbywatch.ch/committee/type/{0}"
 template memberTypeIri "https://lod.lobbywatch.ch/member/{0}"
 template wikidata "https://www.wikidata.org/wiki/{0}"
 
+template efficiacyIri "https://lod.lobbywatch.ch/efficacy/{0}"
+
 map ParliamentMember from lobbywatchdb.t_parlamentarier {
   subject template councilMemberIri with parlament_biografie_id;
 
@@ -225,7 +227,7 @@ map Organization from lobbywatchdb.t_organisation {
     schema.Organization
 
   properties
-    schema.identifier from uid;
+    schema.identifier from uid_trimmed;
     schema.name from name_de with language-tag de;
     schema.name from name_fr with language-tag fr;
     schema.name from name_it with language-tag it;
@@ -240,6 +242,7 @@ map Organization from lobbywatchdb.t_organisation {
     schema.name from name_fr with language-tag fr;
     schema.name from name_it with language-tag it;
     schema.url from homepage;
+    lobbywatch.inCommerceRegister from in_handelsregister with datatype xsd.boolean;
 
     lobbywatch.geographicalInfluence template geographicalInfluenceIri with fk_geographical;
     schema.memberOf template lobbyIri with interessengruppe_id;
@@ -272,6 +275,20 @@ map OrganizationMembership from lobbywatchdb.t_organization_membership {
   properties
     schema.memberOf template orgIri with o_id;
     schema.member template personIri with p_id;
+}
+
+map ParliamentMemberRole from lobbywatch.t_interessenbindung_medium_raw {
+  subject template roleOrgIri with organisation_id parlament_biografie_id;
+
+  types
+    schema.Role
+
+  properties
+    schema.memberOf template orgIri with organisation_id;
+    lw.hasEfficacy template efficiacyIri with wirksamkeit;
+    schema.additionalType template memberTypeIri with art;
+    schema.additionalType template memberTypeIri with funktion_im_gremium;
+    lw.isMainOccupation from hauptberuflich with datatype xsd.boolean;
 }
 
 map BusinessSector from lobbywatchdb.t_branche {
