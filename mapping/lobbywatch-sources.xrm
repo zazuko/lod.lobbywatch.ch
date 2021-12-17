@@ -45,10 +45,29 @@ source-group lobbywatchdb {
       wikidata_qid
   }
 
-  logical-source t_in_kommission {
+  logical-source t_interessenbindung_medium_raw {
+    source query "
+    SELECT p.parlament_biografie_id, interests.*
+    FROM v_interessenbindung_medium_raw AS interests
+    LEFT JOIN parlamentarier AS p
+    ON p.id = interests.parlamentarier_id
+    "
+
+    referenceables
+      parlament_biografie_id
+      organisation_id
+      wirksamkeit
+      art
+      funktion_im_gremium
+      deklarationstyp
+      status
+      hauptberuflich
+  }
+
+  logical-source t_interessenbunding_medium_raw {
     source query "
     SELECT role.*, politician.parlament_biografie_id
-    FROM in_kommission as role
+    FROM v_interessenbindung_medium_raw as role
     LEFT JOIN parlamentarier AS politician
     ON role.parlamentarier_id = politician.id
   "
@@ -347,7 +366,7 @@ source-group lobbywatchdb {
   logical-source t_organisation {
     source query "
       SELECT
-        o.*,
+        o.*, REPLACE(REPLACE(o.uid, '.', ''), '-', '') AS uid_trimmed,
         ir.name AS fk_geographical
       FROM
         organisation AS o
@@ -387,6 +406,8 @@ source-group lobbywatchdb {
       typ // set('EinzelOrganisation','DachOrganisation','MitgliedsOrganisation','LeistungsErbringer','dezidierteLobby','Gemeinnuetzig','Gewinnorientiert')
       updated_by_import // timestamp
       vernehmlassung // enum('immer','punktuell','nie')
+      uid_trimmed
+      in_handelsregister
   }
 
   logical-source t_organisation_jahr {
