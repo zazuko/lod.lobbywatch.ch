@@ -200,6 +200,7 @@ map Committee from lobbywatchdb.t_kommission {
 
   types
     paf.Committee
+    schema.Organization
 
   properties
     schema.name from name with language-tag de;
@@ -225,6 +226,7 @@ map Organization from lobbywatchdb.t_organisation {
 
   types
     schema.Organization
+    lobbywatch.NonPoliticalOrganization
 
   properties
     schema.identifier from uid_trimmed;
@@ -285,6 +287,7 @@ map ParliamentMemberRole from lobbywatchdb.t_interessenbindung_medium_raw {
 
   properties
     schema.memberOf template orgIri with organisation_id;
+    schema.member template councilMemberIri with parlament_biografie_id;
     lobbywatch.hasEfficacy template efficiacyIri with wirksamkeit;
     schema.additionalType template memberTypeIri with art;
     schema.additionalType template memberTypeIri with funktion_im_gremium;

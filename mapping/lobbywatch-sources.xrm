@@ -64,7 +64,7 @@ source-group lobbywatchdb {
       hauptberuflich
   }
 
-  logical-source t_in_kommission {
+  logical-source t_interessenbunding_medium_raw {
     source query "
     SELECT role.*, politician.parlament_biografie_id
     FROM v_interessenbindung_medium_raw as role

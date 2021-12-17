@@ -473,10 +473,10 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 <#CommitteeRole>
 	rr:logicalTable [ rr:sqlQuery """
 	    SELECT role.*, politician.parlament_biografie_id
-	    FROM v_interessenbindung_medium_raw as role
+	    FROM in_kommission as role
 	    LEFT JOIN parlamentarier AS politician
 	    ON role.parlamentarier_id = politician.id
-	  """ ];
+	    """ ];
 	
 	rr:subjectMap [
 		rr:template "https://politics.ld.admin.ch/council/committee/{kommission_id}/member/{parlament_biografie_id}" ;
@@ -529,6 +529,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:subjectMap [
 		rr:template "https://politics.ld.admin.ch/council/committee/{parlament_committee_number}" ;
 		rr:class paf:Committee ;
+		rr:class schema:Organization ;
 	];
 	
 	rr:predicateObjectMap [
@@ -643,6 +644,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:subjectMap [
 		rr:template "https://lod.lobbywatch.ch/organization/{id}" ;
 		rr:class schema:Organization ;
+		rr:class lw:NonPoliticalOrganization ;
 	];
 	
 	rr:predicateObjectMap [
@@ -875,6 +877,12 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		rr:predicate schema:memberOf ;
 		rr:objectMap [
 			rr:template "https://lod.lobbywatch.ch/organization/{organisation_id}" ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate schema:member ;
+		rr:objectMap [
+			rr:template "https://politics.ld.admin.ch/council/person/{parlament_biografie_id}" ;
 		];
 	];
 	rr:predicateObjectMap [
