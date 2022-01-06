@@ -21,7 +21,8 @@ jobs:
       run: |
         make sql convert
         cd ontop-scripts
-        echo $ENDPOINT
+        echo "Hello"
+        echo "$ENDPOINT"
         curl -v \
             -X PUT \
             --header "Authorization: Basic $STARDOG_AUTH" \
