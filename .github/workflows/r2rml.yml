@@ -20,9 +20,9 @@ jobs:
     - name: Run the whole project
       run: |
         docker-compose stop db
-	      ./get-dump.sh
-	      docker-compose up -d db
-	      sleep 20
-	      mysql -h 127.0.0.1 -u root --database lobbywatch_public --password=public < database/wirksamkeit.sql
+        ./get-dump.sh
+        docker-compose up -d db
+        sleep 20
+        mysql -h 127.0.0.1 -u root --database lobbywatch_public --password=public < database/wirksamkeit.sql
         cd ontop-scripts && ./1-convert.sh
         ./2-upload.sh
