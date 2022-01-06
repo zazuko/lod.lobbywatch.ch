@@ -20,13 +20,4 @@ jobs:
     - name: Run the whole project
       run: |
         make sql convert
-        cd ontop-scripts
-        echo "Hello"
-        echo "$ENDPOINT"
-        curl -v \
-            -X PUT \
-            --header "Authorization: Basic $STARDOG_AUTH" \
-            --header "Content-Type:application/n-triples; charset=utf-8" \
-            -T ./triples-slug.nt \
-            --data-urlencode graph=https://lod.lobbywatch.ch \
-            -G $ENDPOINT
+        cd ontop-scripts && ./2-upload.sh
