@@ -226,7 +226,7 @@ map Organization from lobbywatchdb.t_organisation {
 
   types
     schema.Organization
-    lobbywatch.NonPoliticalOrganization
+    lobbywatch.LobbyOrganization
 
   properties
     schema.identifier from uid_trimmed;
