@@ -3,8 +3,6 @@
 set -e
 source .env
 
-echo "$ENDPOINT"
-
 curl -v \
      -X PUT \
      --header "Authorization: Basic $STARDOG_AUTH" \
