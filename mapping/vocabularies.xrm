@@ -53,7 +53,7 @@ vocabulary lobbywatch {
     Transparency
     Compensation
     Faction
-    NonPoliticalOrganization
+    LobbyOrganization
 
   properties
     agency

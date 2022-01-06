@@ -33,5 +33,8 @@ This project contains the source and tooling related to [lod.lobbywatch.ch](http
 Pushing a new version triggers a CI build and deploys the version on success:
 
 1. `cd lod.lobbywatch.ch`
-1. `npm version <major|minor|patch>`
-1. `git push --follow-tags`
+2. `npm version <major|minor|patch>`
+3. `git add .`
+4. `git commit -m your-message`
+5. `git tag -a vYourNpmVrsion`
+6. `git push --follow-tags`

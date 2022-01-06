@@ -644,7 +644,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:subjectMap [
 		rr:template "https://lod.lobbywatch.ch/organization/{id}" ;
 		rr:class schema:Organization ;
-		rr:class lw:NonPoliticalOrganization ;
+		rr:class lw:LobbyOrganization ;
 	];
 	
 	rr:predicateObjectMap [
