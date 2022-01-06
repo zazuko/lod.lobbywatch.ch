@@ -3,6 +3,9 @@ name: Lobbywatch R2RML Workflow
 on:
   schedule:
     - cron: "0 0 1,15 * *"
+  push:
+    branches:
+      - master
 
 jobs:
   build:
