@@ -1,4 +1,5 @@
 #!/bin/bash
+
 set -e
 source .env
 
@@ -8,5 +9,5 @@ curl -v \
      --header "Authorization: Basic $STARDOG_AUTH" \
      --header "Content-Type:application/n-triples; charset=utf-8" \
      -T ./triples-slug.nt \
-     -G $ENDPOINT \
-     --data-urlencode graph=https://lod.lobbywatch.ch
+     --data-urlencode graph=https://lod.lobbywatch.ch \
+     -G $ENDPOINT
