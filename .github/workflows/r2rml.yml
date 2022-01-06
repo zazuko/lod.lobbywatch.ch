@@ -18,6 +18,4 @@ jobs:
     - name: Install NPM pipeline
       run: cd pipeline && npm ci
     - name: Run the whole project
-      run: |
-        make sql convert
-        cd ontop-scripts && ./2-upload.sh
+      run: make all
