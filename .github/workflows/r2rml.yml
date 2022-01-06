@@ -3,6 +3,9 @@ name: Lobbywatch R2RML Workflow
 on:
   schedule:
     - cron: "0 0 1,15 * *"
+  push:
+    branches:
+      - master
 
 jobs:
   build:
@@ -15,4 +18,4 @@ jobs:
     - name: Install NPM pipeline
       run: cd pipeline && npm ci
     - name: Run the whole project
-      run: make
+      run: make all
