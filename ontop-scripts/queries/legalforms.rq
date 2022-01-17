@@ -1,0 +1,16 @@
+PREFIX schema: <http://schema.org/>
+PREFIX lw: <https://lod.lobbywatch.ch/>
+
+DELETE {
+  GRAPH <https://lod.lobbywatch.ch> {
+      ?org lw:legalForm ?forms2delete.
+  }
+}
+WHERE {
+      VALUES ?forms2delete { <https://lod.lobbywatch.ch/organization-forms/oeffentlich-rechtlich> <https://lod.lobbywatch.ch/organization-forms/staatlich>}
+    GRAPH <https://lod.lobbywatch.ch> {
+	?org a <https://lod.lobbywatch.ch/LobbyOrganization>;
+      lw:legalForm ?forms2delete;
+      schema:additionalType ?type.
+      }
+}

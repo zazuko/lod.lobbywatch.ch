@@ -11,6 +11,7 @@
   "license": "",
   "dependencies": {
     "barnard59": "0.0.5",
+    "barnard59-base": "0.1.1",
     "barnard59-core": "0.0.3",
     "barnard59-formats": "0.0.6",
     "glob": "^7.1.4",

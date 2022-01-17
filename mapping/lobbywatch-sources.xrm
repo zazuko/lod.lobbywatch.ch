@@ -367,12 +367,16 @@ source-group lobbywatchdb {
     source query "
       SELECT
         o.*, REPLACE(REPLACE(o.uid, '.', ''), '-', '') AS uid_trimmed,
-        ir.name AS fk_geographical
+        ir.name AS fk_geographical,
+        country.iso3 as country_id
       FROM
         organisation AS o
         LEFT JOIN interessenraum AS ir ON o.interessenraum_id = ir.id
+        LEFT JOIN country ON o.land_id = country.id
+        WHERE country.id NOT IN (251, 57)
     "
 
+    // 251, 51 -> not countries!
     referenceables
       id // int(11)
       interessengruppe_id // int(11)
@@ -380,8 +384,7 @@ source-group lobbywatchdb {
       interessengruppe3_id // int(11)
       // interessenraum_id          // int(11)
       fk_geographical
-
-      land_id // int(11)
+      country_id // int(11)
       uid // varchar(15)
       abkuerzung_de // varchar(20)
       abkuerzung_fr // varchar(20)
@@ -408,6 +411,30 @@ source-group lobbywatchdb {
       vernehmlassung // enum('immer','punktuell','nie')
       uid_trimmed
       in_handelsregister
+  }
+
+  logical-source t_organisation_informal {
+    source query "
+    SELECT *
+    FROM organisation
+    WHERE in_handelsregister = '0'
+    "
+
+    referenceables
+      id
+      rechtsform
+  }
+
+  logical-source t_organisation_formal {
+    source query "
+    SELECT *
+    FROM organisation
+    WHERE in_handelsregister = '1'
+    "
+
+    referenceables
+      id
+      rechtsform
   }
 
   logical-source t_organisation_jahr {
