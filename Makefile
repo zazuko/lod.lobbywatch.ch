@@ -7,7 +7,7 @@ sql:
 	cd database && ./get-dump.sh
 	cd database && docker-compose up -d db
 	sleep 20
-	wget -O tabase/wirksamkeit.sql https://raw.githubusercontent.com/lobbywatch/lobbywatch/master/public_db_views.sql
+	wget -O database/wirksamkeit.sql https://raw.githubusercontent.com/lobbywatch/lobbywatch/master/public_db_views.sql
 	mysql -h 127.0.0.1 -u root --database lobbywatch_public --password=public < database/wirksamkeit.sql
 
 convert:
