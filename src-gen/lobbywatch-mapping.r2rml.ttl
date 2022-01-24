@@ -804,7 +804,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		];
 	];
 	rr:predicateObjectMap [
-		rr:predicate schema:sameAs ;
+		rr:predicate schema:url ;
 		rr:objectMap [
 			rr:column "handelsregister_url" ;
 		];

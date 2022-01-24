@@ -258,7 +258,7 @@ map Organization from lobbywatchdb.t_organisation {
     schema.additionalType template legalform_iri with rechtsform_handelsregister;
     lobbywatch.organizationType from typ;
     lobbywatch.legalForm template legaltype_iri with rechtsform;
-    schema.sameAs from handelsregister_url;
+    schema.url from handelsregister_url;
     schema.addressCountry template country_iri with country_id;
 
 }

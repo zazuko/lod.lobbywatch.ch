@@ -15,6 +15,7 @@ convert:
 
 pipeline:
 	cd pipeline && npm install && npm run pipeline-file
+	cd ontop-scripts && python zefix.py
 
 upload:
 	cd ontop-scripts && ./2-upload.sh
