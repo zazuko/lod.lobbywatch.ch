@@ -1,5 +1,6 @@
 PREFIX rr: <http://www.w3.org/ns/r2rml#>
 PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX ldschema: <https://schema.ld.admin.ch/>
 PREFIX lw: <https://lod.lobbywatch.ch/>
 PREFIX org: <http://www.w3.org/ns/org#>
 PREFIX paf: <https://paf.link/>
@@ -635,10 +636,13 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:logicalTable [ rr:sqlQuery """
 	      SELECT
 	        o.*, REPLACE(REPLACE(o.uid, '.', ''), '-', '') AS uid_trimmed,
-	        ir.name AS fk_geographical
+	        ir.name AS fk_geographical,
+	        country.iso3 as country_id
 	      FROM
 	        organisation AS o
 	        LEFT JOIN interessenraum AS ir ON o.interessenraum_id = ir.id
+	        LEFT JOIN country ON o.land_id = country.id
+	        WHERE country.id NOT IN (251, 57)
 	    """ ];
 	
 	rr:subjectMap [
@@ -780,7 +784,50 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		rr:objectMap [
 			rr:template "https://lod.lobbywatch.ch/lobby/{interessengruppe3_id}" ;
 		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate schema:additionalType ;
+		rr:objectMap [
+			rr:template "https://ld.admin.ch/ech/97/legalforms/{rechtsform_handelsregister}" ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate lw:organizationType ;
+		rr:objectMap [
+			rr:column "typ" ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate lw:legalForm ;
+		rr:objectMap [
+			rr:template "https://lod.lobbywatch.ch/organization-form/{rechtsform}" ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate schema:url ;
+		rr:objectMap [
+			rr:column "handelsregister_url" ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate schema:addressCountry ;
+		rr:objectMap [
+			rr:template "http://publications.europa.eu/resource/authority/country/{country_id}" ;
+		];
 	]
+.
+<#FormalOrganization>
+	rr:logicalTable [ rr:sqlQuery """
+	    SELECT *
+	    FROM organisation
+	    WHERE in_handelsregister = '1'
+	    """ ];
+	
+	rr:subjectMap [
+		rr:template "https://lod.lobbywatch.ch/organization/{id}" ;
+		rr:class ldschema:ZefixOrganisation ;
+	]
+	
 .
 <#AccessRight>
 	rr:logicalTable [ rr:sqlQuery """

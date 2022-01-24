@@ -2,3 +2,4 @@
 /ontop-scripts/log
 *.nt
 *.env
+venv/

@@ -7,6 +7,7 @@ sql:
 	cd database && ./get-dump.sh
 	cd database && docker-compose up -d db
 	sleep 20
+	wget -O database/wirksamkeit.sql https://raw.githubusercontent.com/lobbywatch/lobbywatch/master/public_db_views.sql
 	mysql -h 127.0.0.1 -u root --database lobbywatch_public --password=public < database/wirksamkeit.sql
 
 convert:
@@ -14,6 +15,7 @@ convert:
 
 pipeline:
 	cd pipeline && npm install && npm run pipeline-file
+	cd ontop-scripts && python zefix.py
 
 upload:
 	cd ontop-scripts && ./2-upload.sh
@@ -24,6 +26,7 @@ link:
 transform:
 	cd ontop-scripts && ./1-convert.sh
 	cd pipeline && npm install && npm run pipeline-file
+	cd ontop-scripts && python zefix.py
 	cd ontop-scripts && ./2-upload.sh
 
 map:

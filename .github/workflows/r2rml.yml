@@ -17,5 +17,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: Install NPM pipeline
       run: cd pipeline && npm ci
+    - name: python dependencies
+      run: pip install git+https://github.com/zazuko/graphly.git "rdflib>=6.1.1"
     - name: Run the whole project
       run: make all

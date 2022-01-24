@@ -31,6 +31,12 @@ template memberTypeIri "https://lod.lobbywatch.ch/member/{0}"
 template wikidata "https://www.wikidata.org/wiki/{0}"
 
 template efficiacyIri "https://lod.lobbywatch.ch/efficacy/{0}"
+template legalform_iri "https://ld.admin.ch/ech/97/legalforms/{0}"
+//template orgtype_iri "https://lod.lobbywatch.ch/organization-type/{0}"
+template legaltype_iri "https://lod.lobbywatch.ch/organization-form/{0}"
+
+template country_iri "http://publications.europa.eu/resource/authority/country/{0}"
+
 
 map ParliamentMember from lobbywatchdb.t_parlamentarier {
   subject template councilMemberIri with parlament_biografie_id;
@@ -245,11 +251,23 @@ map Organization from lobbywatchdb.t_organisation {
     schema.name from name_it with language-tag it;
     schema.url from homepage;
     lobbywatch.inCommerceRegister from in_handelsregister with datatype xsd.boolean;
-
     lobbywatch.geographicalInfluence template geographicalInfluenceIri with fk_geographical;
     schema.memberOf template lobbyIri with interessengruppe_id;
     schema.memberOf template lobbyIri with interessengruppe2_id;
     schema.memberOf template lobbyIri with interessengruppe3_id;
+    schema.additionalType template legalform_iri with rechtsform_handelsregister;
+    lobbywatch.organizationType from typ;
+    lobbywatch.legalForm template legaltype_iri with rechtsform;
+    schema.url from handelsregister_url;
+    schema.addressCountry template country_iri with country_id;
+
+}
+
+map FormalOrganization from lobbywatchdb.t_organisation_formal {
+  subject template orgIri with id;
+
+  types
+    ldschema.ZefixOrganisation
 
 }
 
