@@ -39,7 +39,7 @@ inner_join = pd.merge(
 )
 
 g = Graph()
-sameAs = URIRef("https://schema.org/sameAs")
+sameAs = URIRef("http://schema.org/sameAs")
 for _, row in inner_join.iterrows():
 
     g.add(
