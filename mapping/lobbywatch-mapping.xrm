@@ -81,6 +81,7 @@ map FactionRole from lobbywatchdb.t_parlamentarier {
     schema.memberOf template factionIri with fraktion_id;
     schema.additionalType template memberTypeIri with fraktionsfunktion;
 
+
 }
 
 map PartyRole from lobbywatchdb.t_parlamentarier {
@@ -92,6 +93,7 @@ map PartyRole from lobbywatchdb.t_parlamentarier {
   properties
     schema.memberOf template partyIri with partei_id;
     schema.additionalType template memberTypeIri with parteifunktion;
+
 
 }
 
@@ -146,17 +148,6 @@ map PartyRoleRegular from lobbywatchdb.t_person {
 }
 
 
-map PeopleOccupation from lobbywatchdb.t_occupation_people {
-  subject template occupationIri with beruf;
-
-  types
-    schema.Occupation
-
-  properties
-    schema.name from beruf with language-tag de;
-    schema.name from beruf_fr with language-tag fr;
-}
-
 map Party from lobbywatchdb.t_partei {
   subject template partyIri with id;
 
@@ -199,6 +190,7 @@ map CommitteeRole from lobbywatchdb.t_in_kommission {
     schema.member template councilMemberIri with parlament_biografie_id;
     schema.memberOf template committeeIri with kommission_id;
     schema.additionalType template memberTypeIri with funktion;
+
 }
 
 map Committee from lobbywatchdb.t_kommission {
@@ -309,7 +301,18 @@ map ParliamentMemberRole from lobbywatchdb.t_interessenbindung_medium_raw {
     lobbywatch.hasEfficacy template efficiacyIri with wirksamkeit;
     schema.additionalType template memberTypeIri with art;
     schema.additionalType template memberTypeIri with funktion_im_gremium;
-    lobbywatch.isMainOccupation from hauptberuflich with datatype xsd.boolean;
+}
+
+map ParliamentMemberOccupation from lobbywatchdb.t_hauptberuf {
+  subject template roleOrgIri with organisation_id parlament_biografie_id;
+
+  types
+    schema.Occupation
+
+  properties
+    schema.name from beschreibung with language-tag de;
+    schema.name from beschreibung_fr with language-tag fr;
+
 }
 
 map BusinessSector from lobbywatchdb.t_branche {
@@ -374,6 +377,7 @@ map Mandate from lobbywatchdb.t_mandat {
     schema.endDate from bis with datatype xsd.date;
     schema.memberOf template orgIri with organisation_id;
     schema.member template personIri with person_id;
+
 }
 
 map MandateCompensation from lobbywatchdb.t_mandat_jahr {
@@ -388,8 +392,7 @@ map MandateCompensation from lobbywatchdb.t_mandat_jahr {
     rdfs.label from beschreibung with language-tag de;
     lobbywatch.^source from quelle;
     lobbywatch.sourceUrl from quelle_url;
-    org.remuneration from verguetung;
-
+    org.remuneration from verguetung with datatype xsd.int;
     schema.memberOf template roleOrgIri with organisation_id person_id;
 }
 
@@ -425,9 +428,9 @@ map MembersInterests from lobbywatchdb.t_interessenbindung {
     lobbywatch.sourceUrl from quelle_url;
     schema.startDate from von with datatype xsd.date;
     schema.endDate from bis with datatype xsd.date;
-
     schema.memberOf template orgIri with organisation_id;
     schema.member template councilMemberIri with parlament_biografie_id;
+
 }
 
 map MembersInterestsCompensation from lobbywatchdb.t_interessenbindung_jahr {
@@ -442,7 +445,7 @@ map MembersInterestsCompensation from lobbywatchdb.t_interessenbindung_jahr {
     rdfs.label from beschreibung with language-tag de;
     lobbywatch.^source from quelle;
     lobbywatch.sourceUrl from quelle_url;
-    org.remuneration from verguetung;
+    org.remuneration from verguetung with datatype xsd.int;
 
     schema.memberOf template roleOrgIri with organisation_id parlament_biografie_id;
 }

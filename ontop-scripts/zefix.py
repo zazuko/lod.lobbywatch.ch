@@ -3,7 +3,7 @@ from graphly.api_client import SparqlClient
 from rdflib import Graph, URIRef
 
 lobbywatchClient = SparqlClient("https://lod.lobbywatch.ch/query")
-lindasClient = SparqlClient("https://lindas.admin.ch/query")
+lindasClient = SparqlClient("https://lindas.admin.ch/query", timeout=120)
 
 
 company_urls_lindas = lobbywatchClient.send_query(
