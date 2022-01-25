@@ -80,6 +80,7 @@ map FactionRole from lobbywatchdb.t_parlamentarier {
   properties
     schema.memberOf template factionIri with fraktion_id;
     schema.additionalType template memberTypeIri with fraktionsfunktion;
+    lobbywatch.isMainOccupation constant "false";
 
 }
 
@@ -92,6 +93,7 @@ map PartyRole from lobbywatchdb.t_parlamentarier {
   properties
     schema.memberOf template partyIri with partei_id;
     schema.additionalType template memberTypeIri with parteifunktion;
+    lobbywatch.isMainOccupation constant "false";
 
 }
 
@@ -199,6 +201,7 @@ map CommitteeRole from lobbywatchdb.t_in_kommission {
     schema.member template councilMemberIri with parlament_biografie_id;
     schema.memberOf template committeeIri with kommission_id;
     schema.additionalType template memberTypeIri with funktion;
+    lobbywatch.isMainOccupation constant "false";
 }
 
 map Committee from lobbywatchdb.t_kommission {
@@ -426,9 +429,9 @@ map MembersInterests from lobbywatchdb.t_interessenbindung {
     lobbywatch.sourceUrl from quelle_url;
     schema.startDate from von with datatype xsd.date;
     schema.endDate from bis with datatype xsd.date;
-
     schema.memberOf template orgIri with organisation_id;
     schema.member template councilMemberIri with parlament_biografie_id;
+    lobbywatch.isMainOccupation constant "false";
 }
 
 map MembersInterestsCompensation from lobbywatchdb.t_interessenbindung_jahr {

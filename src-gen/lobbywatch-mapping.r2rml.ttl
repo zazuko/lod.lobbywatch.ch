@@ -151,6 +151,12 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		rr:objectMap [
 			rr:template "https://lod.lobbywatch.ch/member/{fraktionsfunktion}" ;
 		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate lw:isMainOccupation ;
+		rr:objectMap [
+			rr:constant "false" ;
+		];
 	]
 .
 <#PartyRole>
@@ -179,6 +185,12 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		rr:predicate schema:additionalType ;
 		rr:objectMap [
 			rr:template "https://lod.lobbywatch.ch/member/{parteifunktion}" ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate lw:isMainOccupation ;
+		rr:objectMap [
+			rr:constant "false" ;
 		];
 	]
 .
@@ -514,6 +526,12 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		rr:predicate schema:additionalType ;
 		rr:objectMap [
 			rr:template "https://lod.lobbywatch.ch/member/{funktion}" ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate lw:isMainOccupation ;
+		rr:objectMap [
+			rr:constant "false" ;
 		];
 	]
 .
@@ -1427,6 +1445,12 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		rr:predicate schema:member ;
 		rr:objectMap [
 			rr:template "https://politics.ld.admin.ch/council/person/{parlament_biografie_id}" ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate lw:isMainOccupation ;
+		rr:objectMap [
+			rr:constant "false" ;
 		];
 	]
 .
