@@ -15,6 +15,7 @@ vocabulary schema {
     Role
 
   properties
+    currency
     addressCountry
     alternateName
     additionalName
