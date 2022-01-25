@@ -340,51 +340,6 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		];
 	]
 .
-<#PeopleOccupation>
-	rr:logicalTable [ rr:sqlQuery """
-	      SELECT
-	        DISTINCT(beruf) AS beruf,
-	        beruf_fr as beruf_fr
-	      FROM
-	        (
-	          (
-	            SELECT
-	              TRIM(CHAR(9) FROM TRIM(beruf)) AS beruf,
-	              TRIM(CHAR(9) FROM TRIM(beruf_fr)) AS beruf_fr
-	            FROM
-	              person
-	          )
-	          union
-	          (
-	            SELECT
-	              TRIM(CHAR(9) FROM TRIM(beruf)) AS beruf,
-	              TRIM(CHAR(9) FROM TRIM(beruf_fr)) AS beruf_fr
-	            FROM
-	              parlamentarier
-	          )
-	        ) AS foo
-	      """ ];
-	
-	rr:subjectMap [
-		rr:template "https://lod.lobbywatch.ch/occupation/{beruf}" ;
-		rr:class schema:Occupation ;
-	];
-	
-	rr:predicateObjectMap [
-		rr:predicate schema:name ;
-		rr:objectMap [
-			rr:column "beruf" ;
-			rr:language "de" ;
-		];
-	];
-	rr:predicateObjectMap [
-		rr:predicate schema:name ;
-		rr:objectMap [
-			rr:column "beruf_fr" ;
-			rr:language "fr" ;
-		];
-	]
-.
 <#Party>
 	rr:logicalTable [ rr:tableName "partei" ];
 	
@@ -949,12 +904,34 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		rr:objectMap [
 			rr:template "https://lod.lobbywatch.ch/member/{funktion_im_gremium}" ;
 		];
+	]
+.
+<#ParliamentMemberOccupation>
+	rr:logicalTable [ rr:sqlQuery """
+	    SELECT p.parlament_biografie_id, p.beruf, p.beruf_fr, interests.*
+	    FROM v_interessenbindung_medium_raw AS interests
+	    LEFT JOIN parlamentarier AS p
+	    ON p.id = interests.parlamentarier_id
+	    WHERE hauptberuflich = 1
+	    """ ];
+	
+	rr:subjectMap [
+		rr:template "https://lod.lobbywatch.ch/organization/{organisation_id}/member/{parlament_biografie_id}" ;
+		rr:class schema:Occupation ;
+	];
+	
+	rr:predicateObjectMap [
+		rr:predicate schema:name ;
+		rr:objectMap [
+			rr:column "beschreibung" ;
+			rr:language "de" ;
+		];
 	];
 	rr:predicateObjectMap [
-		rr:predicate lw:isMainOccupation ;
+		rr:predicate schema:name ;
 		rr:objectMap [
-			rr:column "hauptberuflich" ;
-			rr:datatype xsd:boolean ;
+			rr:column "beschreibung_fr" ;
+			rr:language "fr" ;
 		];
 	]
 .
@@ -1250,6 +1227,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		rr:predicate org:remuneration ;
 		rr:objectMap [
 			rr:column "verguetung" ;
+			rr:datatype xsd:int ;
 		];
 	];
 	rr:predicateObjectMap [
@@ -1475,6 +1453,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		rr:predicate org:remuneration ;
 		rr:objectMap [
 			rr:column "verguetung" ;
+			rr:datatype xsd:int ;
 		];
 	];
 	rr:predicateObjectMap [

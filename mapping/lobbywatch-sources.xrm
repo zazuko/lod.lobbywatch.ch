@@ -64,6 +64,22 @@ source-group lobbywatchdb {
       hauptberuflich
   }
 
+  logical-source t_hauptberuf {
+    source query "
+    SELECT p.parlament_biografie_id, p.beruf, p.beruf_fr, interests.*
+    FROM v_interessenbindung_medium_raw AS interests
+    LEFT JOIN parlamentarier AS p
+    ON p.id = interests.parlamentarier_id
+    WHERE hauptberuflich = 1
+    "
+
+    referenceables
+      parlament_biografie_id
+      organisation_id
+      beschreibung
+      beschreibung_fr
+  }
+
   logical-source t_interessenbunding_medium_raw {
     source query "
     SELECT role.*, politician.parlament_biografie_id
