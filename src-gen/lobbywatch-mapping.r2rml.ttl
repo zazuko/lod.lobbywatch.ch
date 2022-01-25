@@ -1250,6 +1250,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		rr:predicate org:remuneration ;
 		rr:objectMap [
 			rr:column "verguetung" ;
+			rr:datatype xsd:int ;
 		];
 	];
 	rr:predicateObjectMap [
@@ -1475,6 +1476,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		rr:predicate org:remuneration ;
 		rr:objectMap [
 			rr:column "verguetung" ;
+			rr:datatype xsd:int ;
 		];
 	];
 	rr:predicateObjectMap [

@@ -388,7 +388,7 @@ map MandateCompensation from lobbywatchdb.t_mandat_jahr {
     rdfs.label from beschreibung with language-tag de;
     lobbywatch.^source from quelle;
     lobbywatch.sourceUrl from quelle_url;
-    org.remuneration from verguetung;
+    org.remuneration from verguetung with datatype xsd.int;
 
     schema.memberOf template roleOrgIri with organisation_id person_id;
 }
@@ -442,7 +442,7 @@ map MembersInterestsCompensation from lobbywatchdb.t_interessenbindung_jahr {
     rdfs.label from beschreibung with language-tag de;
     lobbywatch.^source from quelle;
     lobbywatch.sourceUrl from quelle_url;
-    org.remuneration from verguetung;
+    org.remuneration from verguetung with datatype xsd.int;
 
     schema.memberOf template roleOrgIri with organisation_id parlament_biografie_id;
 }

@@ -1,6 +1,6 @@
-.PHONY: sql convert pipeline upload link
+.PHONY: sql convert pipeline zefix link
 
-all: sql convert pipeline upload map link
+all: sql convert pipeline zefix link map
 
 sql:
 	cd database && docker-compose stop db
@@ -15,19 +15,14 @@ convert:
 
 pipeline:
 	cd pipeline && npm install && npm run pipeline-file
-	cd ontop-scripts && python zefix.py
+	cd ontop-scripts && ./2-upload-all.sh
 
-upload:
-	cd ontop-scripts && ./2-upload.sh
+zefix:
+	cd ontop-scripts && python zefix.py
+	cd ontop-scripts && ./3-upload-zefix.sh
 
 link:
-	cd ontop-scripts && ./3-link.sh
-
-transform:
-	cd ontop-scripts && ./1-convert.sh
-	cd pipeline && npm install && npm run pipeline-file
-	cd ontop-scripts && python zefix.py
-	cd ontop-scripts && ./2-upload.sh
+	cd ontop-scripts && ./4-link.sh
 
 map:
-	cd ontop-scripts && ./4-sparql.sh
+	cd ontop-scripts && ./5-sparql.sh

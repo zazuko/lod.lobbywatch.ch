@@ -81,8 +81,32 @@ function mapLegalForms(quad) {
     return quad
 }
 
+function mapRemuneration(quad) {
+    let quads
+    if (quad.predicate.value === "http://www.w3.org/ns/org#remuneration") {
+
+        if (quad.object.value === 1) {
+            quads = [rdf.quad(quad.subject, rdf.namedNode("https://lod.lobbywatch.ch/remunerationType"), rdf.namedNode("https://lod.lobbywatch.ch/Paid"))]
+        } else if (quad.object.value === -1) {
+            quads = [rdf.quad(quad.subject, rdf.namedNode("https://lod.lobbywatch.ch/remunerationType"), rdf.namedNode("https://lod.lobbywatch.ch/PaidMembership"))]
+        } else if (quad.object.value === 0) {
+            quads = [quad, rdf.quad(quad.subject, rdf.namedNode("https://lod.lobbywatch.ch/remunerationType"), rdf.namedNode("https://lod.lobbywatch.ch/Unpaid"))]
+        } else {
+            quads = [quad, rdf.quad(quad.subject, rdf.namedNode("https://lod.lobbywatch.ch/remunerationType"), rdf.namedNode("https://lod.lobbywatch.ch/Paid"))]
+        }
+    } else {
+        quads = [quad]
+    }
+
+    return quads
+}
+
 function isOrgQuad(quad) {
     return quad.predicate.value === 'https://lod.lobbywatch.ch/organizationType'
+}
+
+function isRemunerationQuad(quad) {
+    return quad.predicate.value === "http://www.w3.org/ns/org#remuneration"
 }
 
 function splitOrganizations(quad) {
@@ -96,4 +120,29 @@ function splitOrganizations(quad) {
     return quads
 }
 
-module.exports = { mapCouncils, mapEfficacy, mapLegalForms, splitOrganizations }
+function splitTriples(quad) {
+    let quads
+
+    if (isOrgQuad(quad)) {
+        quads = quad.object.value.split(",").map(orgTyp => rdf.quad(quad.subject, quad.predicate, rdf.namedNode("https://lod.lobbywatch.ch/organization-type/" + orgTyp)))
+    } else if (isRemunerationQuad(quad)) {
+
+        if (quad.object.value === "1") {
+            quads = [rdf.quad(quad.subject, rdf.namedNode("https://lod.lobbywatch.ch/remunerationType"), rdf.namedNode("https://lod.lobbywatch.ch/PaidUnknownAmount"))]
+        } else if (quad.object.value === "-1") {
+            quads = [rdf.quad(quad.subject, rdf.namedNode("https://lod.lobbywatch.ch/remunerationType"), rdf.namedNode("https://lod.lobbywatch.ch/PaidMembership"))]
+        } else if (quad.object.value === "0") {
+            quads = [quad, rdf.quad(quad.subject, rdf.namedNode("https://lod.lobbywatch.ch/remunerationType"), rdf.namedNode("https://lod.lobbywatch.ch/Unpaid"))]
+        } else {
+            quads = [quad, rdf.quad(quad.subject, rdf.namedNode("https://lod.lobbywatch.ch/remunerationType"), rdf.namedNode("https://lod.lobbywatch.ch/PaidKnownAmount"))]
+        }
+    } else {
+        quads = [quad]
+    }
+
+    return quads
+}
+
+
+
+module.exports = { mapCouncils, mapEfficacy, mapLegalForms, splitOrganizations, mapRemuneration, splitTriples }

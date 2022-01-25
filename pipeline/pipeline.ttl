@@ -15,7 +15,7 @@
 <FilePipeline> a p:Pipeline;
   p:variables <variables>;
   p:steps [
-    p:stepList ( <readFile> <parse> <slugUris> <mapCouncils> <mapEfficacy> <mapLegalForms> <splitOrgs> <flatten> <serialize> <writeFile> )
+    p:stepList ( <readFile> <parse> <slugUris> <mapCouncils> <mapEfficacy> <mapLegalForms> <splitTriples> <flatten> <serialize> <writeFile> )
   ].
 
 <readFile> a p:Step;
@@ -126,12 +126,22 @@
     code:link <file:./lib/map#mapLegalForms>;
   ]).
 
-<splitOrgs> a p:Step ;
+<mapRemuneration> a p:Step ;
+  code:implementedBy [
+    code:link <node:barnard59-base#map> ;
+    a code:EcmaScript
+  ];
+  code:arguments([ a code:EcmaScript;
+    code:link <file:./lib/map#mapRemuneration>;
+  ]).
+
+
+<splitTriples> a p:Step ;
   code:implementedBy [ a code:EcmaScript;
     code:link <node:barnard59-base#map>
     ];
   code:arguments ( [ a code:EcmaScript ;
-                    code:link <file:./lib/map#splitOrganizations>
+                    code:link <file:./lib/map#splitTriples>
                   ] ).
 
 <flatten> a p:Step;
