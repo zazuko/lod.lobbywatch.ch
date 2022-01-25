@@ -85,14 +85,14 @@ function mapRemuneration(quad) {
     let quads
     if (quad.predicate.value === "http://www.w3.org/ns/org#remuneration") {
 
-        if (quad.object.value === 1) {
-            quads = [rdf.quad(quad.subject, rdf.namedNode("https://lod.lobbywatch.ch/remunerationType"), rdf.namedNode("https://lod.lobbywatch.ch/Paid"))]
-        } else if (quad.object.value === -1) {
+        if (quad.object.value === "1") {
+            quads = [rdf.quad(quad.subject, rdf.namedNode("https://lod.lobbywatch.ch/remunerationType"), rdf.namedNode("https://lod.lobbywatch.ch/PaidUnknownAmount"))]
+        } else if (quad.object.value === "-1") {
             quads = [rdf.quad(quad.subject, rdf.namedNode("https://lod.lobbywatch.ch/remunerationType"), rdf.namedNode("https://lod.lobbywatch.ch/PaidMembership"))]
-        } else if (quad.object.value === 0) {
+        } else if (quad.object.value === "0") {
             quads = [quad, rdf.quad(quad.subject, rdf.namedNode("https://lod.lobbywatch.ch/remunerationType"), rdf.namedNode("https://lod.lobbywatch.ch/Unpaid"))]
         } else {
-            quads = [quad, rdf.quad(quad.subject, rdf.namedNode("https://lod.lobbywatch.ch/remunerationType"), rdf.namedNode("https://lod.lobbywatch.ch/Paid"))]
+            quads = [quad, rdf.quad(quad.subject, rdf.namedNode("https://lod.lobbywatch.ch/remunerationType"), rdf.namedNode("https://lod.lobbywatch.ch/PaidKnownAmount"))]
         }
     } else {
         quads = [quad]

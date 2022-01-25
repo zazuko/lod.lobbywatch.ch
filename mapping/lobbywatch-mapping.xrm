@@ -374,6 +374,7 @@ map Mandate from lobbywatchdb.t_mandat {
     schema.endDate from bis with datatype xsd.date;
     schema.memberOf template orgIri with organisation_id;
     schema.member template personIri with person_id;
+    lobbywatch.isMainOccupation constant "false";
 }
 
 map MandateCompensation from lobbywatchdb.t_mandat_jahr {

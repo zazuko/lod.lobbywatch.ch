@@ -1199,6 +1199,12 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		rr:objectMap [
 			rr:template "https://lod.lobbywatch.ch/person/{person_id}" ;
 		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate lw:isMainOccupation ;
+		rr:objectMap [
+			rr:constant "false" ;
+		];
 	]
 .
 <#MandateCompensation>
