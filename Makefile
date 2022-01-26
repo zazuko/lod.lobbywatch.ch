@@ -14,8 +14,10 @@ convert:
 	cd ontop-scripts && ./1-convert.sh
 
 pipeline:
+	wc -l ontop-scripts/triples.nt
 	cd pipeline && npm install && npm run pipeline-file
 	cd ontop-scripts && ./2-upload-all.sh
+	wc -l ontop-scripts/triples-slug.nt
 
 zefix:
 	cd ontop-scripts && python zefix.py
