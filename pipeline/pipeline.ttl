@@ -6,7 +6,7 @@
 <variables>
   p:variable [ a p:Variable;
     p:name "inputFile";
-    p:value "./input/triples.nt"
+    p:value "../ontop-scripts/triples.nt"
   ], [ a p:Variable;
     p:name "outputFile";
     p:value "../ontop-scripts/triples-slug.nt"
