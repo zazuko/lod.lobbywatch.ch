@@ -865,7 +865,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 <#ParliamentMemberRole>
 	rr:logicalTable [ rr:sqlQuery """
 	    SELECT p.parlament_biografie_id, interests.*
-	    FROM v_interessenbindung_medium_raw AS interests
+	    FROM pv_interessenbindung_wirksamkeit AS interests
 	    LEFT JOIN parlamentarier AS p
 	    ON p.id = interests.parlamentarier_id
 	    """ ];
@@ -909,7 +909,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 <#ParliamentMemberOccupation>
 	rr:logicalTable [ rr:sqlQuery """
 	    SELECT p.parlament_biografie_id, p.beruf, p.beruf_fr, interests.*
-	    FROM v_interessenbindung_medium_raw AS interests
+	    FROM pv_interessenbindung_wirksamkeit AS interests
 	    LEFT JOIN parlamentarier AS p
 	    ON p.id = interests.parlamentarier_id
 	    WHERE hauptberuflich = 1
