@@ -1,0 +1,86 @@
+PREFIX lw: <https://lod.lobbywatch.ch/>
+PREFIX schema: <http://schema.org/>
+
+<https://lod.lobbywatch.ch/employmentTypes> a schema:DefinedTermSet;
+    schema:name "Employment type"@en;
+    schema:hasDefinedTerm <https://lod.lobbywatch.ch/employment/PartTime>;
+    schema:hasDefinedTerm <https://lod.lobbywatch.ch/employment/FullTime>.
+
+<https://lod.lobbywatch.ch/efficacies> a schema:DefinedTermSet;
+    schema:name "Efficacy"@en;
+    schema:hasDefinedTerm <https://lod.lobbywatch.ch/efficacy/Medium>;
+    schema:hasDefinedTerm <https://lod.lobbywatch.ch/efficacy/High>;
+    schema:hasDefinedTerm <https://lod.lobbywatch.ch/efficacy/Low>.
+
+<https://lod.lobbywatch.ch/remunerationTypes> a schema:DefinedTermSet;
+    schema:name "Remuneration type"@en;
+    schema:hasDefinedTerm <https://lod.lobbywatch.ch/remuneration/PaidUnknownAmount>;
+    schema:hasDefinedTerm <https://lod.lobbywatch.ch/remuneration/PaidKnownAmount>;
+    schema:hasDefinedTerm <https://lod.lobbywatch.ch/remuneration/PaidMembership>;
+    schema:hasDefinedTerm <https://lod.lobbywatch.ch/remuneration/Unpaid>.
+
+
+<https://lod.lobbywatch.ch/organizationTypes> a schema:DefinedTermSet;
+    schema:name "Organization type"@en;
+    schema:hasDefinedTerm <https://lod.lobbywatch.ch/organization-type/EinzelOrganisation>;
+    schema:hasDefinedTerm <https://lod.lobbywatch.ch/organization-type/Gemeinnuetzig>;
+    schema:hasDefinedTerm <https://lod.lobbywatch.ch/organization-type/LeistungsErbringer>;
+    schema:hasDefinedTerm <https://lod.lobbywatch.ch/organization-type/DachOrganisation>;
+    schema:hasDefinedTerm <https://lod.lobbywatch.ch/organization-type/dezidierteLobby>;
+    schema:hasDefinedTerm <https://lod.lobbywatch.ch/organization-type/MitgliedsOrganisation>;
+    schema:hasDefinedTerm <https://lod.lobbywatch.ch/organization-type/Gewinnorientiert>.
+
+
+<https://lod.lobbywatch.ch/transparencyTypes> a schema:DefinedTermSet;
+    schema:name "Transparency types"@en;
+    schema:hasDefinedTerm <https://lod.lobbywatch.ch/transparency/Full>;
+    schema:hasDefinedTerm <https://lod.lobbywatch.ch/transparency/Minimal>;
+    schema:hasDefinedTerm <https://lod.lobbywatch.ch/transparency/Partial>.
+
+<https://lod.lobbywatch.ch/influenceZones> a schema:DefinedTermSet;
+    schema:name "Influence zones"@en;
+    schema:hasDefinedTerm <https://lod.lobbywatch.ch/geographical-influence/national-schweiz>;
+    schema:hasDefinedTerm <https://lod.lobbywatch.ch/geographical-influence/kantonal>;
+    schema:hasDefinedTerm <https://lod.lobbywatch.ch/geographical-influence/kommunal>;
+    schema:hasDefinedTerm <https://lod.lobbywatch.ch/geographical-influence/global>;
+    schema:hasDefinedTerm <https://lod.lobbywatch.ch/geographical-influence/europa>;
+    schema:hasDefinedTerm <https://lod.lobbywatch.ch/geographical-influence/nordamerika>;
+    schema:hasDefinedTerm <https://lod.lobbywatch.ch/geographical-influence/asien>;
+    schema:hasDefinedTerm <https://lod.lobbywatch.ch/geographical-influence/afrika>;
+    schema:hasDefinedTerm <https://lod.lobbywatch.ch/geographical-influence/national-ausland>;
+    schema:hasDefinedTerm <https://lod.lobbywatch.ch/geographical-influence/sudamerika>.
+
+
+<https://lod.lobbywatch.ch/customLegalForms> a schema:DefinedTermSet;
+    schema:name "Lobbywatch-defined legal forms"@en;
+    schema:hasDefinedTerm <https://lod.lobbywatch.ch/organization-form/staatlich>;
+    schema:hasDefinedTerm <https://lod.lobbywatch.ch/organization-form/oeffentlich-rechtlich>;
+    schema:hasDefinedTerm <https://lod.lobbywatch.ch/organization-form/informelle-gruppe>;
+    schema:hasDefinedTerm <https://lod.lobbywatch.ch/organization-form/ausserparlamentarische-kommission>;
+    schema:hasDefinedTerm <https://lod.lobbywatch.ch/organization-form/parlamentarische-gruppe>.
+
+<https://lod.lobbywatch.ch/commissionTypesLobbywatch> a schema:DefinedTermSet;
+    schema:name "Parliamentary commission types defined by Lobbywatch"@en;
+    schema:hasDefinedTerm <https://lod.lobbywatch.ch/committee/type/kommission>;
+    schema:hasDefinedTerm <https://lod.lobbywatch.ch/committee/type/spezialkommission>.
+
+<https://lod.lobbywatch.ch/commissionTypesParliament> a schema:DefinedTermSet;
+    schema:name "Parliamentary commission types defined by Parliament"@en;
+    schema:hasDefinedTerm <https://lod.lobbywatch.ch/committee/type/legislativkommission>;
+    schema:hasDefinedTerm <https://lod.lobbywatch.ch/committee/type/weitere-kommission>.
+
+<https://lod.lobbywatch.ch/organizationMemberships> a schema:DefinedTermSet;
+    schema:name "Types of membership in an organization"@en;
+    schema:hasDefinedTerm <https://lod.lobbywatch.ch/member/geschaeftsfuehrend>;
+    schema:hasDefinedTerm <https://lod.lobbywatch.ch/member/taetig>;
+    schema:hasDefinedTerm <https://lod.lobbywatch.ch/member/vorstand>;
+    schema:hasDefinedTerm <https://lod.lobbywatch.ch/member/beirat>;
+    schema:hasDefinedTerm <https://lod.lobbywatch.ch/member/mitglied>;
+    schema:hasDefinedTerm <https://lod.lobbywatch.ch/member/gesellschafter>;
+    schema:hasDefinedTerm <https://lod.lobbywatch.ch/member/finanziell>.
+
+<https://lod.lobbywatch.ch/gremiumMemberships> a schema:DefinedTermSet;
+    schema:name "Types of membership in an organization's gremium"@en;
+    schema:hasDefinedTerm <https://lod.lobbywatch.ch/member/mitglied>;
+    schema:hasDefinedTerm <https://lod.lobbywatch.ch/member/praesident>;
+    schema:hasDefinedTerm <https://lod.lobbywatch.ch/member/vizepraesident>.

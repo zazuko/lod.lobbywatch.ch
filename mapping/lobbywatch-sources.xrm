@@ -104,14 +104,14 @@ source-group lobbywatchdb {
         p.parlament_biografie_id,
         i.*,
         CASE
-          WHEN hauptberuflich = 1 THEN 'full-time'
-          ELSE 'part-time'
+          WHEN hauptberuflich = 1 THEN 'FullTime'
+          ELSE 'PartTime'
         END AS employment_type,
         CASE
-          WHEN behoerden_vertreter = 'N' THEN 'no'
+          WHEN behoerden_vertreter = 'N' THEN false
           ELSE CASE
-            WHEN behoerden_vertreter = 'J' THEN 'yes'
-            ELSE 'unknown'
+            WHEN behoerden_vertreter = 'J' THEN true
+            ELSE NULL
           END
         END AS official_capacity,
         CASE
@@ -333,8 +333,8 @@ source-group lobbywatchdb {
       SELECT
         *,
         CASE
-          WHEN hauptberuflich = 1 THEN 'full-time'
-          ELSE 'part-time'
+          WHEN hauptberuflich = 1 THEN 'FullTime'
+          ELSE 'PartTime'
         END AS employment_type
       FROM
         mandat

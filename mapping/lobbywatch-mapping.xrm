@@ -34,6 +34,7 @@ template efficiacyIri "https://lod.lobbywatch.ch/efficacy/{0}"
 template legalform_iri "https://ld.admin.ch/ech/97/legalforms/{0}"
 //template orgtype_iri "https://lod.lobbywatch.ch/organization-type/{0}"
 template legaltype_iri "https://lod.lobbywatch.ch/organization-form/{0}"
+template employmentTypeIri "https://lod.lobbywatch.ch/employment/{0}"
 
 template country_iri "http://publications.europa.eu/resource/authority/country/{0}"
 
@@ -368,7 +369,7 @@ map Mandate from lobbywatchdb.t_mandat {
   properties
     schema.additionalType template memberTypeIri with art;
     schema.additionalType template memberTypeIri with funktion_im_gremium;
-    lobbywatch.employmentType from employment_type with language-tag en;
+    lobbywatch.employmentType template employmentTypeIri with employment_type;
     rdfs.label from beschreibung with language-tag de;
     rdfs.label from beschreibung_fr with language-tag fr;
     lobbywatch.^source from quelle;
@@ -418,10 +419,10 @@ map MembersInterests from lobbywatchdb.t_interessenbindung {
   properties
     schema.additionalType template memberTypeIri with art;
     schema.additionalType template memberTypeIri with funktion_im_gremium;
-    lobbywatch.employmentType from employment_type with language-tag en;
+    lobbywatch.employmentType template employmentTypeIri with employment_type;
     lobbywatch.disclosed from disclosed with datatype xsd.boolean;
     lobbywatch.compulsoryDisclosure from compulsory_disclosure with datatype xsd.boolean;
-    lobbywatch.officialCapacity from official_capacity with language-tag en;
+    lobbywatch.officialCapacity from official_capacity with datatype xsd.boolean;
     rdfs.label from beschreibung with language-tag de;
     rdfs.label from beschreibung_fr with language-tag fr;
     lobbywatch.^source from quelle;

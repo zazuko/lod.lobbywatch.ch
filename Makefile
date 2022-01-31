@@ -1,6 +1,6 @@
 .PHONY: sql convert pipeline zefix link
 
-all: sql convert convert pipeline zefix link map
+all: sql convert convert pipeline upload zefix link map
 
 sql:
 	cd database && docker-compose stop db
@@ -16,6 +16,8 @@ convert:
 pipeline:
 	wc -l ontop-scripts/triples.nt
 	cd pipeline && npm install && npm run pipeline-file
+
+upload:
 	cd ontop-scripts && ./2-upload-all.sh
 	wc -l ontop-scripts/triples-slug.nt
 

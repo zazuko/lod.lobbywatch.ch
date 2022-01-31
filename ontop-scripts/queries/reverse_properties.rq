@@ -12,6 +12,9 @@ INSERT {
 
     ?o5 paf:isResponsibleFor ?s5.
 
+    ?o6 schema:inDefinedTermSet ?s6.
+    ?o7 schema:hasDefinedTerm ?s7.
+
   }
 }
 WHERE {
@@ -20,6 +23,8 @@ WHERE {
   {?s2 schema:memberOf ?o2.} UNION
   {?s3 lw:issuedTo ?o3.} UNION
   {?s4 lw:issuedBy ?o4.} UNION
-  {?s5 paf:hasResponsible ?o5. }
+  {?s5 paf:hasResponsible ?o5. } UNION
+  {?s6 schema:hasDefinedTerm ?o6} UNION
+  {?s7 schema:inDefinedTermSet ?o7}
   }
 }

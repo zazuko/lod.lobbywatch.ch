@@ -1094,8 +1094,8 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	      SELECT
 	        *,
 	        CASE
-	          WHEN hauptberuflich = 1 THEN 'full-time'
-	          ELSE 'part-time'
+	          WHEN hauptberuflich = 1 THEN 'FullTime'
+	          ELSE 'PartTime'
 	        END AS employment_type
 	      FROM
 	        mandat
@@ -1121,8 +1121,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:predicateObjectMap [
 		rr:predicate lw:employmentType ;
 		rr:objectMap [
-			rr:column "employment_type" ;
-			rr:language "en" ;
+			rr:template "https://lod.lobbywatch.ch/employment/{employment_type}" ;
 		];
 	];
 	rr:predicateObjectMap [
@@ -1279,14 +1278,14 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	        p.parlament_biografie_id,
 	        i.*,
 	        CASE
-	          WHEN hauptberuflich = 1 THEN 'full-time'
-	          ELSE 'part-time'
+	          WHEN hauptberuflich = 1 THEN 'FullTime'
+	          ELSE 'PartTime'
 	        END AS employment_type,
 	        CASE
-	          WHEN behoerden_vertreter = 'N' THEN 'no'
+	          WHEN behoerden_vertreter = 'N' THEN false
 	          ELSE CASE
-	            WHEN behoerden_vertreter = 'J' THEN 'yes'
-	            ELSE 'unknown'
+	            WHEN behoerden_vertreter = 'J' THEN true
+	            ELSE NULL
 	          END
 	        END AS official_capacity,
 	        CASE
@@ -1323,8 +1322,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:predicateObjectMap [
 		rr:predicate lw:employmentType ;
 		rr:objectMap [
-			rr:column "employment_type" ;
-			rr:language "en" ;
+			rr:template "https://lod.lobbywatch.ch/employment/{employment_type}" ;
 		];
 	];
 	rr:predicateObjectMap [
@@ -1345,7 +1343,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		rr:predicate lw:officialCapacity ;
 		rr:objectMap [
 			rr:column "official_capacity" ;
-			rr:language "en" ;
+			rr:datatype xsd:boolean ;
 		];
 	];
 	rr:predicateObjectMap [
