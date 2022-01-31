@@ -1,6 +1,6 @@
-.PHONY: sql convert pipeline zefix link
+.PHONY: sql convert pipeline upload zefix link
 
-all: sql convert convert pipeline upload zefix link map
+all: sql convert pipeline upload zefix link map
 
 sql:
 	cd database && docker-compose stop db

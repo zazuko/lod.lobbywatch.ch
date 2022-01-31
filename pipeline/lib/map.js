@@ -97,6 +97,18 @@ function mapTransparency(quad) {
 
 }
 
+const genders = {
+    "M": "http://schema.org/Male",
+    "F": "http://schema.org/Female",
+}
+
+function mapGender(quad) {
+    if (quad.predicate.value === "https://schema.org/gender") {
+        quad.object = rdf.namedNode(genders[quad.object.value])
+    }
+    return quad
+}
+
 function mapRemuneration(quad) {
     let quads
     if (quad.predicate.value === "http://www.w3.org/ns/org#remuneration") {
@@ -161,4 +173,4 @@ function splitTriples(quad) {
 
 
 
-module.exports = { mapCouncils, mapEfficacy, mapLegalForms, splitOrganizations, mapRemuneration, mapTransparency, splitTriples }
+module.exports = { mapCouncils, mapEfficacy, mapLegalForms, splitOrganizations, mapRemuneration, mapTransparency, splitTriples, mapGender }

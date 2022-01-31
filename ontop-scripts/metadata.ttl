@@ -70,7 +70,7 @@ PREFIX schema: <http://schema.org/>
     schema:hasDefinedTerm <https://lod.lobbywatch.ch/committee/type/weitere-kommission>.
 
 <https://lod.lobbywatch.ch/organizationMemberships> a schema:DefinedTermSet;
-    schema:name "Types of membership in an organization"@en;
+    schema:name "Membership types in an organization"@en;
     schema:hasDefinedTerm <https://lod.lobbywatch.ch/member/geschaeftsfuehrend>;
     schema:hasDefinedTerm <https://lod.lobbywatch.ch/member/taetig>;
     schema:hasDefinedTerm <https://lod.lobbywatch.ch/member/vorstand>;
@@ -80,7 +80,14 @@ PREFIX schema: <http://schema.org/>
     schema:hasDefinedTerm <https://lod.lobbywatch.ch/member/finanziell>.
 
 <https://lod.lobbywatch.ch/gremiumMemberships> a schema:DefinedTermSet;
-    schema:name "Types of membership in an organization's gremium"@en;
+    schema:name "Membership types in an organization's gremium"@en;
+    schema:hasDefinedTerm <https://lod.lobbywatch.ch/member/gremium-mitglied>;
+    schema:hasDefinedTerm <https://lod.lobbywatch.ch/member/praesident>;
+    schema:hasDefinedTerm <https://lod.lobbywatch.ch/member/vizepraesident>.
+
+
+<https://lod.lobbywatch.ch/partyMemberships> a schema:DefinedTermSet;
+    schema:name "Membership types in a political party"@en;
     schema:hasDefinedTerm <https://lod.lobbywatch.ch/member/mitglied>;
     schema:hasDefinedTerm <https://lod.lobbywatch.ch/member/praesident>;
     schema:hasDefinedTerm <https://lod.lobbywatch.ch/member/vizepraesident>.

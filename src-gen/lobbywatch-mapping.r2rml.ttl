@@ -48,6 +48,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		rr:predicate schema:birthDate ;
 		rr:objectMap [
 			rr:column "geburtstag" ;
+			rr:datatype xsd:date ;
 		];
 	];
 	rr:predicateObjectMap [
@@ -1096,7 +1097,11 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	        CASE
 	          WHEN hauptberuflich = 1 THEN 'FullTime'
 	          ELSE 'PartTime'
-	        END AS employment_type
+	        END AS employment_type,
+	        CASE
+	          WHEN funktion_im_gremium = 'mitglied' THEN 'gremium-mitglied'
+	          ELSE funktion_im_gremium
+	        END AS funktion_im_gremium_corrected
 	      FROM
 	        mandat
 	    """ ];

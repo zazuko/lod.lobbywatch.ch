@@ -47,7 +47,11 @@ source-group lobbywatchdb {
 
   logical-source t_interessenbindung_medium_raw {
     source query "
-    SELECT p.parlament_biografie_id, interests.*
+    SELECT p.parlament_biografie_id, interests.*,
+        CASE
+          WHEN funktion_im_gremium = 'mitglied' THEN 'gremium-mitglied'
+          ELSE funktion_im_gremium
+        END AS funktion_im_gremium_corrected
     FROM pv_interessenbindung_wirksamkeit AS interests
     LEFT JOIN parlamentarier AS p
     ON p.id = interests.parlamentarier_id
@@ -121,7 +125,11 @@ source-group lobbywatchdb {
         CASE
           WHEN deklarationstyp = 'deklarationspflichtig' THEN true
           ELSE false
-        END AS compulsory_disclosure
+        END AS compulsory_disclosure,
+        CASE
+          WHEN funktion_im_gremium = 'mitglied' THEN 'gremium-mitglied'
+          ELSE funktion_im_gremium
+        END AS funktion_im_gremium_corrected
       FROM
         interessenbindung AS i
         INNER JOIN parlamentarier AS p ON p.id = i.parlamentarier_id
@@ -335,7 +343,11 @@ source-group lobbywatchdb {
         CASE
           WHEN hauptberuflich = 1 THEN 'FullTime'
           ELSE 'PartTime'
-        END AS employment_type
+        END AS employment_type,
+        CASE
+          WHEN funktion_im_gremium = 'mitglied' THEN 'gremium-mitglied'
+          ELSE funktion_im_gremium
+        END AS funktion_im_gremium_corrected
       FROM
         mandat
     "

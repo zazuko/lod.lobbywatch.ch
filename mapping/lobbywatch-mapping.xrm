@@ -50,7 +50,7 @@ map ParliamentMember from lobbywatchdb.t_parlamentarier {
     schema.givenName from vorname;
     schema.additionalName from zweiter_vorname;
     schema.familyName from nachname;
-    schema.birthDate from geburtstag;
+    schema.birthDate from geburtstag with datatype xsd.date;
     wdt.P1307 from parlament_biografie_id;
 
     schema.hasOccupation template occupationIri with beruf;
@@ -301,7 +301,7 @@ map ParliamentMemberRole from lobbywatchdb.t_interessenbindung_medium_raw {
     schema.member template councilMemberIri with parlament_biografie_id;
     lobbywatch.hasEfficacy template efficiacyIri with wirksamkeit;
     schema.additionalType template memberTypeIri with art;
-    schema.additionalType template memberTypeIri with funktion_im_gremium;
+    schema.additionalType template memberTypeIri with funktion_im_gremium_corrected;
 }
 
 map ParliamentMemberOccupation from lobbywatchdb.t_hauptberuf {
@@ -368,7 +368,7 @@ map Mandate from lobbywatchdb.t_mandat {
 
   properties
     schema.additionalType template memberTypeIri with art;
-    schema.additionalType template memberTypeIri with funktion_im_gremium;
+    schema.additionalType template memberTypeIri with funktion_im_gremium_corrected;
     lobbywatch.employmentType template employmentTypeIri with employment_type;
     rdfs.label from beschreibung with language-tag de;
     rdfs.label from beschreibung_fr with language-tag fr;
@@ -418,7 +418,7 @@ map MembersInterests from lobbywatchdb.t_interessenbindung {
 
   properties
     schema.additionalType template memberTypeIri with art;
-    schema.additionalType template memberTypeIri with funktion_im_gremium;
+    schema.additionalType template memberTypeIri with funktion_im_gremium_corrected;
     lobbywatch.employmentType template employmentTypeIri with employment_type;
     lobbywatch.disclosed from disclosed with datatype xsd.boolean;
     lobbywatch.compulsoryDisclosure from compulsory_disclosure with datatype xsd.boolean;
