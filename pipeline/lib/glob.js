@@ -3,7 +3,7 @@ const { Readable } = require('readable-stream')
 const { promisify } = require('util')
 
 class Glob extends Readable {
-  constructor ({ pattern, ...options } = {}) {
+  constructor({ pattern, ...options } = {}) {
     super({
       objectMode: true
     })
@@ -12,7 +12,7 @@ class Glob extends Readable {
     this.options = options
   }
 
-  async _read () {
+  async _read() {
     const files = await promisify(glob)(this.pattern, this.options)
 
     files.forEach(file => {
@@ -22,7 +22,7 @@ class Glob extends Readable {
     this.push(null)
   }
 
-  static create (options) {
+  static create(options) {
     return new Glob(options)
   }
 }

@@ -15,7 +15,7 @@
 <FilePipeline> a p:Pipeline;
   p:variables <variables>;
   p:steps [
-    p:stepList ( <readFile> <parse> <slugUris> <mapCouncils> <mapEfficacy> <mapLegalForms> <splitTriples> <flatten> <serialize> <writeFile> )
+    p:stepList ( <readFile> <parse> <slugUris> <mapCouncils> <mapEfficacy> <mapLegalForms> <mapTransparency> <mapGender> <splitTriples> <flatten> <filter> <serialize> <writeFile> )
   ].
 
 <readFile> a p:Step;
@@ -136,6 +136,25 @@
   ]).
 
 
+<mapTransparency> a p:Step ;
+  code:implementedBy [
+    code:link <node:barnard59-base#map> ;
+    a code:EcmaScript
+  ];
+  code:arguments([ a code:EcmaScript;
+    code:link <file:./lib/map#mapTransparency>;
+  ]).
+
+<mapGender> a p:Step ;
+  code:implementedBy [
+    code:link <node:barnard59-base#map> ;
+    a code:EcmaScript
+  ];
+  code:arguments([ a code:EcmaScript;
+    code:link <file:./lib/map#mapGender>;
+  ]).
+
+
 <splitTriples> a p:Step ;
   code:implementedBy [ a code:EcmaScript;
     code:link <node:barnard59-base#map>
@@ -148,3 +167,11 @@
   code:implementedBy [ a code:EcmaScript;
     code:link <node:barnard59-base#flatten>;
   ].
+
+<filter> a p:Step ;
+  code:implementedBy [ a code:EcmaScript;
+    code:link <node:barnard59-base#filter>
+    ];
+  code:arguments ( [ a code:EcmaScript ;
+                    code:link <file:./lib/filter#filterEmpty>
+                  ] ).
