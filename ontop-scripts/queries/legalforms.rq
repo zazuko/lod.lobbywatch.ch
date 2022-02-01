@@ -7,7 +7,7 @@ DELETE {
   }
 }
 WHERE {
-      VALUES ?forms2delete { <https://lod.lobbywatch.ch/organization-forms/oeffentlich-rechtlich> <https://lod.lobbywatch.ch/organization-forms/staatlich>}
+      VALUES ?forms2delete { <https://lod.lobbywatch.ch/organization-form/oeffentlich-rechtlich> <https://lod.lobbywatch.ch/organization-form/staatlich>}
     GRAPH <https://lod.lobbywatch.ch> {
 	?org a <https://lod.lobbywatch.ch/LobbyOrganization>;
       lw:legalForm ?forms2delete;

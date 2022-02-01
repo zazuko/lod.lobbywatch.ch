@@ -39,6 +39,7 @@ vocabulary schema {
     endDate
     gender
     datePublished
+    inDefinedTermSet
 }
 
 vocabulary lobbywatch {
@@ -90,6 +91,13 @@ vocabulary lobbywatch {
     ^type
     domain
     inCommerceRegister
+    membersOfParliament
+    organizations
+    lobbyGroups
+    factions
+    politicalParties
+    lobbyists
+    businessSectors
 }
 
 vocabulary dbpedia {

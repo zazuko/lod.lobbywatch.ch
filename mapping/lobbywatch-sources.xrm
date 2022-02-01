@@ -47,7 +47,11 @@ source-group lobbywatchdb {
 
   logical-source t_interessenbindung_medium_raw {
     source query "
-    SELECT p.parlament_biografie_id, interests.*
+    SELECT p.parlament_biografie_id, interests.*,
+        CASE
+          WHEN funktion_im_gremium = 'mitglied' THEN 'gremium-mitglied'
+          ELSE funktion_im_gremium
+        END AS funktion_im_gremium_corrected
     FROM pv_interessenbindung_wirksamkeit AS interests
     LEFT JOIN parlamentarier AS p
     ON p.id = interests.parlamentarier_id
@@ -104,14 +108,14 @@ source-group lobbywatchdb {
         p.parlament_biografie_id,
         i.*,
         CASE
-          WHEN hauptberuflich = 1 THEN 'full-time'
-          ELSE 'part-time'
+          WHEN hauptberuflich = 1 THEN 'FullTime'
+          ELSE 'PartTime'
         END AS employment_type,
         CASE
-          WHEN behoerden_vertreter = 'N' THEN 'no'
+          WHEN behoerden_vertreter = 'N' THEN false
           ELSE CASE
-            WHEN behoerden_vertreter = 'J' THEN 'yes'
-            ELSE 'unknown'
+            WHEN behoerden_vertreter = 'J' THEN true
+            ELSE NULL
           END
         END AS official_capacity,
         CASE
@@ -121,7 +125,11 @@ source-group lobbywatchdb {
         CASE
           WHEN deklarationstyp = 'deklarationspflichtig' THEN true
           ELSE false
-        END AS compulsory_disclosure
+        END AS compulsory_disclosure,
+        CASE
+          WHEN funktion_im_gremium = 'mitglied' THEN 'gremium-mitglied'
+          ELSE funktion_im_gremium
+        END AS funktion_im_gremium_corrected
       FROM
         interessenbindung AS i
         INNER JOIN parlamentarier AS p ON p.id = i.parlamentarier_id
@@ -333,9 +341,13 @@ source-group lobbywatchdb {
       SELECT
         *,
         CASE
-          WHEN hauptberuflich = 1 THEN 'full-time'
-          ELSE 'part-time'
-        END AS employment_type
+          WHEN hauptberuflich = 1 THEN 'FullTime'
+          ELSE 'PartTime'
+        END AS employment_type,
+        CASE
+          WHEN funktion_im_gremium = 'mitglied' THEN 'gremium-mitglied'
+          ELSE funktion_im_gremium
+        END AS funktion_im_gremium_corrected
       FROM
         mandat
     "

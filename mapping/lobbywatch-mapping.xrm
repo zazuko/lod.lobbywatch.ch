@@ -34,6 +34,7 @@ template efficiacyIri "https://lod.lobbywatch.ch/efficacy/{0}"
 template legalform_iri "https://ld.admin.ch/ech/97/legalforms/{0}"
 //template orgtype_iri "https://lod.lobbywatch.ch/organization-type/{0}"
 template legaltype_iri "https://lod.lobbywatch.ch/organization-form/{0}"
+template employmentTypeIri "https://lod.lobbywatch.ch/employment/{0}"
 
 template country_iri "http://publications.europa.eu/resource/authority/country/{0}"
 
@@ -49,7 +50,7 @@ map ParliamentMember from lobbywatchdb.t_parlamentarier {
     schema.givenName from vorname;
     schema.additionalName from zweiter_vorname;
     schema.familyName from nachname;
-    schema.birthDate from geburtstag;
+    schema.birthDate from geburtstag with datatype xsd.date;
     wdt.P1307 from parlament_biografie_id;
 
     schema.hasOccupation template occupationIri with beruf;
@@ -300,7 +301,7 @@ map ParliamentMemberRole from lobbywatchdb.t_interessenbindung_medium_raw {
     schema.member template councilMemberIri with parlament_biografie_id;
     lobbywatch.hasEfficacy template efficiacyIri with wirksamkeit;
     schema.additionalType template memberTypeIri with art;
-    schema.additionalType template memberTypeIri with funktion_im_gremium;
+    schema.additionalType template memberTypeIri with funktion_im_gremium_corrected;
 }
 
 map ParliamentMemberOccupation from lobbywatchdb.t_hauptberuf {
@@ -367,8 +368,8 @@ map Mandate from lobbywatchdb.t_mandat {
 
   properties
     schema.additionalType template memberTypeIri with art;
-    schema.additionalType template memberTypeIri with funktion_im_gremium;
-    lobbywatch.employmentType from employment_type with language-tag en;
+    schema.additionalType template memberTypeIri with funktion_im_gremium_corrected;
+    lobbywatch.employmentType template employmentTypeIri with employment_type;
     rdfs.label from beschreibung with language-tag de;
     rdfs.label from beschreibung_fr with language-tag fr;
     lobbywatch.^source from quelle;
@@ -417,11 +418,11 @@ map MembersInterests from lobbywatchdb.t_interessenbindung {
 
   properties
     schema.additionalType template memberTypeIri with art;
-    schema.additionalType template memberTypeIri with funktion_im_gremium;
-    lobbywatch.employmentType from employment_type with language-tag en;
+    schema.additionalType template memberTypeIri with funktion_im_gremium_corrected;
+    lobbywatch.employmentType template employmentTypeIri with employment_type;
     lobbywatch.disclosed from disclosed with datatype xsd.boolean;
     lobbywatch.compulsoryDisclosure from compulsory_disclosure with datatype xsd.boolean;
-    lobbywatch.officialCapacity from official_capacity with language-tag en;
+    lobbywatch.officialCapacity from official_capacity with datatype xsd.boolean;
     rdfs.label from beschreibung with language-tag de;
     rdfs.label from beschreibung_fr with language-tag fr;
     lobbywatch.^source from quelle;
