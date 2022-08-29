@@ -16,15 +16,14 @@ INSERT {
 WHERE {
   GRAPH <https://lod.lobbywatch.ch> {
 
-   ?faction_old a <https://paf.link/Faction>;
-    <https://paf.link/hasAbbreviation> ?abb_lindas;
+   ?faction_old a <http://schema.org/ParliamentaryGroup>;
+    <http://schema.org/alternateName> ?abb_lindas;
     ?p_outwards ?o.
 
   SERVICE <https://lindas.admin.ch/query> {
     GRAPH <https://lindas.admin.ch/fch/curia> {
 
       ?faction_lindas a <http://schema.org/ParliamentaryGroup>;
-    	<https://paf.link/isActive> ?active;
     	<http://schema.org/alternateName> ?abb_lindas.
 
       FILTER (LANG(?abb_lindas) = "de")

@@ -66,6 +66,7 @@ source-group lobbywatchdb {
       deklarationstyp
       status
       hauptberuflich
+      funktion_im_gremium_corrected
   }
 
   logical-source t_hauptberuf {
@@ -158,6 +159,7 @@ source-group lobbywatchdb {
       official_capacity // yes/no/unknown
       bis // date
       von // date
+      funktion_im_gremium_corrected
   }
 
   logical-source t_in_kommission {
@@ -167,7 +169,7 @@ source-group lobbywatchdb {
     LEFT JOIN parlamentarier AS politician
     ON role.parlamentarier_id = politician.id
     LEFT JOIN kommission
-    ON in_kommission.kommission_id = kommission.id
+    ON role.kommission_id = kommission.id
     "
 
     referenceables
@@ -368,6 +370,7 @@ source-group lobbywatchdb {
       quelle_url // varchar(255)
       quelle_url_gueltig // tinyint(1)
       employment_type
+      funktion_im_gremium_corrected
 
       bis // date
       von // date

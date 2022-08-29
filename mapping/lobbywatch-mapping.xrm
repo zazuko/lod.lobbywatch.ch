@@ -178,10 +178,10 @@ map Faction from lobbywatchdb.t_fraktion {
 
   types
     schema.Organization
-    paf.Faction
+    schema.ParliamentaryGroup
 
   properties
-    paf.hasAbbreviation from abkuerzung with language-tag de;
+    schema.alternateName from abkuerzung with language-tag de;
     schema.sameAs template wikidata with wikidata_qid;
 }
 
@@ -205,7 +205,7 @@ map Committee from lobbywatchdb.t_kommission {
   subject template committeeIri with parlament_committee_number;
 
   types
-    paf.Committee
+    schema.ParliamentaryCommittee
     schema.Organization
 
   properties

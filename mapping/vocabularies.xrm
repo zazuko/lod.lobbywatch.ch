@@ -13,6 +13,8 @@ vocabulary schema {
     Organization
     Person
     Role
+    ParliamentaryGroup
+    ParliamentaryCommittee
 
   properties
     currency
@@ -20,7 +22,6 @@ vocabulary schema {
     alternateName
     additionalName
     affiliation
-    alternateName
     birthDate
     description
     employee
@@ -120,12 +121,7 @@ vocabulary dbpedia {
 vocabulary paf {
   prefix "paf" "https://paf.link/"
 
-  classes
-    Committee
-    Faction
-
   properties
-    hasAbbreviation
     hasResponsible
     isResponsibleFor
 }
