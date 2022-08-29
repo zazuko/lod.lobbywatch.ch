@@ -20,13 +20,12 @@ WHERE {
     <https://paf.link/hasAbbreviation> ?abb_lindas;
     ?p_outwards ?o.
 
-  SERVICE <https://test.lindas.admin.ch/query> {
+  SERVICE <https://lindas.admin.ch/query> {
     GRAPH <https://lindas.admin.ch/fch/curia> {
 
-      ?faction_lindas a <http://schema.org/Organization>;
+      ?faction_lindas a <http://schema.org/ParliamentaryGroup>;
     	<https://paf.link/isActive> ?active;
-    	<https://paf.link/hasAbbreviation> ?abb_lindas;
-      	?p_outwards_new ?o_new.
+    	<http://schema.org/alternateName> ?abb_lindas.
 
       FILTER (LANG(?abb_lindas) = "de")
     }

@@ -162,15 +162,18 @@ source-group lobbywatchdb {
 
   logical-source t_in_kommission {
     source query "
-    SELECT role.*, politician.parlament_biografie_id
+    SELECT role.*, politician.parlament_biografie_id, kommission.rat_id
     FROM in_kommission as role
     LEFT JOIN parlamentarier AS politician
     ON role.parlamentarier_id = politician.id
+    LEFT JOIN kommission
+    ON in_kommission.kommission_id = kommission.id
     "
 
     referenceables
       kommission_id
       parlament_biografie_id
+      rat_id
       funktion
       von
       bis

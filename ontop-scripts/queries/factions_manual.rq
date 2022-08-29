@@ -8,9 +8,9 @@ DELETE {
 }
 INSERT {
   GRAPH <https://lod.lobbywatch.ch> {
-    <https://politics.ld.admin.ch/council/faction/140> ?p_outwards_new ?o_new.
-    <https://politics.ld.admin.ch/council/faction/140> ?p_outwards ?o.
-    ?s ?p_inwards <https://politics.ld.admin.ch/council/faction/140>.
+    <https://lod.lobbywatch.ch/faction/6> ?p_outwards_new ?o_new.
+    <https://lod.lobbywatch.ch/faction/6> ?p_outwards ?o.
+    ?s ?p_inwards <https://lod.lobbywatch.ch/faction/6>.
   }
 }
 WHERE {
@@ -19,9 +19,9 @@ WHERE {
     {?s ?p_inwards <https://lod.lobbywatch.ch/faction/6>.} UNION {
       <https://lod.lobbywatch.ch/faction/6> ?p_outwards ?o.} UNION {
 
-  SERVICE <https://test.lindas.admin.ch/query> {
+  SERVICE <https://lindas.admin.ch/query> {
     GRAPH <https://lindas.admin.ch/fch/curia> {
-          <https://politics.ld.admin.ch/council/faction/140> ?p_outwards_new ?o_new.}
+          <https://politics.ld.admin.ch/council/parl-group/140> ?p_outwards_new ?o_new.}
       }
     }
   }
