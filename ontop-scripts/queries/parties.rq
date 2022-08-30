@@ -1,0 +1,35 @@
+PREFIX schema: <http://schema.org/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+INSERT {
+  GRAPH <https://lod.lobbywatch.ch> {
+    ?party_lw schema:sameAs ?party_lindas.
+    <https://lod.lobbywatch.ch/party/22> schema:sameAs <https://politics.ld.admin.ch/party/1586>.
+    <https://lod.lobbywatch.ch/party/1> schema:sameAs <https://politics.ld.admin.ch/party/15>.
+    <https://lod.lobbywatch.ch/party/2> schema:sameAs <https://politics.ld.admin.ch/party/1336>.
+    <https://lod.lobbywatch.ch/party/4> schema:sameAs <https://politics.ld.admin.ch/party/20>.
+    <https://lod.lobbywatch.ch/party/8> schema:sameAs <https://politics.ld.admin.ch/party/1551>.
+  }
+}
+WHERE {
+
+  ?party_lw a <http://dbpedia.org/ontology/PoliticalParty>;
+          schema:alternateName ?name.
+
+  FILTER (LANG(?name) = "de")
+
+  OPTIONAL {
+    SERVICE <https://lindas.admin.ch/query> {
+    GRAPH <https://lindas.admin.ch/fch/curia> {
+
+        ?party_lindas a <http://schema.org/PoliticalParty>;
+        <http://schema.org/alternateName> ?name.
+
+        FILTER (LANG(?name) = "de")
+        FILTER NOT EXISTS {?party_lindas <http://schema.org/endDate> ?endDate.}
+      }
+    }
+  }
+}
+

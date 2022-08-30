@@ -28,6 +28,13 @@ curl \
     --include -v \
     --header "Authorization: Basic $STARDOG_AUTH" \
     --header "Content-Type: application/sparql-update" \
+    --data-binary '@queries/parties.rq' \
+    "${ENDPOINT}/update"
+
+curl \
+    --include -v \
+    --header "Authorization: Basic $STARDOG_AUTH" \
+    --header "Content-Type: application/sparql-update" \
     --data-binary '@queries/zefix.rq' \
     "${ENDPOINT}/update"
 
