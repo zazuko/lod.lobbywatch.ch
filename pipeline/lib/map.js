@@ -103,7 +103,7 @@ const genders = {
 }
 
 function mapGender(quad) {
-    if (quad.predicate.value === "https://schema.org/gender") {
+    if (quad.predicate.value === "http://schema.org/gender") {
         quad.object = rdf.namedNode(genders[quad.object.value])
     }
     return quad

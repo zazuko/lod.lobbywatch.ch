@@ -1,5 +1,6 @@
 PREFIX schema: <http://schema.org/>
 PREFIX lw: <https://lod.lobbywatch.ch/>
+PREFIX paf: <https://paf.link/>
 
 INSERT {
   GRAPH <https://lod.lobbywatch.ch> {

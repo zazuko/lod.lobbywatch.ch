@@ -17,7 +17,6 @@ source .env
 #
 #done
 
-# Factions: order matters!
 curl \
     --include -v \
     --header "Authorization: Basic $STARDOG_AUTH" \
@@ -29,21 +28,7 @@ curl \
     --include -v \
     --header "Authorization: Basic $STARDOG_AUTH" \
     --header "Content-Type: application/sparql-update" \
-    --data-binary '@queries/factions_manual.rq' \
-    "${ENDPOINT}/update"
-
-curl \
-    --include -v \
-    --header "Authorization: Basic $STARDOG_AUTH" \
-    --header "Content-Type: application/sparql-update" \
     --data-binary '@queries/zefix.rq' \
-    "${ENDPOINT}/update"
-
-curl \
-    --include -v \
-    --header "Authorization: Basic $STARDOG_AUTH" \
-    --header "Content-Type: application/sparql-update" \
-    --data-binary '@queries/parliament.rq' \
     "${ENDPOINT}/update"
 
 curl \

@@ -188,7 +188,7 @@ map Faction from lobbywatchdb.t_fraktion {
 }
 
 map CommitteeRole from lobbywatchdb.t_in_kommission {
-  subject template roleCommitteeIri with kommission_id parlament_biografie_id;
+  subject template roleCommitteeIri with parlament_committee_number parlament_biografie_id;
 
   types
     schema.Role
@@ -197,9 +197,9 @@ map CommitteeRole from lobbywatchdb.t_in_kommission {
     schema.startDate from von with datatype xsd.date;
     schema.endDate from bis with datatype xsd.date;
     schema.member template councilMemberIri with parlament_biografie_id;
-    schema.memberOf template committeeIri with kommission_id;
+    schema.memberOf template committeeIri with parlament_committee_number;
     schema.additionalType template memberTypeIri with funktion;
-    schema.sameAs template roleCommitteeIriCuria with rat_id kommission_id parlament_biografie_id;
+    schema.sameAs template roleCommitteeIriCuria with rat_id parlament_committee_number parlament_biografie_id;
 
 }
 
