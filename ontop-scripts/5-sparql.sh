@@ -22,16 +22,8 @@ curl \
     --include -v \
     --header "Authorization: Basic $STARDOG_AUTH" \
     --header "Content-Type: application/sparql-update" \
-    --data-binary '@queries/factions_auto_inwards.rq' \
+    --data-binary '@queries/factions.rq' \
     "${ENDPOINT}/update"
-
-curl \
-    --include -v \
-    --header "Authorization: Basic $STARDOG_AUTH" \
-    --header "Content-Type: application/sparql-update" \
-    --data-binary '@queries/factions_auto_outwards.rq' \
-    "${ENDPOINT}/update"
-
 
 curl \
     --include -v \

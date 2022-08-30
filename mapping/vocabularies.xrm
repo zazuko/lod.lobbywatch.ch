@@ -56,7 +56,6 @@ vocabulary lobbywatch {
     MembersInterestsCompensation
     Transparency
     Compensation
-    Faction
     LobbyOrganization
 
   properties
@@ -95,7 +94,6 @@ vocabulary lobbywatch {
     membersOfParliament
     organizations
     lobbyGroups
-    factions
     politicalParties
     lobbyists
     businessSectors

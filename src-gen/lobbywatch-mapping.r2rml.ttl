@@ -72,7 +72,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:predicateObjectMap [
 		rr:predicate schema:memberOf ;
 		rr:objectMap [
-			rr:template "https://lod.lobbywatch.ch/faction/{fraktion_id}/member/{parlament_biografie_id}" ;
+			rr:template "https://lod.lobbywatch.ch/parl-group/{fraktion_id}/member/{parlament_biografie_id}" ;
 		];
 	];
 	rr:predicateObjectMap [
@@ -149,14 +149,14 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	        left join partei on partei.id = parlamentarier.partei_id""" ];
 	
 	rr:subjectMap [
-		rr:template "https://lod.lobbywatch.ch/faction/{fraktion_id}/member/{parlament_biografie_id}" ;
+		rr:template "https://lod.lobbywatch.ch/parl-group/{fraktion_id}/member/{parlament_biografie_id}" ;
 		rr:class schema:Role ;
 	];
 	
 	rr:predicateObjectMap [
 		rr:predicate schema:memberOf ;
 		rr:objectMap [
-			rr:template "https://lod.lobbywatch.ch/faction/{fraktion_id}" ;
+			rr:template "https://lod.lobbywatch.ch/parl-group/{fraktion_id}" ;
 		];
 	];
 	rr:predicateObjectMap [
@@ -406,7 +406,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:predicateObjectMap [
 		rr:predicate schema:memberOf ;
 		rr:objectMap [
-			rr:template "https://lod.lobbywatch.ch/faction/{fraktion_id}" ;
+			rr:template "https://lod.lobbywatch.ch/parl-group/{fraktion_id}" ;
 		];
 	];
 	rr:predicateObjectMap [
@@ -420,7 +420,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:logicalTable [ rr:tableName "fraktion" ];
 	
 	rr:subjectMap [
-		rr:template "https://lod.lobbywatch.ch/faction/{id}" ;
+		rr:template "https://lod.lobbywatch.ch/parl-group/{id}" ;
 		rr:class schema:Organization ;
 		rr:class schema:ParliamentaryGroup ;
 	];

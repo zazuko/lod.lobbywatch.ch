@@ -7,13 +7,13 @@ template mandateCompensationIri "https://lod.lobbywatch.ch/mandate/{0}/compensat
 template interestCompensationIri "https://lod.lobbywatch.ch/interests/{0}/compensation"
 template occupationIri "https://lod.lobbywatch.ch/occupation/{0}"
 
-template factionIri "https://lod.lobbywatch.ch/faction/{0}"
+template factionIri "https://lod.lobbywatch.ch/parl-group/{0}"
 template partyIri "https://lod.lobbywatch.ch/party/{0}"
 template orgIri "https://lod.lobbywatch.ch/organization/{0}"
 template councilIri "https://politics.ld.admin.ch/council/{0}"
 template lobbyIri "https://lod.lobbywatch.ch/lobby/{0}"
 
-template roleFactionIri "https://lod.lobbywatch.ch/faction/{0}/member/{1}"
+template roleFactionIri "https://lod.lobbywatch.ch/parl-group/{0}/member/{1}"
 template rolePartyIriRegular "https://lod.lobbywatch.ch/party/{0}/member/regular/{1}"
 template rolePartyIriPolitician "https://lod.lobbywatch.ch/party/{0}/member/politician/{1}"
 template roleOrgIri "https://lod.lobbywatch.ch/organization/{0}/member/{1}"
@@ -182,6 +182,8 @@ map Faction from lobbywatchdb.t_fraktion {
 
   properties
     schema.alternateName from abkuerzung with language-tag de;
+    // schema.name from name with language-tag de;
+    // schema.name from name_fr with language-tag fr;
     schema.sameAs template wikidata with wikidata_qid;
 }
 

@@ -1,24 +1,17 @@
 PREFIX schema: <http://schema.org/>
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
 
-DELETE {
-  GRAPH <https://lod.lobbywatch.ch> {
-    ?s ?p_inwards ?faction_old.
-
-  }
-}
 INSERT {
   GRAPH <https://lod.lobbywatch.ch> {
-    ?s ?p_inwards ?faction_lindas.
+    ?faction_lw schema:sameAs ?faction_lindas.
+    <https://lod.lobbywatch.ch/faction/6> schema:sameAs <https://politics.ld.admin.ch/council/parl-group/140>.
   }
 }
 WHERE {
   GRAPH <https://lod.lobbywatch.ch> {
 
-  ?faction_old a <http://schema.org/ParliamentaryGroup>;
+   ?faction_lw a <http://schema.org/ParliamentaryGroup>;
     <http://schema.org/alternateName> ?abb_lindas.
-
-  ?s ?p_inwards ?faction_old.
 
   SERVICE <https://lindas.admin.ch/query> {
     GRAPH <https://lindas.admin.ch/fch/curia> {
