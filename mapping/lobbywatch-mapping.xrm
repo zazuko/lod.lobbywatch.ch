@@ -7,25 +7,29 @@ template mandateCompensationIri "https://lod.lobbywatch.ch/mandate/{0}/compensat
 template interestCompensationIri "https://lod.lobbywatch.ch/interests/{0}/compensation"
 template occupationIri "https://lod.lobbywatch.ch/occupation/{0}"
 
-template factionIri "https://lod.lobbywatch.ch/faction/{0}"
+template factionIri "https://lod.lobbywatch.ch/parl-group/{0}"
 template partyIri "https://lod.lobbywatch.ch/party/{0}"
 template orgIri "https://lod.lobbywatch.ch/organization/{0}"
 template councilIri "https://politics.ld.admin.ch/council/{0}"
 template lobbyIri "https://lod.lobbywatch.ch/lobby/{0}"
 
-template roleFactionIri "https://lod.lobbywatch.ch/faction/{0}/member/{1}"
+template roleFactionIri "https://lod.lobbywatch.ch/parl-group/{0}/member/{1}"
 template rolePartyIriRegular "https://lod.lobbywatch.ch/party/{0}/member/regular/{1}"
 template rolePartyIriPolitician "https://lod.lobbywatch.ch/party/{0}/member/politician/{1}"
 template roleOrgIri "https://lod.lobbywatch.ch/organization/{0}/member/{1}"
-template roleCouncilIri "https://politics.ld.admin.ch/council/{0}/member/{1}"
-template roleCommitteeIri "https://politics.ld.admin.ch/council/committee/{0}/member/{1}"
+template roleCouncilIri "https://lod.lobbywatch.ch/council/{0}/member/{1}"
+template roleCouncilIriCuria "https://politics.ld.admin.ch/council/{0}/member/{1}"
+template roleCommitteeIri "https://lod.lobbywatch.ch/council/committee/{0}/member/{1}"
+template roleCommitteeIriCuria "https://politics.ld.admin.ch/council/{0}/committee/{1}/role/{2}"
 
 template personIri "https://lod.lobbywatch.ch/person/{0}"
-template councilMemberIri "https://politics.ld.admin.ch/council/person/{0}"
+template councilMemberIri "https://lod.lobbywatch.ch/council/person/{0}"
+template councilMemberIriCuria "https://politics.ld.admin.ch/person/{0}"
 
 template transparencyIri "https://lod.lobbywatch.ch/transparency/{0}"
 template accessIri "https://lod.lobbywatch.ch/access-right/{0}"
-template committeeIri "https://politics.ld.admin.ch/council/committee/{0}"
+template committeeIri "https://lod.lobbywatch.ch/council/committee/{0}"
+template committeeIriCuria "https://politics.ld.admin.ch/council/{0}/committee/{1}"
 template committeeType "https://lod.lobbywatch.ch/committee/type/{0}"
 template memberTypeIri "https://lod.lobbywatch.ch/member/{0}"
 template wikidata "https://www.wikidata.org/wiki/{0}"
@@ -52,6 +56,7 @@ map ParliamentMember from lobbywatchdb.t_parlamentarier {
     schema.familyName from nachname;
     schema.birthDate from geburtstag with datatype xsd.date;
     wdt.P1307 from parlament_biografie_id;
+    schema.sameAs template councilMemberIriCuria with parlament_biografie_id;
 
     schema.hasOccupation template occupationIri with beruf;
     schema.memberOf template roleFactionIri with fraktion_id parlament_biografie_id;
@@ -70,6 +75,7 @@ map CouncilRole from lobbywatchdb.t_parlamentarier {
     schema.startDate from im_rat_seit with datatype xsd.date;
     schema.endDate from im_rat_bis with datatype xsd.date;
     schema.memberOf template councilIri with council_fk;
+    schema.sameAs template roleCouncilIriCuria with council_fk parlament_biografie_id;
 }
 
 map FactionRole from lobbywatchdb.t_parlamentarier {
@@ -172,15 +178,17 @@ map Faction from lobbywatchdb.t_fraktion {
 
   types
     schema.Organization
-    paf.Faction
+    schema.ParliamentaryGroup
 
   properties
-    paf.hasAbbreviation from abkuerzung with language-tag de;
+    schema.alternateName from abkuerzung with language-tag de;
+    // schema.name from name with language-tag de;
+    // schema.name from name_fr with language-tag fr;
     schema.sameAs template wikidata with wikidata_qid;
 }
 
 map CommitteeRole from lobbywatchdb.t_in_kommission {
-  subject template roleCommitteeIri with kommission_id parlament_biografie_id;
+  subject template roleCommitteeIri with parlament_committee_number parlament_biografie_id;
 
   types
     schema.Role
@@ -189,8 +197,9 @@ map CommitteeRole from lobbywatchdb.t_in_kommission {
     schema.startDate from von with datatype xsd.date;
     schema.endDate from bis with datatype xsd.date;
     schema.member template councilMemberIri with parlament_biografie_id;
-    schema.memberOf template committeeIri with kommission_id;
+    schema.memberOf template committeeIri with parlament_committee_number;
     schema.additionalType template memberTypeIri with funktion;
+    schema.sameAs template roleCommitteeIriCuria with rat_id parlament_committee_number parlament_biografie_id;
 
 }
 
@@ -198,7 +207,7 @@ map Committee from lobbywatchdb.t_kommission {
   subject template committeeIri with parlament_committee_number;
 
   types
-    paf.Committee
+    schema.ParliamentaryCommittee
     schema.Organization
 
   properties
@@ -217,6 +226,7 @@ map Committee from lobbywatchdb.t_kommission {
     rdfs.seeAlso from wikipedia;
     lobbywatch.domain from sachbereiche with language-tag de;
     lobbywatch.domain from sachbereiche_fr with language-tag fr;
+    schema.sameAs template committeeIriCuria with rat_id parlament_committee_number;
 
 }
 

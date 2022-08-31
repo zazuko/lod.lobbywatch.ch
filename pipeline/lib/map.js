@@ -6,23 +6,23 @@ function mapCouncils(quad) {
     let subject = quad.subject
     let object = quad.object
 
-    if (subject.value.startsWith('https://politics.ld.admin.ch/council/1')) {
+    if (subject.value.includes('/council/1')) {
         subject = rdf.namedNode(subject.value.replace('council/1', 'council/N'))
     }
-    else if (subject.value.startsWith('https://politics.ld.admin.ch/council/2')) {
+    else if (subject.value.includes('/council/2')) {
         subject = rdf.namedNode(subject.value.replace('council/2', 'council/S'))
     }
-    else if (subject.value.startsWith('https://politics.ld.admin.ch/council/4')) {
+    else if (subject.value.includes('/council/4')) {
         subject = rdf.namedNode(subject.value.replace('council/4', 'council/FA'))
     }
 
-    if (object.value.startsWith('https://politics.ld.admin.ch/council/1')) {
+    if (object.value.includes('/council/1')) {
         object = rdf.namedNode(object.value.replace('council/1', 'council/N'))
     }
-    else if (object.value.startsWith('https://politics.ld.admin.ch/council/2')) {
+    else if (object.value.includes('/council/2')) {
         object = rdf.namedNode(object.value.replace('council/2', 'council/S'))
     }
-    else if (object.value.startsWith('https://politics.ld.admin.ch/council/4')) {
+    else if (object.value.includes('/council/4')) {
         object = rdf.namedNode(object.value.replace('council/4', 'council/FA'))
     }
 
@@ -103,7 +103,9 @@ const genders = {
 }
 
 function mapGender(quad) {
-    if (quad.predicate.value === "https://schema.org/gender") {
+
+    if (quad.predicate.value === "http://schema.org/gender") {
+
         quad.object = rdf.namedNode(genders[quad.object.value])
     }
     return quad

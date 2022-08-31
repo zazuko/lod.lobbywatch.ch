@@ -1,0 +1,28 @@
+PREFIX schema: <http://schema.org/>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+INSERT {
+  GRAPH <https://lod.lobbywatch.ch> {
+    ?faction_lw schema:sameAs ?faction_lindas.
+    <https://lod.lobbywatch.ch/parl-group/6> schema:sameAs <https://politics.ld.admin.ch/council/parl-group/140>.
+    <https://lod.lobbywatch.ch/parl-group/7> schema:sameAs <https://politics.ld.admin.ch/council/parl-group/136>.
+  }
+}
+WHERE {
+  GRAPH <https://lod.lobbywatch.ch> {
+
+   ?faction_lw a <http://schema.org/ParliamentaryGroup>;
+    <http://schema.org/alternateName> ?abb_lindas.
+
+  SERVICE <https://lindas.admin.ch/query> {
+    GRAPH <https://lindas.admin.ch/fch/curia> {
+
+      ?faction_lindas a <http://schema.org/ParliamentaryGroup>;
+    	<http://schema.org/alternateName> ?abb_lindas.
+
+      FILTER (LANG(?abb_lindas) = "de")
+    }
+  }
+  }
+}
+

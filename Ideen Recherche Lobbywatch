@@ -1,0 +1,102 @@
+# Vorbemerkungen
+
+Nachfolgend eine lose Sammlung von Ideen, was wir für Datenanalysen für Lobbywatch machen könnte. Diese Liste kann ergänzt und manipuliert werden. Bisher habe ich das *Datum* des Eintrags, einen Arbeits*titel*, eine *Beschreibung* und Infos zur konkreten *Umsetzung* als Rahmen für die Darstellung der Ideen gewählt. Das Dokument ist als reine Text-Datei erfasst, um in der fragmentierten Softwarelandschaft von LW möglichst keine Probleme zu machen (wir brauchen die Nextcloud ;-) ).
+Philippe, Februar 2022
+
+
+# AKTIVE IDEEN, DIE DER UMSETZUNG HARREN
+
+Datum Eintrag: 14.1.22
+Titel: Lobbyisten auf Wikipedia
+Beschreibung: Prüfen, ob Lobbyisten auch auf Wikipedia ihre oder andere Artikel "vandalisieren", wie kürzlich thematisiert: https://reflekt.ch/neue-recherche-wikipolitik-wie-parlamentarierinnen-versuchen-wikipedia-zu-beeinflussen/ Ich habe eine Stichprobe gemacht (Thomas Borer) und gesehen, dass da tatsächlich mehrfach versucht wurde gewisse Details zu streichen und verschönern durch Sockenpuppen oder im Auftrag.
+Umsetzung (wer+wann?):
+
+
+Datum Eintrag: 5.1.22
+Titel: Die stärkste Gemeinde
+Beschreibung: Auswertung der DB nach PLZ (ggf. gruppiert bei Städten wie Zürich mit 8000, 8001, …). Quantitativ: wo gibt es am meisten Organisationen und kann man daraus ableiten, welches "die stärkste Gemeinde" in Bern ist?
+Umsetzung (wer+wann?):
+
+
+Datum Eintrag: 1.12.21
+Titel:Immer aktuelle Kennzahlen
+Beschreibung: Auf der LW-Website wird eine Unterseite eingerichtet (oder direkt auf der Homepage), wo sich automatisch aktualisierte Lobby-Daten aus der Datenbank oder aus unseren Analysetools finden.  Mögliche Infos: "Parlamentarier:in xy ist neu im Vorstand von YZ."
+Umsetzung (wer+wann?):
+
+
+Datum Eintrag: 1.12.21
+Titel: Halbzeitanalyse der Neugewählten
+Beschreibung: Verschiedene Auswertungen dazu, wie sich die Neuen geschlagen haben: wie viele Ämtli haben sie neu hinzugewonnen? Wie viele Vorstösse haben sie gemacht? Wie steht das alles in Relation zur Gesamtheit?
+Umsetzung (wer+wann?):
+
+
+Datum Eintrag: 17.1.22
+Titel: Bezahlt/Unbezahlt
+Beschreibung: Parlamentarier geben Ämter als ehrenamtlich auf parl.ch an, die andere Parls als bezahlt angeben (Knut's Liste mit den Stichproben). Organisationen anfragen, was nun stimmt. Erstmal mit Fokus auf die grösseren Lobbyverbände. Orte könnten z.B. economiesuisse, Gewerkschaften - generell ständige Vernehmlassungsteilnehmende - sein; aber auch Geschäfte mit viel Geld (F-35, Armee).
+Umsetzung (wer+wann?): Otto, Anfang 2022
+
+
+Datum Eintrag: 18.1.22
+Titel: Kontrolle der Transparenz
+Beschreibung: Sobald die neuen BPR-Bestimmungen in Kraft sind, muss die EFK die Angaben der Akteur:innen stichprobenweise kontrollieren. Wahrscheinlich ist in der VPofi zum BPR keine Anzahl festgehalten, wie häufig kontrolliert werden muss. Aufgabe von Lobbywatch: die Informationen bei der EFK einholen, bei wem mit welchem Ergebnis und wie oft kontrolliert wurde und die Angaben einem Realitätscheck unterziehen.
+Umsetzung (wer+wann?):
+
+
+Datum Eintrag: 14.2.22
+Titel: Blick in die Daten
+Beschreibung: (Ergänzende Ideen zu *Titel* "die stärkste Gemeinde"): Was sagt der militärische Rang aus? Die Berufe? Ansatz: Dani Beutlers Story im Beobachter vom Dez 2020 über "die diskrete Macht der Anwaltslobby".
+Umsetzung (wer+wann?):
+
+
+Datum Eintrag: 14.2.22
+Titel: Linke Lobbyagenturen
+Beschreibung: Lobbyagenturen mit klar linkem Fokus sind neu. diese zu analysieren ist vielleicht keine Datenstory, sondern eher ein analytisches Journi-Stück.
+Umsetzung (wer+wann?):
+
+
+Datum Eintrag: 14.2.22
+Titel: Die Wandelung der parlamentarischen Gruppen
+Beschreibung: Was für Veränderungen machen die parlamentarischen Gruppen durch? (immer häufiger ist das Sekretariat bei PR-Agenturen; früher ein Instrument der Verständigung über die ideologischen Grenzen hinweg sind sie heute ein Lobbyinstrument; Bsp: Verdingkinder - zuerst die Initiative, dann kam die parl. Gruppe; ein neutrales Mäntelchen beim Missbrauch einer guten Idee?; wie viele Sekretariate sind bei Verbänden/Organisationen?; man erhält Ressourcen wie etwa Zugang zu Räumen im Bundeshaus.
+Umsetzung (wer+wann?):
+
+
+Datum Eintrag: 14.2.22
+Titel: Korrelationen
+Beschreibung: z.B.: Alter zu Anz. Vorstösse / Sternzeichen zu Anz. Vorstösse (z.B. am Welttag der Astrologie) / Anzahl/Länge Wortmeldungen zu Uhrzeit/Partei/Anz. Vorstösse
+Umsetzung (wer+wann?):
+
+
+Datum Eintrag: 14.2.22
+Titel: Abweichler:innen
+Beschreibung: 1. Partei- oder Verbandsempfehlungen zu Abstimmungen (im Rat) sammeln 2. die Abweichler:innen erfassen 3. wer ist es, in welcher Partei am stärksten, in welche Richtung,...?
+Umsetzung (wer+wann?):
+
+
+Datum Eintrag: 14.2.22
+Titel: Die einflussreichsten Branchen im Parlament 
+Beschreibung: Neuauflage der Analyse https://lobbywatch.ch/de/artikel/lobby-wirtschaftsnah-sucht für andere Kommissionen. Oder auch: die einflussreichsten Organisationen - aber wie? Tabaklobby läuft z.Z. unter dem Radar, mit unseren Mitteln nicht zu erfassen.
+Umsetzung (wer+wann?):
+
+
+Datum Eintrag: 14.2.22
+Titel: Exoten in der Datenbank
+Beschreibung: Was gibt es für schräges Zeug in unserer DB und was bedeutet es? z.B. ausländische Adressen
+Umsetzung (wer+wann?):
+
+
+Datum Eintrag: 14.2.22
+Titel: Fraktionen analysieren
+Beschreibung: z.B. Anz. bez. Mandate pro Kopf
+Umsetzung (wer+wann?):
+
+
+Datum Eintrag: 
+Titel:
+Beschreibung:
+Umsetzung (wer+wann?):
+
+
+
+
+# ARCHIV, ERLEDIGT, GEMACHT, ABGESCHRIEBEN, MIST, ENDE, VORBEI 
+
