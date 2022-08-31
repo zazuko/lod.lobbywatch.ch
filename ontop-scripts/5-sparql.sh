@@ -51,3 +51,10 @@ curl \
     --header "Content-Type: application/sparql-update" \
     --data-binary '@queries/legalforms.rq' \
     "${ENDPOINT}/update"
+
+curl \
+    --include -v \
+    --header "Authorization: Basic $STARDOG_AUTH" \
+    --header "Content-Type: application/sparql-update" \
+    --data-binary '@queries/legalforms.rq' \
+    "${ENDPOINT}/update"
