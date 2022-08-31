@@ -13,6 +13,8 @@ vocabulary schema {
     Organization
     Person
     Role
+    ParliamentaryGroup
+    ParliamentaryCommittee
 
   properties
     currency
@@ -20,7 +22,6 @@ vocabulary schema {
     alternateName
     additionalName
     affiliation
-    alternateName
     birthDate
     description
     employee
@@ -55,7 +56,6 @@ vocabulary lobbywatch {
     MembersInterestsCompensation
     Transparency
     Compensation
-    Faction
     LobbyOrganization
 
   properties
@@ -94,7 +94,6 @@ vocabulary lobbywatch {
     membersOfParliament
     organizations
     lobbyGroups
-    factions
     politicalParties
     lobbyists
     businessSectors
@@ -120,12 +119,7 @@ vocabulary dbpedia {
 vocabulary paf {
   prefix "paf" "https://paf.link/"
 
-  classes
-    Committee
-    Faction
-
   properties
-    hasAbbreviation
     hasResponsible
     isResponsibleFor
 }
