@@ -1,4 +1,4 @@
-FROM node:12 as builder
+FROM docker.io/library/node:12 as builder
 
 # Add tini to act as PID1 for proper signal handling
 ENV TINI_VERSION v0.19.0
