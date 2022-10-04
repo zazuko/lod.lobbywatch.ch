@@ -14,7 +14,7 @@ jobs:
       STARDOG_AUTH: ${{ secrets.STARDOG_AUTH }}
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Install NPM pipeline
       run: cd pipeline && npm ci
     - name: python dependencies
