@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "trifid": "^2.3.10",
+    "trifid": "^3.0.0-rc.3",
     "trifid-plugin-graph-explorer": "^0.5.0"
   },
   "devDependencies": {},
